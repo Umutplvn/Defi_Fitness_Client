@@ -33,9 +33,9 @@ const Register = () => {
           alignItems: "center",
         }}
       >
-        <TextField required placeholder="NAME" sx={textFieldStyle} />
-        <TextField required placeholder="EMAIL ADDRESS" sx={textFieldStyle} />
-        <TextField required placeholder="PASSWORD" sx={textFieldStyle} />
+        <TextField required placeholder="NAME *" sx={textFieldStyle} />
+        <TextField required placeholder="EMAIL ADDRESS *" sx={textFieldStyle} />
+        <TextField required placeholder="PASSWORD *" sx={textFieldStyle} />
 
         <Button
           type="submit"

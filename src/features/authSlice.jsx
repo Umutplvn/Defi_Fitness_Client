@@ -6,7 +6,6 @@ export const authSlice = createSlice({
     loading: false,
     error: false,
     currentUser: null,
-    username: null,
     token: null,
     userId: null,
     email:null,
@@ -33,13 +32,9 @@ export const authSlice = createSlice({
       state.token = payload?.Token;
       state.userId = payload?.result?._id;
       state.email=payload?.result?.email;
-      state.username=payload?.result?.username;
-      state.image=payload?.result?.image;
       state.name=payload?.result?.name;
       state.passcode = payload?.passcode;
       state.verified=payload?.result?.verified
-      state.contacts=payload?.result?.contacts
-      state.bio=payload?.result?.bio
       state.password=payload?.result?.password
     },
 
@@ -50,7 +45,7 @@ export const authSlice = createSlice({
       state.currentUser = "";
       state.token = "";
       state.userId ="";
-      state.image ="";
+      state.avatar ="";
     },
 
     loginSuccess: (state, { payload }) => {
@@ -61,7 +56,7 @@ export const authSlice = createSlice({
       state.userId = payload?.result?._id;
       state.email = payload?.result?.email;
       state.username=payload?.result?.username;
-      state.image=payload?.result?.image;
+      state.avatar=payload?.result?.avatar;
       state.name=payload?.result?.name;
       state.contacts=payload?.result?.contacts;
       state.verified = payload?.result?.verified;
@@ -100,7 +95,7 @@ export const authSlice = createSlice({
       state.verified=null;
       state.contacts=[];
       state.user=[];
-      state.image="";
+      state.avatar="";
       state.name="";
       state.bio= "";
       state.password= "";
