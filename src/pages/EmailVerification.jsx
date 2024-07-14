@@ -8,14 +8,14 @@ import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import { textFieldStyle } from "../styles/registerStyle";
 
 const EmailVerification = () => {
-  // const { passcode, userId } = useSelector((state) => state.auth);
+  const { passcode, userId } = useSelector((state) => state.auth);
   // const { deleteUser, update } = useAuthCall();
   const navigate = useNavigate();
   const [pass, setPass] = useState("");
   const [expired, setExpired] = useState(false); 
   const [remainingTime, setRemainingTime] = useState(60); 
-  const userId=""
-  const passcode=""
+
+console.log(passcode);
 
   useEffect(() => {
 
@@ -42,8 +42,8 @@ const EmailVerification = () => {
     e.preventDefault();
     if (passcode == pass) {
       // update({ verified: true });
-      navigate("/chats");
-      toast("Welcome to Connectify");
+      navigate("/");
+      toast("Welcome to DEFI");
     } else {
       toast("Passcode is wrong");
       setPass("");

@@ -1,5 +1,5 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import Logo from "../components/logo";
 import { Link } from "react-router-dom";
 import {
@@ -8,7 +8,29 @@ import {
   linkStyle,
   frameStyle,
 } from "../styles/registerStyle";
+import useAuthCall from "../hooks/useAuthCall";
+
 const Register = () => {
+
+  const { register } = useAuthCall();
+
+  const [info, setInfo] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+    setInfo({ ...info, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+     register(info);
+  };
+
   return (
     <Box sx={frameStyle}>
       <Box sx={logoStyle}>
@@ -25,6 +47,7 @@ const Register = () => {
       </Box>
 
       <Box
+      onSubmit={(e) => handleSubmit(e)}
         component="form"
         sx={{
           display: "flex",
@@ -33,9 +56,37 @@ const Register = () => {
           alignItems: "center",
         }}
       >
-        <TextField required placeholder="NAME *" sx={textFieldStyle} />
-        <TextField required placeholder="EMAIL ADDRESS *" sx={textFieldStyle} />
-        <TextField required placeholder="PASSWORD *" sx={textFieldStyle} />
+        <TextField
+          name="name"
+          required
+          fullWidth
+          id="name"
+          autoFocus
+          placeholder="NAME *"
+          onChange={(e) => handleChange(e)}
+          sx={textFieldStyle}
+        />
+
+        <TextField
+          name="email"
+          required
+          fullWidth
+          id="email"
+          autoFocus
+          placeholder="EMAIL ADDRESS *"
+          sx={textFieldStyle}
+          onChange={(e) => handleChange(e)}
+        />
+        <TextField
+          name="password"
+          required
+          fullWidth
+          id="password"
+          autoFocus
+          placeholder="PASSWORD *"
+          onChange={(e) => handleChange(e)}
+          sx={textFieldStyle}
+        />
 
         <Button
           type="submit"

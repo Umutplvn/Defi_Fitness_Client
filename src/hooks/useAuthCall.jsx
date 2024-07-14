@@ -1,5 +1,8 @@
 import axios from "axios";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
+import toast from "react-hot-toast";
+import useAxios from "./useAxios";
 import {
   fetchStart,
   fetchFail,
@@ -12,32 +15,33 @@ import {
   // getMyContactsSuccess,
 } from "../features/authSlice";
 
-import { useNavigate } from "react-router";
-import toast from "react-hot-toast";
-import useAxios from "./useAxios";
-
 const useAuthCall = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { axiosWithToken } = useAxios();
 
+  //! REGISTER FUNCTION
   const register = async (userData) => {
-    dispatch(fetchStart);
+    dispatch(fetchStart());
     try {
       const { data } = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/auth/register/`,
+        `${process.env.REACT_APP_BASE_URL}/users/register/`,
         userData
       );
       dispatch(registerSuccess(data));
       navigate("/verification");
     } catch (error) {
+      console.log('Error during registration:', error?.response?.data?.message); // Log error with a descriptive message
       dispatch(fetchFail());
-      toast(error?.response?.data?.message);
+      toast(error?.response?.data?.message)
     }
   };
+  
+
+
 
   // const deleteUser = async (userId) => {
-  //   dispatch(fetchStart);
+  //   dispatch(fetchStart());
   //   try {
   //     const { data } = await axios.delete(
   //       `${process.env.REACT_APP_BASE_URL}/auth/users/${userId}/`
@@ -50,7 +54,7 @@ const useAuthCall = () => {
   // };
 
   // const update = async (info) => {
-  //   dispatch(fetchStart);
+  //   dispatch(fetchStart());
   //   try {
   //     const { data } = await axiosWithToken.put(
   //       `${process.env.REACT_APP_BASE_URL}/auth/users/update`,
@@ -63,7 +67,7 @@ const useAuthCall = () => {
   // };
 
   // const login = async (userData) => {
-  //   dispatch(fetchStart);
+  //   dispatch(fetchStart());
   //   try {
   //     const { data } = await axios.post(
   //       `${process.env.REACT_APP_BASE_URL}/auth/login/`,
@@ -112,8 +116,6 @@ const useAuthCall = () => {
   //   }
   // };
 
-
-
   // const passwordUpdate = async (data) => {
   //   try {
   //     const res = await axiosWithToken.put(
@@ -127,20 +129,20 @@ const useAuthCall = () => {
   //     toast("Failed to change password");
   //     toast(error);
   //   }
-  };
+  // };
 
   return {
-    login,
+    // login,
     register,
-    logout,
-    deleteUser,
-    update,
-    addContact,
-    removeContact,
-    getMyContacts,
-    passwordUpdate,
-    syncContacts,
+    // logout,
+    // deleteUser,
+    // update,
+    // addContact,
+    // removeContact,
+    // getMyContacts,
+    // passwordUpdate,
+    // syncContacts,
   };
-
+};
 
 export default useAuthCall;

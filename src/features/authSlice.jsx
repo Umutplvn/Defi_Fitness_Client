@@ -3,6 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 export const authSlice = createSlice({
   name: "auth",
   initialState: {
+    isAdmin:false,
+    isPremium:false,
     loading: false,
     error: false,
     currentUser: null,
@@ -12,7 +14,9 @@ export const authSlice = createSlice({
     verified:null,
     avatar:"",
     name:"",
-    password:""
+    password:"",
+    passcode:"",
+    sportBranch:[]
   },
 
   reducers: {
@@ -28,12 +32,12 @@ export const authSlice = createSlice({
     registerSuccess: (state, { payload }) => {
       state.loading = false;
       state.error = false;
+      state.passcode = payload?.passcode;
       state.currentUser = payload?.result?.name;
       state.token = payload?.Token;
       state.userId = payload?.result?._id;
       state.email=payload?.result?.email;
       state.name=payload?.result?.name;
-      state.passcode = payload?.passcode;
       state.verified=payload?.result?.verified
       state.password=payload?.result?.password
     },
@@ -60,7 +64,6 @@ export const authSlice = createSlice({
       state.name=payload?.result?.name;
       state.contacts=payload?.result?.contacts;
       state.verified = payload?.result?.verified;
-      state.bio=payload?.result?.bio
       state.password=payload?.result?.password
     },
 
@@ -70,18 +73,7 @@ export const authSlice = createSlice({
       state.password=payload?.data?.result?.password
     },
 
-    getMyContactsSuccess: (state, { payload }) => {
-      state.loading = false;
-      state.error = true;
-      state.contacts = payload?.data?.contacts;
-    },
 
-
-    updateContactSuccess: (state, { payload }) => {
-      // state.loading = false;
-      // state.error = true;
-      // state.contacts = payload?.data?.contacts;
-    },
 
 
     logoutSuccess: (state) => {
@@ -97,7 +89,6 @@ export const authSlice = createSlice({
       state.user=[];
       state.avatar="";
       state.name="";
-      state.bio= "";
       state.password= "";
     },
 
@@ -115,14 +106,10 @@ export const authSlice = createSlice({
 export const {
   fetchStart,
   fetchFail,
-  loginSuccess,
-  logoutSuccess,
-  registerSuccess,
-  UpdateSuccess,
-  deleteSuccess,
-  updateContactSuccess,
-  getMyContactsSuccess,
-  passwordUpdateSuccess
+  // loginSuccess,
+  // logoutSuccess,
+  registerSuccess
+
 } = authSlice.actions;
 
 export default authSlice.reducer;
