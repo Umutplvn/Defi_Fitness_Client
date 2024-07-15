@@ -54,18 +54,20 @@ const useAuthCall = () => {
     
   };
 
-  // const update = async (info) => {
-  //   dispatch(fetchStart());
-  //   try {
-  //     const { data } = await axiosWithToken.put(
-  //       `${process.env.REACT_APP_BASE_URL}/auth/users/update`,
-  //       info
-  //     );
-  //     dispatch(registerSuccess(data));
-  //   } catch (error) {
-  //     dispatch(fetchFail());
-  //   }
-  // };
+//! UPDATE USER
+
+  const update = async (userId,updateData) => {
+    dispatch(fetchStart());
+    try {
+      const { data } = await axiosWithToken.put(
+        `${process.env.REACT_APP_BASE_URL}/users/${userId}`,
+        updateData
+      );
+      dispatch(registerSuccess(data));
+    } catch (error) {
+      dispatch(fetchFail());
+    }
+  };
 
   // const login = async (userData) => {
   //   dispatch(fetchStart());
@@ -137,7 +139,7 @@ const useAuthCall = () => {
     register,
     // logout,
     deleteUser,
-    // update,
+    update,
     // addContact,
     // removeContact,
     // getMyContacts,

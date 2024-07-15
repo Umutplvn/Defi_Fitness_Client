@@ -9,7 +9,7 @@ import useAuthCall from "../hooks/useAuthCall";
 
 const EmailVerification = () => {
   const { passcode, userId } = useSelector((state) => state.auth);
-  const { deleteUser } = useAuthCall();
+  const { deleteUser, update } = useAuthCall();
   const navigate = useNavigate();
   const [pass, setPass] = useState("");
   const [expired, setExpired] = useState(false); 
@@ -29,7 +29,6 @@ const EmailVerification = () => {
 
     return () => clearTimeout(timer);
   }, [deleteUser, expired, userId]);
-  // }, [ expired, userId]);
 
 
   const handleChange = (e) => {
@@ -39,7 +38,7 @@ const EmailVerification = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (passcode == pass) {
-      // update({ verified: true });
+      update(userId,{ verified: true });
       navigate("/");
       toast("Welcome to DEFI");
     } else {
