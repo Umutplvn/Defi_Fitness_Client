@@ -1,7 +1,16 @@
-import { Box, Button, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  TextField,
+  Typography,
+  IconButton,
+  InputAdornment,
+} from "@mui/material";
 import React, { useState } from "react";
 import Logo from "../components/logo";
 import { Link } from "react-router-dom";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import {
   logoStyle,
   textFieldStyle,
@@ -9,16 +18,25 @@ import {
   frameStyle,
 } from "../styles/registerStyle";
 import useAuthCall from "../hooks/useAuthCall";
+import { toast } from "react-hot-toast";
 
 const Register = () => {
-
   const { register } = useAuthCall();
-
   const [info, setInfo] = useState({
     name: "",
     email: "",
     password: "",
   });
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -28,7 +46,11 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-     register(info);
+    {
+      info.password.length < 8
+        ? toast("Password must be at least 8 character.")
+        : register(info);
+    }
   };
 
   return (
@@ -47,7 +69,7 @@ const Register = () => {
       </Box>
 
       <Box
-      onSubmit={(e) => handleSubmit(e)}
+        onSubmit={(e) => handleSubmit(e)}
         component="form"
         sx={{
           display: "flex",
@@ -69,6 +91,7 @@ const Register = () => {
 
         <TextField
           name="email"
+          type="email"
           required
           fullWidth
           id="email"
@@ -77,16 +100,54 @@ const Register = () => {
           sx={textFieldStyle}
           onChange={(e) => handleChange(e)}
         />
-        <TextField
-          name="password"
-          required
-          fullWidth
-          id="password"
-          autoFocus
-          placeholder="PASSWORD *"
-          onChange={(e) => handleChange(e)}
-          sx={textFieldStyle}
-        />
+        <Box sx={{ minHeight: "6rem" }}>
+          <TextField
+            name="password"
+            required
+            type={showPassword ? "text" : "password"}
+            fullWidth
+            id="password"
+            placeholder="PASSWORD *"
+            value={info.password}
+            onChange={handleChange}
+            sx={textFieldStyle}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                  >
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+          {info.password.length !== 0 ? (
+            <Box sx={{ width: "20rem", pl: "1rem" }}>
+              {info.password.length < 8 ? (
+                <Typography
+                  sx={{ color: "red", textAlign: "start", fontSize: "0.7rem" }}
+                >
+                  * At least 8 characters long.
+                </Typography>
+              ) : (
+                <Typography
+                  sx={{
+                    color: "green",
+                    textAlign: "start",
+                    fontSize: "0.7rem",
+                  }}
+                >
+                  * At least 8 characters long.
+                </Typography>
+              )}
+            </Box>
+          ) : (
+            <Typography sx={{ mb: "0.7rem" }}></Typography>
+          )}
+        </Box>
 
         <Button
           type="submit"
@@ -97,7 +158,7 @@ const Register = () => {
             textAlign: "center",
             backgroundColor: "#F2F2F2",
             color: "#494b56",
-            borderRadius: "0.2rem",
+            borderRadius: "0.7rem",
             width: "8rem",
             transition: "0.4s",
             "&:hover": {

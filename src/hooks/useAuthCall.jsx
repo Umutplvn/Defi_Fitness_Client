@@ -10,7 +10,7 @@ import {
   registerSuccess,
   // logoutSuccess,
   // passwordUpdateSuccess,
-  // deleteSuccess,
+  deleteSuccess,
   // updateContactSuccess,
   // getMyContactsSuccess,
 } from "../features/authSlice";
@@ -39,19 +39,20 @@ const useAuthCall = () => {
   
 
 
-
-  // const deleteUser = async (userId) => {
-  //   dispatch(fetchStart());
-  //   try {
-  //     const { data } = await axios.delete(
-  //       `${process.env.REACT_APP_BASE_URL}/auth/users/${userId}/`
-  //     );
-  //     dispatch(deleteSuccess(data));
-  //   } catch (error) {
-  //     dispatch(fetchFail());
-  //     toast("User delete failed! ✖️");
-  //   }
-  // };
+//! DELETE USER
+  const deleteUser = async (userId) => {
+    dispatch(fetchStart());
+    try {
+      const { data } = await axios.delete(
+        `${process.env.REACT_APP_BASE_URL}/users/${userId}`
+      );
+      dispatch(deleteSuccess(data));
+    } catch (error) {
+      dispatch(fetchFail());
+      toast("User delete failed! ✖️");
+    }
+    
+  };
 
   // const update = async (info) => {
   //   dispatch(fetchStart());
@@ -135,7 +136,7 @@ const useAuthCall = () => {
     // login,
     register,
     // logout,
-    // deleteUser,
+    deleteUser,
     // update,
     // addContact,
     // removeContact,

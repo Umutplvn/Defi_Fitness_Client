@@ -20,7 +20,7 @@ export const linkStyle = {
 
 export const textFieldStyle = {
   width: "20rem",
-  mt: "2rem",
+  mt: "1rem",
   backgroundColor: "#ecf0f0",
   "& .MuiOutlinedInput-root": {
     "& fieldset": {

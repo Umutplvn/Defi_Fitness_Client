@@ -3,26 +3,24 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import toast from 'react-hot-toast';
-// import useAuthCall from "../hooks/useAuthCall";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import { textFieldStyle } from "../styles/registerStyle";
+import useAuthCall from "../hooks/useAuthCall";
 
 const EmailVerification = () => {
   const { passcode, userId } = useSelector((state) => state.auth);
-  // const { deleteUser, update } = useAuthCall();
+  const { deleteUser } = useAuthCall();
   const navigate = useNavigate();
   const [pass, setPass] = useState("");
   const [expired, setExpired] = useState(false); 
   const [remainingTime, setRemainingTime] = useState(60); 
-
-console.log(passcode);
 
   useEffect(() => {
 
     let timer;
     if (!expired) {
       timer = setTimeout(() => {
-        // deleteUser(userId);
+        deleteUser(userId);
         setExpired(true);
         navigate("/register")
         toast("Time is up!")
@@ -30,8 +28,8 @@ console.log(passcode);
     }
 
     return () => clearTimeout(timer);
-  // }, [deleteUser, expired, userId]);
-  }, [ expired, userId]);
+  }, [deleteUser, expired, userId]);
+  // }, [ expired, userId]);
 
 
   const handleChange = (e) => {
@@ -86,7 +84,7 @@ console.log(passcode);
 
       </Box>
       <Box sx={{ textAlign: "center", mt: "9rem", p:"0.5rem" }}>
-        <Typography sx={{ color: "#1e4674", fontSize: "1.5rem", mb: "1rem" }}>
+        <Typography sx={{ color: "#494b56", fontSize: "1.5rem", mb: "1rem" }}>
           Verify your email address
         </Typography>
         <Typography>
@@ -112,23 +110,22 @@ console.log(passcode);
           </Box>
 
           <Button
-            type="submit"
-            variant="contained"
-            sx={{
-              mt: 3,
-              mb: 2,
-              pl: 4,
-              pr: 4,
-              backgroundColor: "#F2F2F2",
-              color: "#242424",
-              borderRadius: "1rem",
-              width: "8rem",
-              transition: "0.4s",
-              "&:hover": {
-                backgroundColor: "#537c87",
-                color: "white",
-              },
-            }}
+                  type="submit"
+                  variant="contained"
+                  sx={{
+                    mt: 4,
+                    mb: 5,
+                    textAlign: "center",
+                    backgroundColor: "#F2F2F2",
+                    color: "#494b56",
+                    borderRadius: "0.7rem",
+                    width: "8rem",
+                    transition: "0.4s",
+                    "&:hover": {
+                      backgroundColor: "#000000",
+                      color: "white",
+                    },
+                  }}
           >
             confirm
           </Button>
