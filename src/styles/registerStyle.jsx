@@ -6,16 +6,10 @@ export const logoStyle = {
   alignItems: "center",
 };
 
-export const frameStyle = {
-  display: "flex",
-  justifyContent: "center",
-  flexDirection: "column",
-  textAlign: "center",
-};
 
 export const linkStyle = {
-  color: "#545665",
-  textDecoration: "none",
+  color: '#545665',
+  textDecoration: 'none',
 };
 
 export const textFieldStyle = {

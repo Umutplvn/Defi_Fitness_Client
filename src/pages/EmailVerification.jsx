@@ -2,7 +2,7 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import toast from 'react-hot-toast';
+import toast from "react-hot-toast";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import { textFieldStyle } from "../styles/registerStyle";
 import useAuthCall from "../hooks/useAuthCall";
@@ -12,24 +12,22 @@ const EmailVerification = () => {
   const { deleteUser, update } = useAuthCall();
   const navigate = useNavigate();
   const [pass, setPass] = useState("");
-  const [expired, setExpired] = useState(false); 
-  const [remainingTime, setRemainingTime] = useState(60); 
+  const [expired, setExpired] = useState(false);
+  const [remainingTime, setRemainingTime] = useState(60);
 
   useEffect(() => {
-
     let timer;
     if (!expired) {
       timer = setTimeout(() => {
         deleteUser(userId);
         setExpired(true);
-        navigate("/register")
-        toast("Time is up!")
+        navigate("/register");
+        toast("Time is up!");
       }, 60000);
     }
 
     return () => clearTimeout(timer);
   }, [deleteUser, expired, userId]);
-
 
   const handleChange = (e) => {
     setPass(e.target.value);
@@ -38,7 +36,7 @@ const EmailVerification = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (passcode == pass) {
-      update(userId,{ verified: true });
+      update(userId, { verified: true });
       navigate("/");
       toast("Welcome to DEFI");
     } else {
@@ -49,8 +47,8 @@ const EmailVerification = () => {
 
   const renderTime = ({ remainingTime }) => {
     return (
-      <div >
-        <div style={{fontSize:"30px"}}>{remainingTime}</div>
+      <div>
+        <div style={{ fontSize: "30px" }}>{remainingTime}</div>
       </div>
     );
   };
@@ -79,15 +77,14 @@ const EmailVerification = () => {
         >
           {renderTime}
         </CountdownCircleTimer>
-
-
       </Box>
-      <Box sx={{ textAlign: "center", mt: "9rem", p:"0.5rem" }}>
+      <Box sx={{ textAlign: "center", mt: "9rem", p: "0.5rem" }}>
         <Typography sx={{ color: "#494b56", fontSize: "1.5rem", mb: "1rem" }}>
           Verify your email address
         </Typography>
         <Typography>
-        Thanks for registering. Enter the verification code sent to your email to complete your registration.
+          Thanks for registering. Enter the verification code sent to your email
+          to complete your registration.
         </Typography>
 
         <Box component="form" onSubmit={(e) => handleSubmit(e)} sx={{ mt: 3 }}>
@@ -109,22 +106,22 @@ const EmailVerification = () => {
           </Box>
 
           <Button
-                  type="submit"
-                  variant="contained"
-                  sx={{
-                    mt: 4,
-                    mb: 5,
-                    textAlign: "center",
-                    backgroundColor: "#F2F2F2",
-                    color: "#494b56",
-                    borderRadius: "0.7rem",
-                    width: "8rem",
-                    transition: "0.4s",
-                    "&:hover": {
-                      backgroundColor: "#000000",
-                      color: "white",
-                    },
-                  }}
+            type="submit"
+            variant="contained"
+            sx={{
+              mt: 4,
+              mb: 5,
+              textAlign: "center",
+              backgroundColor: "#F2F2F2",
+              color: "#494b56",
+              borderRadius: "0.7rem",
+              width: "8rem",
+              transition: "0.4s",
+              "&:hover": {
+                backgroundColor: "#000000",
+                color: "white",
+              },
+            }}
           >
             confirm
           </Button>
