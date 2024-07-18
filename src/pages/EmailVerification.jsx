@@ -8,7 +8,7 @@ import { textFieldStyle } from "../styles/registerStyle";
 import useAuthCall from "../hooks/useAuthCall";
 
 const EmailVerification = () => {
-  const { passcode, userId } = useSelector((state) => state.auth);
+  const { passcode, userId } = useSelector((state) => state?.auth);
   const { deleteUser, update } = useAuthCall();
   const navigate = useNavigate();
   const [pass, setPass] = useState("");

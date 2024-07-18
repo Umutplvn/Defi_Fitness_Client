@@ -9,9 +9,9 @@ export const logoStyle = {
 
 export const linkStyle = {
   color: '#545665',
-  textDecoration: 'none',
+  textDecoration: 'none', 
+  cursor:"auto"
 };
-
 export const textFieldStyle = {
   width: "20rem",
   mt: "1rem",

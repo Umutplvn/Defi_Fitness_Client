@@ -11,18 +11,12 @@ import Logo from "../components/logo";
 import { Link } from "react-router-dom";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import {
-  logoStyle,
-  textFieldStyle,
-  linkStyle,
-} from "../styles/registerStyle";
+import { logoStyle, textFieldStyle, linkStyle } from "../styles/registerStyle";
 import useAuthCall from "../hooks/useAuthCall";
 import { toast } from "react-hot-toast";
-import { useSelector } from "react-redux";
 import loadingGif from "../assets/loading.gif";
-
 const Login = () => {
-  // const { Login } = useAuthCall();
+  const { login } = useAuthCall();
   const [loading, setLoading] = useState(false);
   const [info, setInfo] = useState({
     email: "",
@@ -38,9 +32,9 @@ const Login = () => {
   const submitFunc = async () => {
     setLoading(true);
     try {
-      // await register(info);
+      await login(info);
     } catch (error) {
-      toast.error("Registration failed. Please try again.");
+      toast.error("Login failed. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -93,7 +87,7 @@ const Login = () => {
       </Box>
       <Box sx={frameStyle}>
         <Box sx={logoStyle}>
-          <Link to="/">
+          <Link to="/" disabled={loading}>
             <Logo />
           </Link>
         </Box>
@@ -152,33 +146,6 @@ const Login = () => {
                 ),
               }}
             />
-            {info.password.length !== 0 ? (
-              <Box sx={{ width: "20rem", pl: "1rem" }}>
-                {info.password.length < 8 ? (
-                  <Typography
-                    sx={{
-                      color: "red",
-                      textAlign: "start",
-                      fontSize: "0.7rem",
-                    }}
-                  >
-                    * At least 8 characters long.
-                  </Typography>
-                ) : (
-                  <Typography
-                    sx={{
-                      color: "green",
-                      textAlign: "start",
-                      fontSize: "0.7rem",
-                    }}
-                  >
-                    * At least 8 characters long.
-                  </Typography>
-                )}
-              </Box>
-            ) : (
-              <Typography sx={{ mb: "0.7rem" }}></Typography>
-            )}
           </Box>
 
           <Button
@@ -203,13 +170,48 @@ const Login = () => {
             SUBMIT
           </Button>
         </Box>
-        {loading ? (
-          <Link style={linkStyle} > Not a member yet? Please Join Here</Link>
-        ) : (
-          <Link to="/register" style={linkStyle} >
-            Not a member yet? Please Join Here
-          </Link>
-        )}
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+          {loading ? (
+            <Link style={linkStyle}>
+              {" "}
+              Not a member yet?{" "}
+              <Link style={{ textDecoration: "underline", color: "#044985" }}>
+                Please Join Here
+              </Link>{" "}
+            </Link>
+          ) : (
+            <Link style={linkStyle}>
+              {" "}
+              Not a member yet?{" "}
+              <Link
+                to="/register"
+                style={{ textDecoration: "underline", color: "#044985" }}
+              >
+                Please Join Here
+              </Link>{" "}
+            </Link>
+          )}
+          {loading ? (
+            <Link style={linkStyle}>
+              {" "}
+              Forgot your password?{" "}
+              <Link style={{ textDecoration: "underline", color: "#044985" }}>
+                Click Here
+              </Link>{" "}
+            </Link>
+          ) : (
+            <Link style={linkStyle}>
+              {" "}
+              Forgot your password?{" "}
+              <Link
+                to="/forgotpass"
+                style={{ textDecoration: "underline", color: "#044985" }}
+              >
+                Click Here
+              </Link>{" "}
+            </Link>
+          )}
+        </Box>
       </Box>
     </Box>
   );

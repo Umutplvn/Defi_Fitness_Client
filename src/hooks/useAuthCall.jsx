@@ -3,13 +3,14 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import toast from "react-hot-toast";
 import useAxios from "./useAxios";
+import { customToast } from "../styles/authCallStyle";
 import {
   fetchStart,
   fetchFail,
-  // loginSuccess,
+  loginSuccess,
   registerSuccess,
   // logoutSuccess,
-  // passwordUpdateSuccess,
+  passwordUpdateSuccess,
   deleteSuccess,
   // updateContactSuccess,
   // getMyContactsSuccess,
@@ -19,6 +20,21 @@ const useAuthCall = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { axiosWithToken } = useAxios();
+
+  const customErrorStyle = {
+    backgroundColor: '#FCD8DC',
+    color: '#A94442',
+    textAlign: 'center',
+    borderRadius: '8px',
+  };
+  
+  const customSuccessStyle = {
+    backgroundColor: '#cdf2bf', 
+    color: '#47a444', 
+    textAlign: 'center',
+    borderRadius: '8px',
+  };
+
 
   //! REGISTER FUNCTION
   const register = async (userData) => {
@@ -31,15 +47,80 @@ const useAuthCall = () => {
       dispatch(registerSuccess(data));
       navigate("/verification");
     } catch (error) {
-      console.log('Error during registration:', error?.response?.data?.message); // Log error with a descriptive message
+      console.log('Error during registration:', error?.response?.data?.message);
       dispatch(fetchFail());
-      toast(error?.response?.data?.message)
+      toast(error?.response?.data?.message, {
+        style: customErrorStyle
+      })
     }
   };
   
 
+  //! LOGIN FUNCTION
+    const login = async (userData) => {
+    dispatch(fetchStart());
+    try {
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/auth/login/`,
+        userData
+      );
+      if (!data?.result?.verified) {
+        deleteUser(data?.result?._id);
+        toast("No such account found!", {
+          style: customErrorStyle, 
+        })
+      } else {
+        dispatch(loginSuccess(data));
+        toast("Welcome to the DEFI.", {
+          style: customSuccessStyle, 
+        })
+        navigate("/");
+      }
+    } catch (error) {
+      dispatch(fetchFail());
+      toast("Invalid login. Please check your details and try again.", {
+        style: customErrorStyle, 
+      })
+        }
+  };
+
+
+//! FORGOT PASSWORD (TO GET EMAIL)
+  const forgotPass = async (email) => {
+    dispatch(fetchStart());
+    try {
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/users/forgotpass`,
+        email
+      );
+      dispatch(loginSuccess(data));
+      navigate("/");
+    } catch (error) {
+      console.log('Error during registration:', error?.response?.data?.message);
+      dispatch(fetchFail());
+      toast(error?.response?.data?.message, {
+        style: customErrorStyle
+      })
+    }
+  };
   
 
+//! UPDATE PASSWORD
+  const passwordUpdate = async (password) => {
+    try {
+      const res = await axiosWithToken.put(
+        `${process.env.REACT_APP_BASE_URL}/users/updatepass`,
+        password
+      );
+      dispatch(passwordUpdateSuccess(res));
+      toast("Password Changed Successfully");
+    } catch (error) {
+      dispatch(fetchFail());
+  toast("Failed to change password", {
+    style: customErrorStyle
+  })
+    }
+  };
 
 
 //! DELETE USER
@@ -52,13 +133,14 @@ const useAuthCall = () => {
       dispatch(deleteSuccess(data));
     } catch (error) {
       dispatch(fetchFail());
-      toast("User delete failed! ✖️");
+      toast("User delete failed! ✖️", {
+        style: customErrorStyle, 
+      })
     }
     
   };
 
 //! UPDATE USER
-
   const update = async (userId,updateData) => {
     dispatch(fetchStart());
     try {
@@ -72,27 +154,6 @@ const useAuthCall = () => {
     }
   };
 
-  // const login = async (userData) => {
-  //   dispatch(fetchStart());
-  //   try {
-  //     const { data } = await axios.post(
-  //       `${process.env.REACT_APP_BASE_URL}/auth/login/`,
-  //       userData
-  //     );
-  //     if (!data?.result?.verified) {
-  //       deleteUser(data?.result?._id);
-  //       toast("No such account found!");
-  //     } else {
-  //       dispatch(loginSuccess(data));
-  //       toast("Welcome to the Connectify.");
-  //       navigate("/chats");
-  //     }
-  //   } catch (error) {
-  //     dispatch(fetchFail());
-  //     console.log(error);
-  //     toast("Incorrect login. Double check your details and try again.  ");
-  //   }
-  // };
 
   // const logout = async () => {
   //   dispatch(fetchStart());
@@ -138,15 +199,16 @@ const useAuthCall = () => {
   // };
 
   return {
-    // login,
+    login,
     register,
     // logout,
+    forgotPass,
     deleteUser,
     update,
     // addContact,
     // removeContact,
     // getMyContacts,
-    // passwordUpdate,
+    passwordUpdate,
     // syncContacts,
   };
 };

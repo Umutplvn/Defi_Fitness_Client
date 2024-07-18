@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import Logo from "../components/logo";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { logoStyle, textFieldStyle, linkStyle } from "../styles/registerStyle";
@@ -16,25 +16,40 @@ import useAuthCall from "../hooks/useAuthCall";
 import { toast } from "react-hot-toast";
 import loadingGif from "../assets/loading.gif";
 
-const Register = () => {
-  const { register } = useAuthCall();
+const ResetForgottenPass = () => {
+  const { passwordUpdate } = useAuthCall();
   const [loading, setLoading] = useState(false);
+  const [confirm, setConfirm] = useState("")
+  const navigate=useNavigate()
   const [info, setInfo] = useState({
-    name: "",
-    email: "",
     password: "",
   });
 
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
 
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
+  const handleClickShowConfirm = () => {
+    setShowConfirm(!showConfirm);
+  };
+
+  const handleMouseDownConfirm = (event) => {
+    event.preventDefault();
+  };
+
+
   const submitFunc = async () => {
     setLoading(true);
     try {
-      await register(info);
+      await passwordUpdate({password:info.password});
+      navigate('/')
     } catch (error) {
       toast.error("Registration failed. Please try again.");
     } finally {
@@ -42,10 +57,7 @@ const Register = () => {
     }
   };
 
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
-
+ 
   const handleChange = (e) => {
     e.preventDefault();
     const { name, value } = e.target;
@@ -97,8 +109,7 @@ const Register = () => {
           <Typography
             sx={{ color: "#494b56", fontSize: "1.2rem", fontWeight: "580" }}
           >
-            LET'S GET STARTED
-          </Typography>
+RESET PASSWORD </Typography>
         </Box>
 
         <Box
@@ -111,30 +122,7 @@ const Register = () => {
             alignItems: "center",
           }}
         >
-          <TextField
-            disabled={loading}
-            name="name"
-            required
-            fullWidth
-            id="name"
-            autoFocus
-            placeholder="NAME *"
-            onChange={(e) => handleChange(e)}
-            sx={textFieldStyle}
-          />
-
-          <TextField
-            disabled={loading}
-            name="email"
-            type="email"
-            required
-            fullWidth
-            id="email"
-            autoFocus
-            placeholder="EMAIL ADDRESS *"
-            sx={textFieldStyle}
-            onChange={(e) => handleChange(e)}
-          />
+    
           <Box sx={{ minHeight: "6rem" }}>
             <TextField
               disabled={loading}
@@ -188,11 +176,47 @@ const Register = () => {
               <Typography sx={{ mb: "0.7rem" }}></Typography>
             )}
           </Box>
+          <Box sx={{ minHeight: "6rem" }}>
+            <TextField
+              disabled={loading}
+              name="password"
+              required
+              type={showConfirm ? "text" : "password"}
+              fullWidth
+              id="password"
+              placeholder="CONFIRM PASSWORD *"
+              value={confirm}
+              onChange={(e)=>setConfirm(e.target.value)}
+              sx={textFieldStyle}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={handleClickShowConfirm}
+                      onMouseDown={handleMouseDownConfirm}
+                    >
+                      {showConfirm ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <Box sx={{ width: "20rem", pl: "1rem" }}>
+
+            {(confirm !==info?.password && confirm?.length>0) && 
+            <Typography    sx={{
+              color: "red",
+              textAlign: "start",
+              fontSize: "0.7rem",
+            }}>Passwords must match.</Typography>
+            }
+            </Box>
+          </Box>
 
           <Button
             type="submit"
             variant="contained"
-            disabled={loading}
+            disabled={(info.password>=8 && confirm !==info.password)}
             sx={{
               mt: 4,
               mb: 5,
@@ -211,32 +235,10 @@ const Register = () => {
             SUBMIT
           </Button>
         </Box>
-        {loading ? (
-          <Link style={linkStyle}>
-            {" "}
-            Already a member?{" "}
-            <Link
-              to="/forgotpass"
-              style={{ textDecoration: "underline", color: "#044985" }}
-            >
-              Login Here
-            </Link>{" "}
-          </Link>
-        ) : (
-          <Link style={linkStyle}>
-            {" "}
-            Already a member?{" "}
-            <Link
-              to="/login"
-              style={{ textDecoration: "underline", color: "#044985" }}
-            >
-              Login Here
-            </Link>{" "}
-          </Link>
-        )}
+    
       </Box>
     </Box>
   );
 };
 
-export default Register;
+export default ResetForgottenPass;

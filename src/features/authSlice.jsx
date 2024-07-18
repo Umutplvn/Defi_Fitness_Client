@@ -7,7 +7,6 @@ export const authSlice = createSlice({
     isPremium:false,
     loading: false,
     error: false,
-    currentUser: null,
     token: null,
     userId: null,
     email:null,
@@ -33,7 +32,6 @@ export const authSlice = createSlice({
       state.loading = false;
       state.error = false;
       state.passcode = payload?.passcode;
-      state.currentUser = payload?.result?.name;
       state.token = payload?.Token;
       state.userId = payload?.result?._id;
       state.email=payload?.result?.email;
@@ -48,7 +46,6 @@ export const authSlice = createSlice({
       state.isPremium=false;
       state.loading= false;
       state.error= false;
-      state.currentUser= null;
       state.token= null;
       state.userId= null;
       state.email=null;
@@ -63,16 +60,17 @@ export const authSlice = createSlice({
     loginSuccess: (state, { payload }) => {
       state.loading = false;
       state.error = false;
-      state.currentUser = payload?.result?.name;
       state.token = payload?.Token;
+      state.currentUser = payload?.result?.name;
       state.userId = payload?.result?._id;
       state.email = payload?.result?.email;
-      state.username=payload?.result?.username;
       state.avatar=payload?.result?.avatar;
       state.name=payload?.result?.name;
-      state.contacts=payload?.result?.contacts;
       state.verified = payload?.result?.verified;
       state.password=payload?.result?.password
+      state.isAdmin=payload?.result?.isAdmin
+      state.isPremium=payload?.result?.isPremium
+      state.sportBranch=payload?.result?.sportBranch
     },
 
 
@@ -114,10 +112,11 @@ export const authSlice = createSlice({
 export const {
   fetchStart,
   fetchFail,
-  // loginSuccess,
+  loginSuccess,
   // logoutSuccess,
   registerSuccess,
-  deleteSuccess
+  deleteSuccess,
+  passwordUpdateSuccess
 
 } = authSlice.actions;
 
