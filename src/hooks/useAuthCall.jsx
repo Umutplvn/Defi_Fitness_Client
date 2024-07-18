@@ -113,7 +113,9 @@ const useAuthCall = () => {
         password
       );
       dispatch(passwordUpdateSuccess(res));
-      toast("Password Changed Successfully");
+      toast("Password Changed Successfully", {
+        style: customSuccessStyle
+      })
     } catch (error) {
       dispatch(fetchFail());
   toast("Failed to change password", {

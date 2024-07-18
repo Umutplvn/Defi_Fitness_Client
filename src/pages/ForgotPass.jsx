@@ -20,7 +20,13 @@ const ForgotPass = () => {
     email: "",
   });
 
-
+  const customErrorStyle = {
+    backgroundColor: '#FCD8DC',
+    color: '#A94442',
+    textAlign: 'center',
+    borderRadius: '8px',
+  };
+  
   const handleChange = (e) => {
     e.preventDefault();
     const { name, value } = e.target;
@@ -34,7 +40,9 @@ const ForgotPass = () => {
        forgotPass({email:info.email});
       navigate("/")
     } catch (error) {
-      toast.error("Request failed. Please try again.");
+      toast("Request failed. Please try again.", {
+        style: customErrorStyle, 
+      })
     } finally {
       setLoading(false);
     }

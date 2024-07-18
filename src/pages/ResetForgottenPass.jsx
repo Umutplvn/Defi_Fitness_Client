@@ -44,6 +44,12 @@ const ResetForgottenPass = () => {
     event.preventDefault();
   };
 
+  const customErrorStyle = {
+    backgroundColor: '#FCD8DC',
+    color: '#A94442',
+    textAlign: 'center',
+    borderRadius: '8px',
+  };
 
   const submitFunc = async () => {
     setLoading(true);
@@ -51,7 +57,9 @@ const ResetForgottenPass = () => {
       await passwordUpdate({password:info.password});
       navigate('/')
     } catch (error) {
-      toast.error("Registration failed. Please try again.");
+      toast("Registration failed. Please try again.", {
+        style: customErrorStyle, 
+      })
     } finally {
       setLoading(false);
     }
@@ -68,7 +76,9 @@ const ResetForgottenPass = () => {
     e.preventDefault();
     {
       info.password.length < 8
-        ? toast("Password must be at least 8 character.")
+        ? toast("Password must be at least 8 character.", {
+          style: customErrorStyle, 
+        })
         : submitFunc();
     }
   };

@@ -26,7 +26,12 @@ const Register = () => {
   });
 
   const [showPassword, setShowPassword] = useState(false);
-
+  const customErrorStyle = {
+    backgroundColor: "#FCD8DC",
+    color: "#A94442",
+    textAlign: "center",
+    borderRadius: "8px",
+  };
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -36,7 +41,9 @@ const Register = () => {
     try {
       await register(info);
     } catch (error) {
-      toast.error("Registration failed. Please try again.");
+      toast("Registration failed. Please try again.", {
+        style: customErrorStyle,
+      });
     } finally {
       setLoading(false);
     }
@@ -56,7 +63,9 @@ const Register = () => {
     e.preventDefault();
     {
       info.password.length < 8
-        ? toast("Password must be at least 8 character.")
+        ? toast("Password must be at least 8 character.", {
+            style: customErrorStyle,
+          })
         : submitFunc();
     }
   };
