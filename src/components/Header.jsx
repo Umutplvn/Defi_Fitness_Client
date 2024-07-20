@@ -46,7 +46,7 @@ const Header = () => {
 
   return (
     <Box>
-        <Box sx={{width:"100wh", backgroundColor:"black", color:"white", display:"flex", justifyContent:"space-between", alignItems:"center"}}>
+        <Box sx={{width:"100wh", height:"3.5rem", backgroundColor:"black", color:"white", display:"flex", justifyContent:"space-between", alignItems:"center"}}>
         <Hamburger
           direction="right"
           size="22"
