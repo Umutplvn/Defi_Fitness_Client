@@ -2,13 +2,18 @@ import { Box } from "@mui/material";
 import React, { useState } from "react";
 import { Turn as Hamburger } from "hamburger-react";
 import PersonIcon from '@mui/icons-material/Person';
-import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Logo from "../assets/defi-icon.jpeg";
-const Header = () => {
+
+const Header = ({ play, setPlay }) => {
   const [isOpen, setOpen] = useState(false);
-    
-  const styles = {
+
+  const togglePlay = () => {
+    setPlay(prevPlay => !prevPlay);
+    setOpen(!isOpen);
+  };
+
+  const headerStyles = {
     container: {
       position: "relative",
       width: "3rem",
@@ -43,40 +48,50 @@ const Header = () => {
     }
   };
 
-
   return (
     <Box>
-        <Box sx={{width:"100wh", height:"3.5rem", backgroundColor:"black", color:"white", display:"flex", justifyContent:"space-between", alignItems:"center"}}>
+      <Box sx={{width:"100wh", height:"4rem", backgroundColor:"black", color:"white", display:"flex", justifyContent:"space-between", alignItems:"center", pl:"1rem", pr:"1rem", position:"relative", zIndex:"2"}}>
         <Hamburger
           direction="right"
           size="22"
           toggled={isOpen}
-          toggle={setOpen}
+          toggle={togglePlay}
         />
-        <Box style={styles.container}>
-      <img src={Logo} alt="Rotating Logo" style={styles.image} />
-      <div style={styles.rotatingBorder}></div>
-      <style>
-        {`
-          @keyframes rotate {
-            from {
-              transform: rotate(0deg);
-            }
-            to {
-              transform: rotate(360deg);
-            }
-          }
-        `}
-      </style>
-    </Box>
-<PersonIcon/>
+        <Box style={headerStyles.container}>
+          <img src={Logo} alt="Rotating Logo" style={headerStyles.image} />
+          <div style={headerStyles.rotatingBorder}></div>
+          <style>
+            {`
+              @keyframes rotate {
+                from {
+                  transform: rotate(0deg);
+                }
+                to {
+                  transform: rotate(360deg);
+                }
+              }
+            `}
+          </style>
         </Box>
-      
-        <Menu>
-          <MenuItem>Profile</MenuItem>
-          <MenuItem>My account</MenuItem>
-          <MenuItem>Logout</MenuItem>
-        </Menu>
+        <PersonIcon/>
+      </Box>
+      <Box
+        sx={{
+          zIndex:"1",
+          height: 'calc(100vh - 4rem)',
+          backgroundColor:"black",
+          color:"white",
+          position: 'absolute',
+          top: isOpen ? '4rem' : '-100%',
+          transition: 'top 2s ease', 
+          left: 0,
+          right: 0
+        }}
+      >
+        <MenuItem>Profile</MenuItem>
+        <MenuItem>My account</MenuItem>
+        <MenuItem>Logout</MenuItem>
+      </Box>
     </Box>
   );
 };
