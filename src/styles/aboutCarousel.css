@@ -1,0 +1,44 @@
+.shiny-text {
+  padding: 64px;
+  background: linear-gradient(to right, hsl(0, 0%, 30%) 0, hsl(0, 0%, 100%) 10%, hsl(0, 0%, 30%) 20%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 5s infinite linear;
+  text-transform: uppercase;
+
+}
+
+.shiny-gold {
+  background: linear-gradient(135deg, rgb(16, 162, 109) 5%, rgb(191, 21, 134) 57%, rgb(218, 51, 51) 20%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gold-shine 15s infinite linear;
+  font-weight: bolder;
+  text-transform: uppercase;
+  display: block;
+
+}
+
+@keyframes shine {
+  0% {
+    background-position: 0;
+  }
+  60% {
+    background-position: 600px;
+  }
+  100% {
+    background-position: 600px;
+  }
+}
+
+@keyframes gold-shine {
+  0% {
+    background-position: 0;
+  }
+  60% {
+    background-position: 600px;
+  }
+  100% {
+    background-position: 600px;
+  }
+}

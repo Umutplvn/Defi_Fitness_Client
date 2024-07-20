@@ -7,12 +7,15 @@ import { Link } from "react-scroll";
 import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
 export default function TabPanel() {
   return (
+    <Box sx={{width:"100vw", display:"flex", justifyContent:"center"}}>
+
     <Box
       sx={{
         display: "flex",
-        width: "100vw",
+        width: "90%",
         justifyContent: "center",
         gap: 3,
+        maxWidth:"350px",
         position: "fixed",
         bottom: "1rem",
         zIndex: "4",
@@ -23,24 +26,25 @@ export default function TabPanel() {
     }}
     >
       <Link to="video" spy={true} smooth={true} offset={0} duration={500} >
-        <HomeMaxRoundedIcon sx={{cursor:"pointer", ":hover":{ scale:"1.1"}, color:"#E80110"}}/>
+        <HomeMaxRoundedIcon sx={{cursor:"pointer", ":hover":{ scale:"1.1"}, color:"black"}}/>
       </Link>
 
       <Link to="about" spy={true} smooth={true} offset={0} duration={500}>
-        <InfoIcon sx={{cursor:"pointer" ,":hover":{ scale:"1.1"}, color:"#E80110"}} />
+        <InfoIcon sx={{cursor:"pointer" ,":hover":{ scale:"1.1"}, color:"black"}} />
       </Link>
 
       <Link to="skills" spy={true} smooth={true} offset={0} duration={500}>
-        <AutoFixHighIcon sx={{cursor:"pointer", ":hover":{ scale:"1.1"}, color:"#E80110" }} />
+        <AutoFixHighIcon sx={{cursor:"pointer", ":hover":{ scale:"1.1"}, color:"black" }} />
       </Link>
 
       <Link to="portfolio" spy={true} smooth={true} offset={0} duration={500}>
-        <AccountTreeIcon sx={{cursor:"pointer", ":hover":{ scale:"1.1"}, color:"#E80110" }} />
+        <AccountTreeIcon sx={{cursor:"pointer", ":hover":{ scale:"1.1"}, color:"black" }} />
       </Link>
 
       <Link  to="contact" spy={true} smooth={true} offset={50} duration={500}>
-        <ContactMailIcon sx={{ cursor:"pointer", ":hover":{ scale:"1.1"}, color:"#E80110"}} />
+        <ContactMailIcon sx={{ cursor:"pointer", ":hover":{ scale:"1.1"}, color:"black"}} />
       </Link>
+    </Box>
     </Box>
   );
 }

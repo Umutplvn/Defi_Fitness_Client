@@ -2,8 +2,31 @@ import React from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import { Box, Typography } from '@mui/material';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useTrail, a } from "@react-spring/web";
+import "../styles/aboutCarousel.css"; // Make sure to import the CSS file
 
 function AboutPage() {
+  const items = [
+    {
+      title: "Personalized Training Programs"
+    },
+    {
+      title: "Access Expert Articles and Videos"
+    },
+    {
+      title: "Track Your Personal Growth"
+    },
+    {
+      title: "Achieve Your Goals with <span class='shiny-gold'>DEFI</span>"
+    }
+  ];
+
+  const trail = useTrail(items.length, {
+    from: { opacity: 0, transform: 'translate3d(0,40px,0)' },
+    to: { opacity: 1, transform: 'translate3d(0,0px,0)' },
+    config: { mass: 5, tension: 200, friction: 300 }
+  });
+
   return (
     <Carousel
       id='about'
@@ -13,82 +36,42 @@ function AboutPage() {
         justifyContent: "center",
         alignItems: "center"
       }}
-      interval={null} 
+      interval={null}
     >
-      <Carousel.Item style={{ height: "90%" }}>
-        <Box
-          sx={{
-            height: "100vh",
-            width: "100vw",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            backgroundColor: "#282c34",
-            color: "white", // Text color
-            textAlign: "center",
-            padding: "1rem"
-          }}
-        >
-          <Typography variant="h3">First Slide</Typography>
-          <Typography variant="body1">
-            Nulla vitae elit libero, a pharetra augue mollis interdum.
-          </Typography>
-        </Box>
-        <Carousel.Caption>
-          <h3>First slide label</h3>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-
-      <Carousel.Item style={{ height: "90%" }}>
-        <Box
+      {trail.map((props, index) => (
+        <Carousel.Item key={index} style={{ height: "90%" }}>
+          <Box
             sx={{
               height: "100vh",
               width: "100vw",
               display: "flex",
+              flexDirection: "column",
               alignItems: "center",
+              gap: 5,
               justifyContent: "center",
-              backgroundColor: "#282c34",
-              color: "white", // Text color
+              backgroundColor:"black",
+              color: "white",
               textAlign: "center",
               padding: "1rem"
             }}
-        >
-          <Typography variant="h3">Second Slide</Typography>
-          <Typography variant="body1">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          </Typography>
-        </Box>
-        <Carousel.Caption>
-          <h3>Second slide label</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-
-      <Carousel.Item style={{ height: "90%" }}>
-        <Box
-             sx={{
-              height: "100vh",
-              width: "100vw",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              backgroundColor: "#282c34",
-              color: "white", // Text color
-              textAlign: "center",
-              padding: "1rem"
-            }}
-        >
-          <Typography variant="h3">Third Slide</Typography>
-          <Typography variant="body1">
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-          </Typography>
-        </Box>
-        <Carousel.Caption>
-          <h3>Third slide label</h3>
-          <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
+          >
+            <a.div style={props}>
+              <Typography variant="h3" className="shiny-text">
+                {index === items.length - 1 ? (
+                  <span dangerouslySetInnerHTML={{ __html: items[index].title }} />
+                ) : (
+                  items[index].title
+                )}
+              </Typography>
+            </a.div>
+            <a.div style={props}>
+              <Typography variant="body1" sx={{ fontSize: "1rem" }}>
+                {items[index].content}
+              </Typography>
+            </a.div>
+          </Box>
+        </Carousel.Item>
+      ))}
     </Carousel>
   );
 }
