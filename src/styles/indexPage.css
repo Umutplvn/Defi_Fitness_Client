@@ -1,0 +1,30 @@
+/* App.css */
+.page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    font-size: 2rem;
+    color: white;
+  }
+  
+  .fade-enter {
+    opacity: 0;
+    transform: translateY(50%);
+  }
+  .fade-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 1000ms ease-in-out, transform 1000ms ease-in-out;
+  }
+  .fade-exit {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .fade-exit-active {
+    opacity: 0;
+    transform: translateY(-50%);
+    transition: opacity 1000ms ease-in-out, transform 1000ms ease-in-out;
+  }
+  

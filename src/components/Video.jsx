@@ -1,8 +1,9 @@
 import { Box, Typography } from "@mui/material";
 import React, { useEffect, useRef } from "react";
 import introVideo from "../assets/introVideo.mp4";
+import Header from "./Header";
 
-const Video = ({ play }) => {
+const Video = ({ play, setPlay }) => {
   const videoRef = useRef(null);
 
   useEffect(() => {
@@ -17,18 +18,23 @@ const Video = ({ play }) => {
   }, [play]);
 
   return (
-    <Box
+    <Box     id="video"
+    >
+          <Header setPlay={setPlay} play={play} />
+          <Box
       sx={{
         width: "100vw",
         height: "100vh",
         display: "flex",
         alignItems: "center",
         flexDirection: "column",
+        gap:1,
       }}
     >
+      
       <video
         width="90%"
-        style={{ maxWidth: "900px", marginTop: "2rem", marginBottom: "2rem" }}
+        style={{ maxWidth: "900px", marginTop: "2rem" }}
         controls
         ref={videoRef}
       >
@@ -43,7 +49,7 @@ const Video = ({ play }) => {
             fontSize: "1.5rem",
             textAlign: "center",
             fontWeight: "600",
-            mt: 2,
+            mt: "1rem",
             p: "1rem",
           }}
         >
@@ -62,6 +68,8 @@ const Video = ({ play }) => {
         <Typography>It’s for those who do whatever it takes.</Typography>
       </Box>
     </Box>
+    </Box>
+  
   );
 };
 
