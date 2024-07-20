@@ -84,7 +84,7 @@ const ForgotPass = () => {
           <Typography
             sx={{ color: "#494b56", fontSize: "1.2rem", fontWeight: "580" }}
           >
-            DEFI RESET PASSWORD
+            RESET PASSWORD
           </Typography>
           <Typography sx={{m:"1rem",   color: '#545665'}}>
           Enter your email address below and we'll email you a link that will allow you to change your password.
