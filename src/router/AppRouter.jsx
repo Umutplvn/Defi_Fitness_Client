@@ -16,10 +16,10 @@ const AppRouter = () => {
   return (
     <>
       <Routes>
-        <Route path="/" index element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/index" element={<Index />} />
+        <Route path="/index" index element={<Index />} />
         <Route path="/video" element={<Video />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/membership" element={<MembershipPlans />} />
