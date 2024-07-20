@@ -1,23 +1,23 @@
 import { Box } from '@mui/material';
 import React, { useState } from 'react';
 import Video from '../components/Video';
-import Header from '../components/Header';
+import TabBar from "../components/TabBar";
 import AboutPage from '../components/AboutPage';
-import TabBar from "../components/TabBar"
-import Services from '../components/Services';
 import MembershipPlans from '../components/MembershipPlans';
+import Services from '../components/Services';
 import ManageProfile from '../components/ManageProfile';
+
 const Index = () => {
   const [play, setPlay] = useState(true);
 
   return (
     <Box>
-    <TabBar/>
+      <TabBar />
       <Video play={play} setPlay={setPlay} />
-      <AboutPage/>
-      <MembershipPlans/>
-      <Services/>
-      <ManageProfile/>
+      <AboutPage />
+      <MembershipPlans />
+      <Services />
+      <ManageProfile />
     </Box>
   );
 };

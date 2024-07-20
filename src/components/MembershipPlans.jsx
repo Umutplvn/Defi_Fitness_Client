@@ -1,8 +1,9 @@
+import { Box } from '@mui/material'
 import React from 'react'
 
 const MembershipPlans = () => {
   return (
-    <div>MembershipPlans</div>
+    <Box id="membership" sx={{width:"100wh", height:"100vh"}}>MembershipPlans</Box>
   )
 }
 

@@ -19,6 +19,11 @@
 
 }
 
+.carousel-indicators {
+  display: none;
+}
+
+
 @keyframes shine {
   0% {
     background-position: 0;
