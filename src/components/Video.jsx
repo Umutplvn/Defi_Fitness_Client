@@ -34,7 +34,8 @@ const Video = ({ play, setPlay }) => {
       
       <video
         width="90%"
-        style={{ maxWidth: "900px", marginTop: "2rem" }}
+        style={{  maxWidth: "900px",
+        marginTop: window.innerWidth < 600 ? "3rem" : "2rem"  }}
         controls
         ref={videoRef}
       >
@@ -42,7 +43,7 @@ const Video = ({ play, setPlay }) => {
         Tarayıcınız video etiketini desteklemiyor.
       </video>
       <Box
-        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+        sx={{ display: "flex", flexDirection: "column", alignItems: "center",   mt: { xs: '3rem', sm: '-1rem' } }}
       >
         <Typography
           sx={{
@@ -51,9 +52,9 @@ const Video = ({ play, setPlay }) => {
             fontWeight: "600",
             mt: "1rem",
             p: "1rem",
+            color:"black"
           }}
-        >
-          <span
+        >         <span
             style={{
               background:
                 "linear-gradient(90deg, rgba(0,36,23,1) 5%, rgba(121,9,84,1) 57%, rgba(255,0,0,1) 100%)",
@@ -61,11 +62,12 @@ const Video = ({ play, setPlay }) => {
               WebkitTextFillColor: "transparent",
             }}
           >
-            SUCCESS
+           STEP ONE
+ TO YOUR DREAM BODY
           </span>
-          &nbsp;ISN'T FOR EVERYONE
+          &nbsp;
         </Typography>
-        <Typography>It’s for those who do whatever it takes.</Typography>
+        <Typography>YOUR JOURNEY STARTS NOW</Typography>
       </Box>
     </Box>
     </Box>

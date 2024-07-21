@@ -16,7 +16,7 @@ const TabBar = () => {
           width: "90%",
           justifyContent: "center",
           gap: 3,
-          maxWidth: "350px",
+          maxWidth: "300px",
           position: "fixed",
           bottom: "1rem",
           zIndex: "4",

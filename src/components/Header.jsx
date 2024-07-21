@@ -1,8 +1,7 @@
-import { Box } from "@mui/material";
+import { Box, MenuItem } from "@mui/material";
 import React, { useState } from "react";
 import { Turn as Hamburger } from "hamburger-react";
-import PersonIcon from "@mui/icons-material/Person";
-import MenuItem from "@mui/material/MenuItem";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import Logo from "../assets/defi-icon.jpeg";
 
 const Header = ({ play, setPlay }) => {
@@ -52,8 +51,8 @@ const Header = ({ play, setPlay }) => {
     <Box>
       <Box
         sx={{
-          width: "100wh",
-          height: "4rem",
+          width: "100vw",
+          height: "4.5rem",
           backgroundColor: "black",
           color: "white",
           display: "flex",
@@ -61,17 +60,18 @@ const Header = ({ play, setPlay }) => {
           alignItems: "center",
           pl: "1rem",
           pr: "1rem",
-          zIndex: "2",
-          maxWidth:"1536px",
-          m:"auto"
+          zIndex: 4,
+          maxWidth: "1536px",
+          m: "auto",
+          position: "relative",
         }}
       >
-        {/* <Hamburger
+        <Hamburger
           direction="right"
           size="22"
           toggled={isOpen}
           toggle={togglePlay}
-        /> */}
+        />
         <Box style={headerStyles.container}>
           <img src={Logo} alt="Rotating Logo" style={headerStyles.image} />
           <div style={headerStyles.rotatingBorder}></div>
@@ -88,24 +88,53 @@ const Header = ({ play, setPlay }) => {
             `}
           </style>
         </Box>
-        <PersonIcon />
       </Box>
       <Box
         sx={{
-          zIndex: "1",
-          height: "calc(100vh - 4rem)",
+          zIndex: 2,
+          height: "10rem",
           backgroundColor: "black",
           color: "white",
           position: "absolute",
-          top: isOpen ? "4rem" : "-100%",
-          transition: "top 2s ease",
+          top: isOpen ? "2rem" : "-100%",
+          transition: "top 1s ease",
           left: 0,
           right: 0,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          p: 2,
         }}
       >
-        <MenuItem>Profile</MenuItem>
-        <MenuItem>My account</MenuItem>
-        <MenuItem>Logout</MenuItem>
+        <Link to="/login" style={{ textDecoration: 'none', width: '100%' }}>
+          <MenuItem
+             sx={{
+              textAlign: 'center',
+              fontSize: { xs: '1rem', sm: '1rem', md: '1.2rem' },
+              padding: '0.5rem 0.5rem', color:"white",
+              '&:hover': {
+                backgroundColor: 'transparent',
+              },
+            }}
+          >
+            Login
+          </MenuItem>
+        </Link>
+        <Link to="/register" style={{ textDecoration: 'none', width: '100%' }}>
+          <MenuItem
+            sx={{
+              textAlign: 'center',
+              fontSize: { xs: '1rem', sm: '1rem', md: '1.2rem' },
+              padding: '0.5rem 0.5rem', color:"white",
+              '&:hover': {
+                backgroundColor: 'transparent',
+              },
+            }}
+          >
+            Register
+          </MenuItem>
+        </Link>
       </Box>
     </Box>
   );
