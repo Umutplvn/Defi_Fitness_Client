@@ -24,12 +24,7 @@ const Login = () => {
   });
 
   const [showPassword, setShowPassword] = useState(false);
-  const customErrorStyle = {
-    backgroundColor: '#FCD8DC',
-    color: '#A94442',
-    textAlign: 'center',
-    borderRadius: '8px',
-  };
+
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -39,9 +34,7 @@ const Login = () => {
     try {
       await login(info);
     } catch (error) {
-      toast("Login failed. Please try again.", {
-        style: customErrorStyle, 
-      })
+      toast("Login failed. Please try again.")
     } finally {
       setLoading(false);
     }
@@ -61,9 +54,7 @@ const Login = () => {
     e.preventDefault();
     {
       info.password.length < 8
-        ? toast("Password must be at least 8 character.", {
-          style: customErrorStyle, 
-        })
+        ? toast("Password must be at least 8 character.")
         : submitFunc();
     }
   };

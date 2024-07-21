@@ -15,21 +15,6 @@ const EmailVerification = () => {
   const [expired, setExpired] = useState(false);
   const [remainingTime, setRemainingTime] = useState(60);
  
- 
-  const customErrorStyle = {
-    backgroundColor: '#FCD8DC',
-    color: '#A94442',
-    textAlign: 'center',
-    borderRadius: '8px',
-  };
-  
-  const customSuccessStyle = {
-    backgroundColor: '#cdf2bf', 
-    color: '#47a444', 
-    textAlign: 'center',
-    borderRadius: '8px',
-  };
-
 
   useEffect(() => {
     let timer;
@@ -38,9 +23,7 @@ const EmailVerification = () => {
         deleteUser(userId);
         setExpired(true);
         navigate("/register");
-        toast("Time is up!", {
-          style: customErrorStyle, 
-        })
+        toast("Time is up!")
       }, 60000);
     }
 
@@ -57,13 +40,9 @@ const EmailVerification = () => {
       update(userId, { verified: true });
       navigate("/blogs");
 
-      toast("Welcome to DEFI", {
-        style: customSuccessStyle, 
-      })
+      toast("Welcome to DEFI")
     } else {
-      toast("Passcode is wrong!", {
-        style: customErrorStyle, 
-      })
+      toast("Passcode is wrong!")
       setPass("");
     }
   };

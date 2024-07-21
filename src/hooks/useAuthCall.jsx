@@ -21,20 +21,6 @@ const useAuthCall = () => {
   const navigate = useNavigate();
   const { axiosWithToken } = useAxios();
 
-  const customErrorStyle = {
-    backgroundColor: '#FCD8DC',
-    color: '#A94442',
-    textAlign: 'center',
-    borderRadius: '8px',
-  };
-  
-  const customSuccessStyle = {
-    backgroundColor: '#cdf2bf', 
-    color: '#47a444', 
-    textAlign: 'center',
-    borderRadius: '8px',
-  };
-
 
   //! REGISTER FUNCTION
   const register = async (userData) => {
@@ -49,9 +35,7 @@ const useAuthCall = () => {
     } catch (error) {
       console.log('Error during registration:', error?.response?.data?.message);
       dispatch(fetchFail());
-      toast(error?.response?.data?.message, {
-        style: customErrorStyle
-      })
+      toast(error?.response?.data?.message)
     }
   };
   
@@ -66,21 +50,15 @@ const useAuthCall = () => {
       );
       if (!data?.result?.verified) {
         deleteUser(data?.result?._id);
-        toast("No such account found!", {
-          style: customErrorStyle, 
-        })
+        toast("No such account found!")
       } else {
         dispatch(loginSuccess(data));
-        toast("Welcome to the DEFI.", {
-          style: customSuccessStyle, 
-        })
+        toast("Welcome to the DEFI.")
         navigate("/blogs");
       }
     } catch (error) {
       dispatch(fetchFail());
-      toast("Invalid login. Please check your details and try again.", {
-        style: customErrorStyle, 
-      })
+      toast("Invalid login. Please check your details and try again.")
         }
   };
 
@@ -98,9 +76,7 @@ const useAuthCall = () => {
     } catch (error) {
       console.log('Error during registration:', error?.response?.data?.message);
       dispatch(fetchFail());
-      toast(error?.response?.data?.message, {
-        style: customErrorStyle
-      })
+      toast(error?.response?.data?.message)
     }
   };
   
@@ -113,14 +89,10 @@ const useAuthCall = () => {
         password
       );
       dispatch(passwordUpdateSuccess(res));
-      toast("Password Changed Successfully", {
-        style: customSuccessStyle
-      })
+      toast("Password Changed Successfully")
     } catch (error) {
       dispatch(fetchFail());
-  toast("Failed to change password", {
-    style: customErrorStyle
-  })
+  toast("Failed to change password")
     }
   };
 
@@ -135,9 +107,7 @@ const useAuthCall = () => {
       dispatch(deleteSuccess(data));
     } catch (error) {
       dispatch(fetchFail());
-      toast("User delete failed! ✖️", {
-        style: customErrorStyle, 
-      })
+      toast("User delete failed!")
     }
     
   };
