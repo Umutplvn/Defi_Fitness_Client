@@ -74,7 +74,7 @@ const useAuthCall = () => {
         toast("Welcome to the DEFI.", {
           style: customSuccessStyle, 
         })
-        navigate("/");
+        navigate("/blogs");
       }
     } catch (error) {
       dispatch(fetchFail());

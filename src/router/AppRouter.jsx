@@ -10,6 +10,8 @@ import Video from "../components/Video";
 import AboutPage from "../components/AboutPage";
 import MembershipPlans from "../components/MembershipPlans";
 import Contact from "../components/Contact";
+import Blogs from "../pages/Blogs";
+import PrivateRouter from "../pages/PrivateRouter";
 
 const AppRouter = () => {
   return (
@@ -23,11 +25,16 @@ const AppRouter = () => {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/membership" element={<MembershipPlans />} />
         <Route path="/contact" element={<Contact />} />
-        {/* <Route path="/" element={<PrivateRouter />}> */}
         <Route path="/verification" element={<EmailVerification />} />
-        <Route path="/forgotpass" element={<ForgotPass/>} />
-        <Route path="/reset-password/:userId" element={<ResetForgottenPass/>} />
-        {/* </Route> */}
+        <Route path="/forgotpass" element={<ForgotPass />} />
+        <Route
+          path="/reset-password/:userId"
+          element={<ResetForgottenPass />}
+        />
+        {/*PIRVATE ROUTER */}
+        <Route path="/" element={<PrivateRouter />}>
+          <Route path="/blogs" element={<Blogs />} />
+        </Route>
       </Routes>
     </>
   );
