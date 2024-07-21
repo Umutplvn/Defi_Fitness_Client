@@ -38,7 +38,7 @@ const EmailVerification = () => {
     e.preventDefault();
     if (passcode == pass) {
       update(userId, { verified: true });
-      navigate("/blogs");
+      navigate("/home");
 
       toast("Welcome to DEFI")
     } else {

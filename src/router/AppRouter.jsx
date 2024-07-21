@@ -17,10 +17,9 @@ const AppRouter = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/index" index element={<Index />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/index" index element={<Index />} />
         <Route path="/video" element={<Video />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/membership" element={<MembershipPlans />} />
@@ -33,6 +32,7 @@ const AppRouter = () => {
         />
         {/*PIRVATE ROUTER */}
         <Route path="/" element={<PrivateRouter />}>
+          <Route path="/home" element={<Home />} />
           <Route path="/blogs" element={<Blogs />} />
         </Route>
       </Routes>
