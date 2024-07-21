@@ -9,8 +9,7 @@ import Index from "../pages/Index";
 import Video from "../components/Video";
 import AboutPage from "../components/AboutPage";
 import MembershipPlans from "../components/MembershipPlans";
-import Services from "../components/Services";
-import ManageProfile from "../components/ManageProfile";
+import Contact from "../components/Contact";
 
 const AppRouter = () => {
   return (
@@ -23,8 +22,7 @@ const AppRouter = () => {
         <Route path="/video" element={<Video />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/membership" element={<MembershipPlans />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/manageprofile" element={<ManageProfile />} />
+        <Route path="/contact" element={<Contact />} />
         {/* <Route path="/" element={<PrivateRouter />}> */}
         <Route path="/verification" element={<EmailVerification />} />
         <Route path="/forgotpass" element={<ForgotPass/>} />

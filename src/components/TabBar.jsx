@@ -35,9 +35,6 @@ const TabBar = () => {
         <Link to="membership" spy={true} smooth={true} offset={0} duration={500}>
           <MilitaryTechIcon sx={{ cursor: "pointer", ":hover": { scale: "1.1" }, color: "black" }} />
         </Link>
-        <Link to="services" spy={true} smooth={true} offset={0} duration={500}>
-          <AccountTreeIcon sx={{ cursor: "pointer", ":hover": { scale: "1.1" }, color: "black" }} />
-        </Link>
         <Link to="contact" spy={true} smooth={true} offset={50} duration={500}>
           <ContactMailIcon sx={{ cursor: "pointer", ":hover": { scale: "1.1" }, color: "black" }} />
         </Link>
