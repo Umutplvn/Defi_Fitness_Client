@@ -1,6 +1,5 @@
 import { BrowserRouter } from "react-router-dom";
 import AppRouter from "./router/AppRouter";
-import store from "./app/store";
 import { ToastBar, Toaster } from "react-hot-toast";
 
 function App() {
