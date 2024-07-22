@@ -18,40 +18,68 @@ import BookmarkBorderRoundedIcon from "@mui/icons-material/BookmarkBorderRounded
 import useDataCall from "../hooks/useDataCall";
 import { useSelector } from "react-redux";
 import { useTheme } from "@mui/material/styles";
-
+import { TextField } from "@mui/material";
 
 const Blogs = () => {
-
   const tags = [
-    'Oliver Hansen',
-    'Van Henry',
-    'April Tucker',
-    'Ralph Hubbard',
-    'Omar Alexander',
-    'Carlos Abbott',
-    'Miriam Wagner',
-    'Bradley Wilkerson',
-    'Virginia Andrews',
-    'Kelly Snyder',
+    "Oliver Hansen",
+    "Van Henry",
+    "April Tucker",
+    "Ralph Hubbard",
+    "Omar Alexander",
+    "Carlos Abbott",
+    "Miriam Wagner",
+    "Bradley Wilkerson",
+    "Virginia Andrews",
+    "Kelly Snyder",
   ];
-  
+
   const { getBlogs } = useDataCall();
   const { blogs } = useSelector((state) => state?.appData);
   React.useEffect(() => {
     getBlogs();
   }, []);
 
-
-
   const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
 
-
-
   return (
     <Box>
+      <Box
+        sx={{
+          width: "100wh",
+          display: "flex",
+          justifyContent: "center",
+          pt: "2rem",
+        }}
+      >
+        <TextField
+          placeholder="Search in Blogs"
+          variant="outlined"
+          sx={{
+            width: { xs: "10rem", md: "20rem" },
+            borderRadius: "2rem",
+            "& .MuiOutlinedInput-root": {
+              height: "2.2rem",
+              "& fieldset": {
+                borderColor: "black",
+                borderRadius: "2rem",
+              },
+              "&:hover fieldset": {
+                borderColor: "orange",
+              },
+              "&.Mui-focused fieldset": {
+                borderColor: "orange",
+              },
+              "& input": {
+                height: "auto",
+                padding: "0.75rem",
+              },
+            },
+          }}
+        />
+      </Box>
 
-<Typography>SELECT BOX EKLENECEK</Typography>
       <Box
         sx={{
           display: "flex",
