@@ -12,6 +12,9 @@ import MembershipPlans from "../components/MembershipPlans";
 import Contact from "../components/Contact";
 import Blogs from "../pages/Blogs";
 import PrivateRouter from "../pages/PrivateRouter";
+import Profile from "../pages/Profile";
+import Videos from "../pages/Videos";
+import Mails from "../pages/Mails";
 
 const AppRouter = () => {
   return (
@@ -32,8 +35,12 @@ const AppRouter = () => {
         />
         {/*PIRVATE ROUTER */}
         <Route path="/" element={<PrivateRouter />}>
-          <Route path="/home" element={<Home />} />
+        <Route>
           <Route path="/blogs" element={<Blogs />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/videos" element={<Videos/>} />
+          <Route path="/emails" element={<Mails/>} />
+        </Route>
         </Route>
       </Routes>
     </>

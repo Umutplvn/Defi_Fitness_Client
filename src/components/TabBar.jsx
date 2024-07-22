@@ -2,7 +2,6 @@ import React from "react";
 import Box from "@mui/material/Box";
 import HomeMaxRoundedIcon from '@mui/icons-material/HomeMaxRounded';
 import InfoIcon from "@mui/icons-material/Info";
-import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
 import { Link } from "react-scroll";
 import MilitaryTechIcon from '@mui/icons-material/MilitaryTech';

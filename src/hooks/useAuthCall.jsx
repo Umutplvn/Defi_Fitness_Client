@@ -54,7 +54,7 @@ const useAuthCall = () => {
       } else {
         dispatch(loginSuccess(data));
         toast("Welcome to the DEFI.")
-        navigate("/home");
+        navigate("/blogs");
       }
     } catch (error) {
       dispatch(fetchFail());
@@ -72,7 +72,7 @@ const useAuthCall = () => {
         email
       );
       dispatch(loginSuccess(data));
-      navigate("/home");
+      navigate("/blogs");
     } catch (error) {
       console.log('Error during registration:', error?.response?.data?.message);
       dispatch(fetchFail());
