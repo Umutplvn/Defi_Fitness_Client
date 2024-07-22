@@ -37,6 +37,7 @@ const TabBar = () => {
         <Link to="contact" spy={true} smooth={true} offset={50} duration={500}>
           <ContactMailIcon sx={{ cursor: "pointer", ":hover": { scale: "1.1" }, color: "black" }} />
         </Link>
+       
       </Box>
     </Box>
   );

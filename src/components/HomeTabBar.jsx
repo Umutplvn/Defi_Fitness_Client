@@ -4,6 +4,8 @@ import DescriptionIcon from "@mui/icons-material/Description";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 import EmailIcon from "@mui/icons-material/Email";
 import { Link } from "react-router-dom";
+import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
+
 const HomeTabBar = () => {
   return (
     <Box sx={{ width: "100vw", display: "flex", justifyContent: "center" }}>
@@ -45,6 +47,15 @@ const HomeTabBar = () => {
 
         <Link to="/emails">
           <EmailIcon
+            sx={{
+              cursor: "pointer",
+              ":hover": { scale: "1.1" },
+              color: "black",
+            }}
+          />
+        </Link>
+        <Link to="/paidcontent">
+          <WorkspacePremiumIcon
             sx={{
               cursor: "pointer",
               ":hover": { scale: "1.1" },

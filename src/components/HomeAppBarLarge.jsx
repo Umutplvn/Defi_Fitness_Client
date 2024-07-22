@@ -6,10 +6,10 @@ import { useSelector } from "react-redux";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 import EmailIcon from "@mui/icons-material/Email";
 import DescriptionIcon from "@mui/icons-material/Description";
+import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 
 const HomeAppBarLarge = () => {
   const { avatar } = useSelector((state) => state.auth);
-  console.log(avatar);
 
   return (
     <Box
@@ -20,7 +20,7 @@ const HomeAppBarLarge = () => {
         color: "white",
         display: "flex",
         flexDirection: "column",
-        gap:"3rem",
+        gap: "3rem",
         alignItems: "center",
         borderWidth: "0 4px 0 0",
         borderStyle: "solid",
@@ -55,7 +55,6 @@ const HomeAppBarLarge = () => {
         },
       }}
     >
-
       {/* LOGO */}
       <Link
         to="/blogs"
@@ -111,101 +110,130 @@ const HomeAppBarLarge = () => {
         </Box>
       </Link>
 
-      <Box sx={{display:"flex", flexDirection:"column",  gap:"1.5rem", mt:"50%"}}>
-    {/* BLOGS */}
-    <Link
-        to="/blogs"
-        style={{
+      <Box
+        sx={{
           display: "flex",
-          alignItems: "center",
-          gap: "0.5rem",
-          textDecoration: "none",
-          color: "white",
+          flexDirection: "column",
+          gap: "1.5rem",
+          mt: "50%",
         }}
       >
-        <DescriptionIcon style={{ fontSize: "2.2rem" }} />
-
-        <Typography
-          sx={{
-            display: { xs: "none", md: "block" },
-            ml: 1,
+        {/* BLOGS */}
+        <Link
+          to="/blogs"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "0.5rem",
+            textDecoration: "none",
+            color: "white",
           }}
         >
-          Blogs
-        </Typography>
-      </Link>
-   
-      {/* VIDEOS */}
-      <Link
-        to="/videos"
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "0.5rem",
-          textDecoration: "none",
-          color: "white",
-        }}
-      >
-        <PlayCircleIcon style={{ fontSize: "2.2rem" }} />
+          <DescriptionIcon style={{ fontSize: "2.2rem" }} />
 
-        <Typography
-          sx={{
-            display: { xs: "none", md: "block" },
-            ml: 1,
+          <Typography
+            sx={{
+              display: { xs: "none", md: "block" },
+              ml: 1,
+            }}
+          >
+            Blogs
+          </Typography>
+        </Link>
+
+        {/* VIDEOS */}
+        <Link
+          to="/videos"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "0.5rem",
+            textDecoration: "none",
+            color: "white",
           }}
         >
-          Videos
-        </Typography>
-      </Link>
+          <PlayCircleIcon style={{ fontSize: "2.2rem" }} />
 
-  
-      {/* EMAIL */}
-      <Link
-        to="/emails"
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "0.5rem",
-          textDecoration: "none",
-          color: "white",
-        }}
-      >
-        <EmailIcon style={{ fontSize: "2.2rem" }} />
+          <Typography
+            sx={{
+              display: { xs: "none", md: "block" },
+              ml: 1,
+            }}
+          >
+            Videos
+          </Typography>
+        </Link>
 
-        <Typography
-          sx={{
-            display: { xs: "none", md: "block" },
-            ml: 1,
+        {/* EMAIL */}
+        <Link
+          to="/emails"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "0.5rem",
+            textDecoration: "none",
+            color: "white",
           }}
         >
-          Emails
-        </Typography>
-      </Link>
-         {/* PROFILE */}
-         <Link
-        to="/profile"
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "0.5rem",
-          textDecoration: "none",
-          color: "white",
-        }}
-      >
-        {avatar ? (
-          <Avatar src={avatar} sx={{ width: "2.2rem", height: "2.2rem" }} />
-        ) : (
-          <Avatar sx={{ width: "2.2rem", height: "2.2rem" }} />
-        )}
-        <Typography
-          sx={{
-            display: { xs: "none", md: "block" },
-            ml: 1,
+          <EmailIcon style={{ fontSize: "2.2rem" }} />
+
+          <Typography
+            sx={{
+              display: { xs: "none", md: "block" },
+              ml: 1,
+            }}
+          >
+            Emails
+          </Typography>
+        </Link>
+        {/* PROFILE */}
+        <Link
+          to="/profile"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "0.5rem",
+            textDecoration: "none",
+            color: "white",
           }}
         >
-          Profile
-        </Typography>
-      </Link>
+          {avatar ? (
+            <Avatar src={avatar} sx={{ width: "2.2rem", height: "2.2rem" }} />
+          ) : (
+            <Avatar sx={{ width: "2.2rem", height: "2.2rem" }} />
+          )}
+          <Typography
+            sx={{
+              display: { xs: "none", md: "block" },
+              ml: 1,
+            }}
+          >
+            Profile
+          </Typography>
+        </Link>
+
+        {/* PAID CONTENT */}
+        <Link
+          to="/paidcontent"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "0.5rem",
+            textDecoration: "none",
+            color: "white",
+          }}
+        >
+          <WorkspacePremiumIcon style={{ fontSize: "2.4rem" }} />
+
+          <Typography
+            sx={{
+              display: { xs: "none", md: "block" },
+              ml: 1,
+            }}
+          >
+            Premium
+          </Typography>
+        </Link>
       </Box>
     </Box>
   );

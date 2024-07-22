@@ -1,5 +1,4 @@
 import { Route, Routes } from "react-router";
-import Home from "../pages/Home";
 import Register from "../pages/Register";
 import Login from "../pages/Login";
 import EmailVerification from "../pages/EmailVerification";
@@ -15,6 +14,7 @@ import PrivateRouter from "../pages/PrivateRouter";
 import Profile from "../pages/Profile";
 import Videos from "../pages/Videos";
 import Mails from "../pages/Mails";
+import PaidContent from "../pages/PaidContent";
 
 const AppRouter = () => {
   return (
@@ -40,6 +40,7 @@ const AppRouter = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/videos" element={<Videos/>} />
           <Route path="/emails" element={<Mails/>} />
+          <Route path="/paidcontent" element={<PaidContent/>} />
         </Route>
         </Route>
       </Routes>

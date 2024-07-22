@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import toast from "react-hot-toast";
 import useAxios from "./useAxios";
-import { customToast } from "../styles/authCallStyle";
 import {
   fetchStart,
   fetchFail,
