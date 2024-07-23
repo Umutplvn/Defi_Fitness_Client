@@ -40,10 +40,10 @@ const HomeAppBarLarge = () => {
           width: "5px",
           height: "100%",
           background:
-            "linear-gradient(to bottom, orange 0%, orange 50%,orange) 100%)",
+            "linear-gradient(to bottom, #FE5E00 0%, #FE5E00 50%,#FE5E00) 100%)",
           animation: "shine 4s infinite",
           borderRadius: "0 1rem 1rem 0",
-          boxShadow: "0 0 4px orange",
+          boxShadow: "0 0 4px #FE5E00",
         },
         "@keyframes shine": {
           "0%": {
