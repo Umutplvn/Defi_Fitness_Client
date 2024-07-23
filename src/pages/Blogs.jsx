@@ -20,11 +20,16 @@ import { useEffect } from "react";
 import { useState } from "react";
 import formatDateTime from "../helper/formatDateTime";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import useAuthCall from "../hooks/useAuthCall";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
+import { useNavigate } from "react-router-dom";
 
 const Blogs = () => {
   const { getBlogs, likeBlog } = useDataCall();
+  const { saveBlog } = useAuthCall();
+  const navigate=useNavigate()
   const { blogs } = useSelector((state) => state?.appData);
-  const { userId } = useSelector((state) => state?.auth);
+  const { userId, savedBlog } = useSelector((state) => state?.auth);
   const [search, setSearch] = useState("");
   const publicBlogs = blogs?.filter((item) => item.status == "public");
   const filteredBlogs = publicBlogs.filter(
@@ -32,8 +37,6 @@ const Blogs = () => {
       item.category_name.toLowerCase().includes(search.toLowerCase()) ||
       item.title.toLowerCase().includes(search.toLowerCase())
   );
-
-  console.log(blogs);
 
   useEffect(() => {
     getBlogs();
@@ -94,6 +97,7 @@ const Blogs = () => {
         {filteredBlogs?.map((item) => {
           return (
             <Card
+            onClick={()=>navigate(`/blogs/${item._id}`)}
               variant="outlined"
               sx={{
                 maxWidth: "310px",
@@ -158,15 +162,16 @@ const Blogs = () => {
                         sx={{
                           display: "flex",
                           alignItems: "center",
-                          marginRight: "0.5rem",
+                          width:"2.4rem"
                         }}
                       >
                         {item.likes.some((like) => like == userId) ? (
                           <FavoriteIcon
-                            sx={{ color: "red", marginRight: "0.1rem" }}
+                          style={{ fontSize: "1.5rem", marginRight: "0.1rem", color:"red"}}
                           />
                         ) : (
-                          <FavoriteBorderIcon sx={{ marginRight: "0.1rem" }} />
+                          <FavoriteBorderIcon                         style={{ fontSize: "1.5rem", marginRight: "0.1rem" }}
+                          />
                         )}
                         <Typography sx={{ fontSize: "1rem", color: "#535353" }}>
                           {item?.likes_n}
@@ -178,11 +183,13 @@ const Blogs = () => {
                       variant="plain"
                       color="neutral"
                       size="sm"
-                      sx={{ marginRight: "0.5rem" }}
+                      
+                      sx={{ width:"2.6rem", textAlign:"start"          
+                    }}
                     >
                       <MessageOutlinedIcon
-                        style={{ fontSize: "1.5rem", marginRight: "0.1rem" }}
-                      />
+                        style={{ fontSize: "1.5rem", marginRight: "0.2rem" }}
+                        />
                       <Typography sx={{ fontSize: "1rem", color: "#535353" }}>
                         {item?.comments.length}
                       </Typography>
@@ -190,7 +197,7 @@ const Blogs = () => {
                     {/* POST VIEWS */}
                     <IconButton variant="plain" color="neutral" size="sm">
                       <VisibilityOutlinedIcon
-                        style={{ fontSize: "1.5rem", marginRight: "0.1rem" }}
+                        style={{ fontSize: "1.5rem", marginRight: "0.2rem" }}
                       />
                       <Typography sx={{ color: "black", fontSize: "0.9rem" }}>
                         {item?.post_views?.length}
@@ -198,8 +205,17 @@ const Blogs = () => {
                     </IconButton>
                   </Box>
                   {/*BOOK MARK  */}
-                  <IconButton variant="plain" color="neutral" size="sm">
-                    <BookmarkBorderIcon style={{ fontSize: "1.5rem" }} />
+                  <IconButton
+                    variant="plain"
+                    color="neutral"
+                    size="sm"
+                    onClick={() => saveBlog({ blogId: item?._id })}
+                  >
+                    {savedBlog.some((save) => save._id === item._id) ? (
+                      <BookmarkIcon style={{ fontSize: "1.5rem" }} />
+                    ) : (
+                      <BookmarkBorderIcon style={{ fontSize: "1.5rem" }} />
+                    )}
                   </IconButton>
                 </Box>
               </CardContent>

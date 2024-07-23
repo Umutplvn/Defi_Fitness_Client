@@ -3,59 +3,50 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import toast from "react-hot-toast";
 import useAxios from "./useAxios";
-import {fetchStart, fetchFail, getBlogsSuccess } from "../features/dataSlice";
-
+import { fetchStart, fetchFail, getBlogsSuccess } from "../features/dataSlice";
 
 const useDataCall = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { axiosWithToken } = useAxios();
 
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const { axiosWithToken } = useAxios();
-  
-  
-    const getBlogs = async () => {
+  // GET BLOGS
+  const getBlogs = async () => {
     dispatch(fetchStart());
     try {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/blog/list`);
+        `${process.env.REACT_APP_BASE_URL}/blog/list`
+      );
       dispatch(getBlogsSuccess(data));
-
     } catch (error) {
-      toast('Error!');
+      toast("Error!");
       dispatch(fetchFail());
     }
   };
 
+  // LIKE BLOG
   const likeBlog = async (blogId) => {
     dispatch(fetchStart());
     try {
       const { data } = await axiosWithToken.post(
-        `${process.env.REACT_APP_BASE_URL}/blog/like`, blogId);
-        getBlogs()
+        `${process.env.REACT_APP_BASE_URL}/blog/like`,
+        blogId
+      );
+      getBlogs();
     } catch (error) {
-      toast('Error!');
+      toast("Error!");
       dispatch(fetchFail());
     }
   };
 
-  const readBlog = async (blogId) => {
-    dispatch(fetchStart());
-    try {
-      const { data } = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/blog/${blogId}`);
-      // dispatch(getBlogsSuccess(data));
 
-    } catch (error) {
-      toast('Error!');
-      dispatch(fetchFail());
-    }
-  };
 
 
   return {
     getBlogs,
-    likeBlog
-  }
-}
+    likeBlog,
+    
+  };
+};
 
-export default useDataCall
+export default useDataCall;

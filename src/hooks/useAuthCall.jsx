@@ -11,6 +11,7 @@ import {
   // logoutSuccess,
   passwordUpdateSuccess,
   deleteSuccess,
+  saveBlogSuccess
   // updateContactSuccess,
   // getMyContactsSuccess,
 } from "../features/authSlice";
@@ -125,6 +126,20 @@ const useAuthCall = () => {
     }
   };
 
+  //! SAVE BLOG
+  const saveBlog = async (blogId) => {
+    dispatch(fetchStart());
+    try {
+      const { data } = await axiosWithToken.post(
+        `${process.env.REACT_APP_BASE_URL}/users/savedblog`,
+        blogId
+      );
+      dispatch(saveBlogSuccess(data))
+    } catch (error) {
+      toast("Error!");
+      dispatch(fetchFail());
+    }
+  };
 
   // const logout = async () => {
   //   dispatch(fetchStart());
@@ -180,6 +195,7 @@ const useAuthCall = () => {
     // removeContact,
     // getMyContacts,
     passwordUpdate,
+    saveBlog
     // syncContacts,
   };
 };

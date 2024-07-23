@@ -16,6 +16,7 @@ import Videos from "../pages/Videos";
 import Mails from "../pages/Mails";
 import PaidContent from "../pages/PaidContent";
 import AdminPanel from "../pages/AdminPanel";
+import BlogRead from "../pages/BlogRead";
 
 const AppRouter = () => {
   return (
@@ -43,6 +44,7 @@ const AppRouter = () => {
           <Route path="/emails" element={<Mails/>} />
           <Route path="/paidcontent" element={<PaidContent/>} />
           <Route path="/adminpanel" element={<AdminPanel/>} />
+          <Route path="/blogs/:blogId" element={<BlogRead/>} />
         </Route>
         </Route>
       </Routes>
