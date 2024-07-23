@@ -26,8 +26,35 @@ const useDataCall = () => {
     }
   };
 
+  const likeBlog = async (blogId) => {
+    dispatch(fetchStart());
+    try {
+      const { data } = await axiosWithToken.post(
+        `${process.env.REACT_APP_BASE_URL}/blog/like`, blogId);
+        getBlogs()
+    } catch (error) {
+      toast('Error!');
+      dispatch(fetchFail());
+    }
+  };
+
+  const readBlog = async (blogId) => {
+    dispatch(fetchStart());
+    try {
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}/blog/${blogId}`);
+      // dispatch(getBlogsSuccess(data));
+
+    } catch (error) {
+      toast('Error!');
+      dispatch(fetchFail());
+    }
+  };
+
+
   return {
-    getBlogs
+    getBlogs,
+    likeBlog
   }
 }
 

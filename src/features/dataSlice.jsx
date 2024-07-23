@@ -23,6 +23,12 @@ export const dataSlice = createSlice({
       state.error = false;
       state.blogs=payload.result
     },
+
+    likeBlogSuccess: (state, { payload }) => {
+      state.loading = false;
+      state.error = false;
+      state.blogs=payload.result
+    },
   },
 });
 
