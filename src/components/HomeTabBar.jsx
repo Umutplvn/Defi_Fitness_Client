@@ -5,8 +5,11 @@ import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 import EmailIcon from "@mui/icons-material/Email";
 import { Link } from "react-router-dom";
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import { useSelector } from "react-redux";
 
 const HomeTabBar = () => {
+  const{isAdmin}=useSelector((state)=>state.auth)
   return (
     <Box sx={{ width: "100vw", display: "flex", justifyContent: "center" }}>
       <Box
@@ -25,6 +28,16 @@ const HomeTabBar = () => {
           padding: "10px",
         }}
       >
+       {isAdmin &&    <Link to="/adminpanel">
+          <AdminPanelSettingsIcon
+            sx={{
+              cursor: "pointer",
+              ":hover": { scale: "1.1" },
+              color: "black",
+            }}
+          />
+        </Link>}
+
         <Link to="/videos">
           <PlayCircleIcon
             sx={{

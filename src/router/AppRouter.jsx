@@ -15,6 +15,7 @@ import Profile from "../pages/Profile";
 import Videos from "../pages/Videos";
 import Mails from "../pages/Mails";
 import PaidContent from "../pages/PaidContent";
+import AdminPanel from "../pages/AdminPanel";
 
 const AppRouter = () => {
   return (
@@ -41,6 +42,7 @@ const AppRouter = () => {
           <Route path="/videos" element={<Videos/>} />
           <Route path="/emails" element={<Mails/>} />
           <Route path="/paidcontent" element={<PaidContent/>} />
+          <Route path="/adminpanel" element={<AdminPanel/>} />
         </Route>
         </Route>
       </Routes>

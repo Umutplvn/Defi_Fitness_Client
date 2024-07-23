@@ -7,10 +7,10 @@ import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 import EmailIcon from "@mui/icons-material/Email";
 import DescriptionIcon from "@mui/icons-material/Description";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
 const HomeAppBarLarge = () => {
-  const { avatar } = useSelector((state) => state.auth);
-
+  const { avatar, isAdmin } = useSelector((state) => state.auth);
   return (
     <Box
       sx={{
@@ -118,6 +118,30 @@ const HomeAppBarLarge = () => {
           mt: "50%",
         }}
       >
+        {/* ADMIN PANEL */}
+
+       {isAdmin && <Link
+          to="/adminpanel"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "0.5rem",
+            textDecoration: "none",
+            color: "white",
+          }}
+        >
+          <AdminPanelSettingsIcon style={{ fontSize: "2.2rem" }} />
+
+          <Typography
+            sx={{
+              display: { xs: "none", md: "block" },
+              ml: 1,
+            }}
+          >
+            Admin
+          </Typography>
+        </Link>}
+
         {/* BLOGS */}
         <Link
           to="/blogs"
@@ -140,6 +164,7 @@ const HomeAppBarLarge = () => {
             Blogs
           </Typography>
         </Link>
+
 
         {/* VIDEOS */}
         <Link
