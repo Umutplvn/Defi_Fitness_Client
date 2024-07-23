@@ -211,8 +211,31 @@ const HomeAppBarLarge = () => {
             Emails
           </Typography>
         </Link>
-        {/* PROFILE */}
+   
+        {/* PAID CONTENT */}
         <Link
+          to="/paidcontent"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "0.5rem",
+            textDecoration: "none",
+            color: "white",
+          }}
+        >
+          <WorkspacePremiumIcon style={{ fontSize: "2.4rem" }} />
+
+          <Typography
+            sx={{
+              display: { xs: "none", md: "block" },
+              ml: 1,
+            }}
+          >
+            Premium
+          </Typography>
+        </Link>
+             {/* PROFILE */}
+             <Link
           to="/profile"
           style={{
             display: "flex",
@@ -237,28 +260,6 @@ const HomeAppBarLarge = () => {
           </Typography>
         </Link>
 
-        {/* PAID CONTENT */}
-        <Link
-          to="/paidcontent"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "0.5rem",
-            textDecoration: "none",
-            color: "white",
-          }}
-        >
-          <WorkspacePremiumIcon style={{ fontSize: "2.4rem" }} />
-
-          <Typography
-            sx={{
-              display: { xs: "none", md: "block" },
-              ml: 1,
-            }}
-          >
-            Premium
-          </Typography>
-        </Link>
       </Box>
     </Box>
   );
