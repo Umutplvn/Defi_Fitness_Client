@@ -34,7 +34,7 @@ const Login = () => {
     try {
       await login(info);
     } catch (error) {
-      toast("Login failed. Please try again.")
+      toast("Login failed. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -64,43 +64,65 @@ const Login = () => {
     justifyContent: "center",
     flexDirection: "column",
     textAlign: "center",
+    position: "absolute",
   };
 
   return (
-    <Box sx={{
-      height: "100vh",
-      color: "white",
-      display: "flex",
-      justifyContent:"center",
-      gap:{ xs: "1rem", md: "10rem", xl: "15rem" },
-      borderWidth: "0 4px 0 0",
-      borderStyle: "solid",
-      borderColor: "white",
-      borderTopRightRadius: "1rem",
-      overflow: "hidden",
-      "&::after": {
-        content: '""',
-        width: "2px",
-        backgroundColor:"linear-gradient(to bottom, #fec6a6 0%, #FE5E00 50%,#FE5E00) 100%)",
-        height: "100%",
-        background:
-          "linear-gradient(to bottom, #fec6a6 0%, #FE5E00 50%,#FE5E00) 100%)",
-        animation: "shine 4s infinite",
-        borderRadius: "0 1rem 1rem 0",
-        boxShadow: "0 0 4px #FE5E00",
-      },
-      "@keyframes shine": {
-        "0%": {
-          transform: "translateY(-100%)",
-        },
-        "100%": {
-          transform: "translateY(100%)",
-        },
-      },
-    }}>
+    <Box
+      sx={
+        loading
+          ? {
+              height: "100vh",
+              color: "white",
+              display: "flex",
+              justifyContent: "center",
+              position: "relative",
+            }
+          : {
+              height: "100vh",
+              color: "white",
+              display: "flex",
+              justifyContent: "center",
+              position: "relative",
+              borderWidth: "0 4px 0 0",
+              borderStyle: "solid",
+              borderColor: "white",
+              borderTopRightRadius: "1rem",
+              overflow: "hidden",
+              "&::after": {
+                content: '""',
+                width: "2px",
+                position: "fixed",
+                right: { xs: "1rem", md: "10rem", xl: "15rem" },
+                backgroundColor:
+                  "linear-gradient(to bottom, #fec6a6 0%, #FE5E00 50%,#FE5E00) 100%)",
+                height: "100%",
+                background:
+                  "linear-gradient(to bottom, #fec6a6 0%, #FE5E00 50%,#FE5E00) 100%)",
+                animation: "shine 4s infinite",
+                borderRadius: "0 1rem 1rem 0",
+                boxShadow: "0 0 4px #FE5E00",
+              },
+              "@keyframes shine": {
+                "0%": {
+                  transform: "translateY(-100%)",
+                },
+                "100%": {
+                  transform: "translateY(100%)",
+                },
+              },
+            }
+      }
+    >
       <Box
-        display={{ position: "relative" }}
-        sx={{ width: "%100", display: "flex", justifyContent: "center" }}
+        sx={{
+          position: "fixed",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          zIndex: "3",
+        }}
       >
         {loading && (
           <img
@@ -109,7 +131,6 @@ const Login = () => {
             style={{
               width: "5rem",
               position: "absolute",
-              zIndex: "3",
               top: "50%",
             }}
           />

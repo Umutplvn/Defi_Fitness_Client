@@ -10,7 +10,11 @@ import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
 const HomeAppBarLarge = () => {
-  const { avatar, isAdmin } = useSelector((state) => state.auth);
+  const { avatar, isAdmin } = useSelector((state) => state?.auth);
+
+  console.log("avatar",avatar);
+
+
   return (
     <Box
       sx={{

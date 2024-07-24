@@ -39,6 +39,7 @@ export const authSlice = createSlice({
       state.name=payload?.result?.name;
       state.verified=payload?.result?.verified
       state.password=payload?.result?.password
+      state.isAdmin=false
     },
 
 
