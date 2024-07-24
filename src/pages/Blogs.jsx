@@ -5,7 +5,7 @@ import Box from "@mui/joy/Box";
 import Card from "@mui/joy/Card";
 import CardContent from "@mui/joy/CardContent";
 import CardOverflow from "@mui/joy/CardOverflow";
-import Link from "@mui/joy/Link";
+import Link from "@mui/material/Link";
 import IconButton from "@mui/joy/IconButton";
 import Typography from "@mui/joy/Typography";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -107,7 +107,6 @@ const Blogs = () => {
                     scale: "1.001",
                     transform: "ease in out",
                     transition: "0.5s",
-                    cursor: "pointer",
                   },
                 }}
               >
@@ -285,7 +284,14 @@ const Blogs = () => {
                     type="submit"
                     variant="contained"
                     onClick={() => navigate(`/blogs/${item._id}`)}
-                    style={{ color: "#ff5100", fontSize: "1rem" }}
+                    style={{ color: "#ff5100", fontSize: "1rem",
+                  
+                    "&:hover": {
+                      boxShadow: "rgba(17, 17, 26, 0.1) 32px 0px 16px",
+                      cursor: "pointer",
+                    },
+                  }}
+                 
                   >
                     Read More
                   </Typography>
