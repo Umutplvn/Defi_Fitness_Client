@@ -9,7 +9,7 @@ import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
 const Comments = ({ blog, setBlog }) => {
   const { axiosWithToken } = useAxios();
-  const { avatar, userId } = useSelector((state) => state.auth);
+  const { avatar, userId, isAdmin } = useSelector((state) => state.auth);
   const [text, setText] = useState();
   const { blogId } = useParams();
 
@@ -69,6 +69,8 @@ const Comments = ({ blog, setBlog }) => {
         <Avatar src={avatar} sx={{ mr: 1, my: 0.5 }} />
         <Box
           sx={{
+            type:"form",
+
             width: "100%",
             display: "flex",
             flexDirection: "column",
@@ -143,7 +145,7 @@ const Comments = ({ blog, setBlog }) => {
                   </Typography>
                 </Box>
 
-                {item?.comment?.userId == userId && (
+                {(item?.comment?.userId == userId || isAdmin) && (
                   <HighlightOffIcon
                   onClick={()=>deleteComment({commentId:item?._id})}
                     sx={{ fontSize: "0.9rem", cursor: "pointer" }}
