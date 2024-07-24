@@ -24,6 +24,8 @@ const BlogRead = () => {
   const { userId, savedBlog } = useSelector((state) => state?.auth);
   const { axiosWithToken } = useAxios();
   const [show, setShow] = useState(false);
+  
+
   const readBlog = async () => {
     try {
       const { data } = await axiosWithToken.get(
@@ -245,7 +247,7 @@ const BlogRead = () => {
             maxWidth:"1532px",
           }}>
 
-      {show && <Comments blog={blog} />}
+      {show && <Comments blog={blog}  setBlog={setBlog}/>}
       </Box>
     
 
