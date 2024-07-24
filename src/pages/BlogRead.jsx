@@ -146,7 +146,7 @@ const BlogRead = () => {
           >
             {blog?.title}
           </Typography>
-          <Typography sx={{ p: "0 1rem 0 1rem", mt: "1rem" }}>
+          <Typography sx={{pl:"1rem", pr:{xs:"1rem", md:"2rem"}, mt: "1rem" }}>
             {blog?.content}
           </Typography>
 
@@ -226,12 +226,13 @@ const BlogRead = () => {
             variant="plain"
             color="neutral"
             size="sm"
+            sx={{pr:{xs:"1rem", md:"2rem"}}}
             onClick={handleSaveBlog}
           >
             {savedBlog.some((save) => save._id === blog._id) ? (
-              <BookmarkIcon style={{ fontSize: "1.5rem" }} />
+              <BookmarkIcon style={{ fontSize: "1.5rem"}} />
             ) : (
-              <BookmarkBorderIcon style={{ fontSize: "1.5rem" }} />
+              <BookmarkBorderIcon style={{ fontSize: "1.5rem"}} />
             )}
           </IconButton>
         </Box>
@@ -248,8 +249,8 @@ const BlogRead = () => {
           }}>
 
       {show && <Comments blog={blog}  setBlog={setBlog}/>}
-      </Box>
     
+      </Box>
 
     </Box>
   );

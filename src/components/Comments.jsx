@@ -5,14 +5,15 @@ import TextField from "@mui/material/TextField";
 import { useSelector } from "react-redux";
 import useAxios from "../hooks/useAxios";
 import { useParams } from "react-router-dom";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
 const Comments = ({ blog, setBlog }) => {
   const { axiosWithToken } = useAxios();
-  const { avatar } = useSelector((state) => state.auth);
+  const { avatar, userId } = useSelector((state) => state.auth);
   const [text, setText] = useState();
   const { blogId } = useParams();
 
-//! CREATE A COMMENT   
+  //! CREATE A COMMENT
   const createComment = async () => {
     try {
       const { data } = await axiosWithToken.post(
@@ -20,28 +21,29 @@ const Comments = ({ blog, setBlog }) => {
         { blogId, text }
       );
       setBlog(data.result);
-      setText("")
+      setText("");
     } catch (error) {
       console.error("Error fetching blog data:", error);
     }
   };
 
-  //! DELETE A COMMENT   
-  const deleteComment = async (commentId) => {
+  //! DELETE A COMMENT
+  const deleteComment = async ({commentId}) => {
     try {
-      const { data } = await axiosWithToken.post(
+      const { data } = await axiosWithToken.delete(
         `${process.env.REACT_APP_BASE_URL}/comment/delete`,
-        { blogId, commentId }
+       { params: { blogId, commentId } }
       );
-      console.log(data);
-    //   setBlog(data.result);
+        setBlog(data.result);
     } catch (error) {
       console.error("Error fetching blog data:", error);
     }
   };
+
+  console.log(blog);
 
   return (
-    <Box sx={{ mb: "7rem", width:"100%" }}>
+    <Box sx={{ mb: "7rem", width: "100%" }}>
       {/* TITLE */}
       <Typography
         sx={{
@@ -75,8 +77,7 @@ const Comments = ({ blog, setBlog }) => {
           }}
         >
           <TextField
-          value={text}
-
+            value={text}
             id="input-with-sx"
             sx={{ width: "100%" }}
             variant="standard"
@@ -85,13 +86,13 @@ const Comments = ({ blog, setBlog }) => {
           />
           <Box sx={{ display: "flex", gap: "0.5rem" }}>
             <Button
-            onClick={()=>setText("")}
-              sx={{ fontSize:"0.8rem", color: "red", cursor: "pointer" }}
+              onClick={() => setText("")}
+              sx={{ fontSize: "0.8rem", color: "red", cursor: "pointer" }}
             >
               Cancel
             </Button>
             <Button
-            disabled={!text}
+              disabled={!text}
               onClick={createComment}
               sx={{ fontSize: "0.8rem", color: "green", cursor: "pointer" }}
             >
@@ -101,42 +102,57 @@ const Comments = ({ blog, setBlog }) => {
         </Box>
       </Box>
 
-
       {/* MAP COMMENTS */}
       {blog?.comments?.slice().reverse().map((item) => {
-        return (
-          <Box
-            key={item?._id}
-            sx={{ display: "flex", gap: "0.5rem", mb: "1rem" }}
-          >
-            
-            <Avatar src={item.comment.avatar} />
-            <Box>
-              <Typography
+          return (
+            <Box
+              key={item?._id}
+              sx={{ display: "flex", gap: "0.5rem", mb: "1rem", pr: "0.75rem" }}
+            >
+              <Avatar src={item.comment.avatar} />
+              <Box
                 sx={{
-                  fontSize: "0.9rem",
-                  fontWeight: "700",
-                  fontFamily: "sans-serif",
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "space-between",
                 }}
               >
-                {item.comment.name}
-              </Typography>
-              <Typography sx={{ fontSize: "0.9rem", fontFamily: "sans-serif" }}>
-                {item.comment.text}
-              </Typography>
-              <Typography
-                sx={{
-                  fontSize: "0.7rem",
-                  fontFamily: "sans-serif",
-                  color: "#7a7a7a",
-                }}
-              >
-                {formatDateTime(item.createdAt)}
-              </Typography>
+                <Box sx={{ width: "95%" }}>
+                  <Typography
+                    sx={{
+                      fontSize: "0.9rem",
+                      fontWeight: "700",
+                      fontFamily: "sans-serif",
+                    }}
+                  >
+                    {item.comment.name}
+                  </Typography>
+                  <Typography
+                    sx={{ fontSize: "0.9rem", fontFamily: "sans-serif" }}
+                  >
+                    {item.comment.text}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      fontSize: "0.7rem",
+                      fontFamily: "sans-serif",
+                      color: "#7a7a7a",
+                    }}
+                  >
+                    {formatDateTime(item.createdAt)}
+                  </Typography>
+                </Box>
+
+                {item?.comment?.userId == userId && (
+                  <HighlightOffIcon
+                  onClick={()=>deleteComment({commentId:item?._id})}
+                    sx={{ fontSize: "0.9rem", cursor: "pointer" }}
+                  />
+                )}
+              </Box>
             </Box>
-          </Box>
-        );
-      })}
+          );
+        })}
     </Box>
   );
 };
