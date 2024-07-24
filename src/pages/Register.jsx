@@ -78,7 +78,38 @@ const Register = () => {
   };
 
   return (
-    <Box>
+
+    <Box  sx={{
+      height: "100vh",
+      color: "white",
+      display: "flex",
+      justifyContent:"center",
+      gap:{ xs: "1rem", md: "10rem", xl: "15rem" },
+      borderWidth: "0 4px 0 0",
+      borderStyle: "solid",
+      borderColor: "white",
+      borderTopRightRadius: "1rem",
+      overflow: "hidden",
+      "&::after": {
+        content: '""',
+        width: "2px",
+        backgroundColor:"linear-gradient(to bottom, #fec6a6 0%, #FE5E00 50%,#FE5E00) 100%)",
+        height: "100%",
+        background:
+          "linear-gradient(to bottom, #fec6a6 0%, #FE5E00 50%,#FE5E00) 100%)",
+        animation: "shine 4s infinite",
+        borderRadius: "0 1rem 1rem 0",
+        boxShadow: "0 0 4px #FE5E00",
+      },
+      "@keyframes shine": {
+        "0%": {
+          transform: "translateY(-100%)",
+        },
+        "100%": {
+          transform: "translateY(100%)",
+        },
+      },
+    }}>
       <Box
         display={{ position: "relative" }}
         sx={{ width: "%100", display: "flex", justifyContent: "center" }}
