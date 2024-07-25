@@ -4,13 +4,12 @@ import { Link } from "react-router-dom";
 import Logo from "../assets/defi-icon.jpeg";
 import { useSelector } from "react-redux";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
-import EmailIcon from "@mui/icons-material/Email";
 import DescriptionIcon from "@mui/icons-material/Description";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
-
+import TelegramIcon from '@mui/icons-material/Telegram';
 const HomeAppBarLarge = () => {
-  const { avatar, isAdmin } = useSelector((state) => state?.auth);
+  const { avatar, isAdmin, membership } = useSelector((state) => state?.auth);
 
   console.log("avatar",avatar);
 
@@ -193,9 +192,9 @@ const HomeAppBarLarge = () => {
           </Typography>
         </Link>
 
-        {/* EMAIL */}
-        <Link
-          to="/emails"
+        {/* CHAT */}
+       {membership =="Basic" &&  <Link
+          to="/chat"
           style={{
             display: "flex",
             alignItems: "center",
@@ -204,7 +203,7 @@ const HomeAppBarLarge = () => {
             color: "white",
           }}
         >
-          <EmailIcon style={{ fontSize: "2.2rem" }} />
+          <TelegramIcon style={{ fontSize: "2.2rem" }} />
 
           <Typography
             sx={{
@@ -212,9 +211,9 @@ const HomeAppBarLarge = () => {
               ml: 1,
             }}
           >
-            Emails
+            Chat
           </Typography>
-        </Link>
+        </Link>}
    
         {/* PAID CONTENT */}
         <Link

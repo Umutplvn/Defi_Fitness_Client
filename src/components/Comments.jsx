@@ -40,7 +40,6 @@ const Comments = ({ blog, setBlog }) => {
     }
   };
 
-  console.log(blog);
 
   return (
     <Box sx={{ mb: "7rem", width: "100%" }}>

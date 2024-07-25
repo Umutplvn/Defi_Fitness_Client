@@ -16,7 +16,8 @@ export const authSlice = createSlice({
     password:"",
     passcode:"",
     sportBranch:[],
-    savedBlog:[]
+    savedBlog:[],
+    membership:"Basic"
   },
 
   reducers: {
@@ -74,6 +75,7 @@ export const authSlice = createSlice({
       state.isPremium=payload?.result?.isPremium
       state.sportBranch=payload?.result?.sportBranch
       state.savedBlog=payload?.result?.savedBlog
+      state.membership=payload?.result?.membership
     },
 
 

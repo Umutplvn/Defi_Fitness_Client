@@ -2,14 +2,14 @@ import React from "react";
 import Box from "@mui/material/Box";
 import DescriptionIcon from "@mui/icons-material/Description";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
-import EmailIcon from "@mui/icons-material/Email";
 import { Link } from "react-router-dom";
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import { useSelector } from "react-redux";
+import TelegramIcon from '@mui/icons-material/Telegram';
 
 const HomeTabBar = () => {
-  const{isAdmin}=useSelector((state)=>state.auth)
+  const{isAdmin, membership}=useSelector((state)=>state.auth)
   return (
     <Box sx={{ width: "100vw", display: "flex", justifyContent: "center" }}>
       <Box
@@ -58,15 +58,15 @@ const HomeTabBar = () => {
           />
         </Link>
 
-        <Link to="/emails">
-          <EmailIcon
-            sx={{
+        {membership =="Basic" &&  <Link
+          to="/chat"
+        >
+          <TelegramIcon  sx={{
               cursor: "pointer",
               ":hover": { scale: "1.1" },
               color: "black",
-            }}
-          />
-        </Link>
+            }}/>
+        </Link>}
         <Link to="/paidcontent">
           <WorkspacePremiumIcon
             sx={{
