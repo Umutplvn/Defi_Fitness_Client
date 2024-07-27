@@ -59,7 +59,7 @@ const HomeTabBar = () => {
         </Link>
 
         {membership =="Basic" &&  <Link
-          to="/chat"
+          to="/chats"
         >
           <TelegramIcon  sx={{
               cursor: "pointer",

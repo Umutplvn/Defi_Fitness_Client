@@ -14,22 +14,26 @@ import {
 import dayjs from "dayjs";
 import isToday from "dayjs/plugin/isToday";
 import isYesterday from "dayjs/plugin/isYesterday";
+import useAuthCall from "../hooks/useAuthCall";
 
 dayjs.extend(isToday);
 dayjs.extend(isYesterday);
 
 const Chats = () => {
+  const {listUsers}=useAuthCall()
   const { userId, users } = useSelector((state) => state?.auth);
   const [chats, setChats] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
+    listUsers()
     const fetchChats = async () => {
       try {
         const res = await axios.get(
-          `https://defi-chat-backend.onrender.com/api/messages/${userId}`
+          `https://defi-chat-backend.onrender.com/api/chats/${userId}`
         );
         setChats(res.data);
+        console.log("chats", chats);
       } catch (err) {
         console.error(err);
       }
@@ -38,6 +42,7 @@ const Chats = () => {
     fetchChats();
   }, [userId]);
 
+  console.log("user",users);
   const markMessagesAsRead = useCallback(
     async (receiverId) => {
       try {
@@ -60,7 +65,7 @@ const Chats = () => {
 
   const handleChatClick = (receiverId) => {
     markMessagesAsRead(receiverId);
-    navigate(`/chat/${receiverId}`); // Chat sayfasına yönlendir
+    navigate(`/chat/${receiverId}`); 
   };
 
   const getLastMessage = (receiverId) => {
@@ -156,7 +161,6 @@ const Chats = () => {
                   {getLastMessageTime(user._id)}
                 </Typography>
               </Box>
-<hr/>
             </Box>
           </ListItem>
 

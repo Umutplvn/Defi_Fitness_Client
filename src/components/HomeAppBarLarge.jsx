@@ -191,7 +191,7 @@ const HomeAppBarLarge = () => {
         </Link>
 
         {/*USER CHAT */}
-       {(membership !=="Basic" && isAdmin==true ) &&  <Link
+       {/* {(membership !=="Basic" && isAdmin==true ) &&  <Link
           to="/chat"
           style={{
             display: "flex",
@@ -211,7 +211,7 @@ const HomeAppBarLarge = () => {
           >
             Chat
           </Typography>
-        </Link>}
+        </Link>} */}
    
         {/*ADMIN CHAT */}
         {(isAdmin==true ) &&  <Link
