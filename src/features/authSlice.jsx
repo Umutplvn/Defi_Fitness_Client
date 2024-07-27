@@ -17,7 +17,8 @@ export const authSlice = createSlice({
     passcode:"",
     sportBranch:[],
     savedBlog:[],
-    membership:"Basic"
+    membership:"Basic",
+    users:[]
   },
 
   reducers: {
@@ -78,7 +79,11 @@ export const authSlice = createSlice({
       state.membership=payload?.result?.membership
     },
 
-
+    usersSuccess:(state, { payload }) => {
+      state.loading = false;
+      state.error = false;
+      state.users=payload.result
+    },
 
     passwordUpdateSuccess:(state, { payload }) => {
       state.password=payload?.data?.result?.password
@@ -125,7 +130,8 @@ export const {
   registerSuccess,
   deleteSuccess,
   passwordUpdateSuccess,
-  saveBlogSuccess
+  saveBlogSuccess,
+  usersSuccess
 
 } = authSlice.actions;
 

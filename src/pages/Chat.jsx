@@ -1,18 +1,21 @@
+// Chat.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import io from 'socket.io-client';
 import { useSelector } from 'react-redux';
-import '../styles/Chat.css'; // CSS dosyanızı ekleyin
+import { useParams } from 'react-router-dom';
+import { Box, Typography, TextField, Button, List, ListItem, ListItemText, ListItemAvatar, Avatar } from '@mui/material';
 
 // Güncellenmiş URL
 const socket = io('https://defi-chat-backend.onrender.com');
 
 const Chat = () => {
-  const { userId } = useSelector(state => state.auth); // Kullanıcı kimliğini Redux'tan al
+  const { userId } = useSelector(state => state?.auth);
+  const { chatUserId } = useParams(); 
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
   const [image, setImage] = useState(null);
-  const [onlineUsers, setOnlineUsers] = useState([]); // Çevrimiçi kullanıcıları saklamak için
+  const [video, setVideo] = useState(null);
 
   useEffect(() => {
     // Kullanıcıya özel odaya katıl
@@ -30,14 +33,8 @@ const Chat = () => {
       }
     });
 
-    // Çevrimiçi durumları dinleme
-    socket.on('updateOnlineStatus', (users) => {
-      setOnlineUsers(users);
-    });
-
     return () => {
       socket.off('message');
-      socket.off('updateOnlineStatus'); // Çevrimiçi durum güncellemelerini temizle
     };
   }, [userId]);
 
@@ -45,56 +42,60 @@ const Chat = () => {
     e.preventDefault();
     const formData = new FormData();
     formData.append('senderId', userId);
-    formData.append('receiverId', '669d7ae0f76cc629bd7c6204'); // Örnek alıcı ID'si
+    formData.append('receiverId', chatUserId);
     formData.append('message', message);
     if (image) {
       formData.append('image', image);
+    }
+    if (video) {
+      formData.append('video', video);
     }
 
     await axios.post('https://defi-chat-backend.onrender.com/api/messages', formData);
     setMessage('');
     setImage(null);
+    setVideo(null);
   };
 
   return (
-    <div className="chat-container">
-      <div className="chat-header">
-        <h1>Chat Application</h1>
-        <div className="online-status">
-          <h3>Online Users:</h3>
-          <ul>
-            {onlineUsers.map((id, index) => (
-              <li key={index}>{id}</li> // Kullanıcı ID'si veya adını burada gösterebilirsiniz
-            ))}
-          </ul>
-        </div>
-      </div>
-      <div className="chat-body">
-        <div className="messages">
-          {messages.map((msg, index) => (
-            <div key={index} className={`message ${msg.senderId === userId ? 'sent' : 'received'}`}>
-              <p>{msg.message}</p>
-              {msg.image && <img src={`https://defi-chat-backend.onrender.com/uploads/${msg.image}`} alt="Uploaded" />}
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="chat-footer">
-        <form onSubmit={handleSubmit} className="message-form">
-          <input
-            type="text"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            placeholder="Type a message"
-          />
-          <input
-            type="file"
-            onChange={(e) => setImage(e.target.files[0])}
-          />
-          <button type="submit">Send</button>
-        </form>
-      </div>
-    </div>
+    <Box sx={{ padding: '2rem' }}>
+      <Typography variant="h4">Chat with {chatUserId}</Typography>
+      <List>
+        {messages.map((msg, index) => (
+          <ListItem key={index}>
+            <ListItemAvatar>
+              <Avatar src={`https://example.com/avatars/${msg.senderId}.png`} />
+            </ListItemAvatar>
+            <ListItemText
+              primary={msg.message}
+              secondary={msg.timestamp}
+            />
+            {msg.image && <img src={`https://defi-chat-backend.onrender.com/uploads/${msg.image}`} alt="Uploaded" style={{ maxWidth: '200px', margin: '10px' }} />}
+            {msg.video && <video controls src={`https://defi-chat-backend.onrender.com/uploads/${msg.video}`} style={{ maxWidth: '200px', margin: '10px' }} />}
+          </ListItem>
+        ))}
+      </List>
+      <form onSubmit={handleSubmit}>
+        <TextField
+          variant="outlined"
+          fullWidth
+          placeholder="Type a message"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+        />
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => setImage(e.target.files[0])}
+        />
+        <input
+          type="file"
+          accept="video/*"
+          onChange={(e) => setVideo(e.target.files[0])}
+        />
+        <Button type="submit" variant="contained">Send</Button>
+      </form>
+    </Box>
   );
 };
 

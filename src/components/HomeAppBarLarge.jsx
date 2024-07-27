@@ -11,8 +11,6 @@ import TelegramIcon from '@mui/icons-material/Telegram';
 const HomeAppBarLarge = () => {
   const { avatar, isAdmin, membership } = useSelector((state) => state?.auth);
 
-  console.log("avatar",avatar);
-
 
   return (
     <Box

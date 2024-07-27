@@ -11,7 +11,8 @@ import {
   // logoutSuccess,
   passwordUpdateSuccess,
   deleteSuccess,
-  saveBlogSuccess
+  saveBlogSuccess,
+  usersSuccess
   // updateContactSuccess,
   // getMyContactsSuccess,
 } from "../features/authSlice";
@@ -126,6 +127,19 @@ const useAuthCall = () => {
     }
   };
 
+  //! LIST USERS
+  const listUsers = async () => {
+    dispatch(fetchStart());
+    try {
+      const { data } = await axiosWithToken.get(
+        `${process.env.REACT_APP_BASE_URL}/users/`
+      );
+      dispatch(usersSuccess(data));
+    } catch (error) {
+      dispatch(fetchFail());
+    }
+  };
+
   //! SAVE BLOG
   const saveBlog = async (blogId) => {
     dispatch(fetchStart());
@@ -191,6 +205,7 @@ const useAuthCall = () => {
     forgotPass,
     deleteUser,
     update,
+    listUsers,
     // addContact,
     // removeContact,
     // getMyContacts,
