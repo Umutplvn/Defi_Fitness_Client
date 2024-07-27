@@ -192,8 +192,8 @@ const HomeAppBarLarge = () => {
           </Typography>
         </Link>
 
-        {/* CHAT */}
-       {membership =="Basic" &&  <Link
+        {/*USER CHAT */}
+       {(membership !=="Basic" && isAdmin==true ) &&  <Link
           to="/chat"
           style={{
             display: "flex",
@@ -215,6 +215,28 @@ const HomeAppBarLarge = () => {
           </Typography>
         </Link>}
    
+        {/*ADMIN CHAT */}
+        {(isAdmin==true ) &&  <Link
+          to="/chats"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "0.5rem",
+            textDecoration: "none",
+            color: "white",
+          }}
+        >
+          <TelegramIcon style={{ fontSize: "2.2rem" }} />
+
+          <Typography
+            sx={{
+              display: { xs: "none", md: "block" },
+              ml: 1,
+            }}
+          >
+            Chats
+          </Typography>
+        </Link>}
         {/* PAID CONTENT */}
         <Link
           to="/paidcontent"

@@ -17,6 +17,7 @@ import PaidContent from "../pages/PaidContent";
 import AdminPanel from "../pages/AdminPanel";
 import BlogRead from "../pages/BlogRead";
 import Chats from "../pages/Chats";
+import Chat from "../pages/Chat";
 
 const AppRouter = () => {
   return (
@@ -41,7 +42,8 @@ const AppRouter = () => {
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/videos" element={<Videos/>} />
-          <Route path="/chat" element={<Chats/>} />
+          <Route path="/chat" element={<Chat/>} />
+          <Route path="/chats" element={<Chats/>} />
           <Route path="/paidcontent" element={<PaidContent/>} />
           <Route path="/adminpanel" element={<AdminPanel/>} />
           <Route path="/blogs/:blogId" element={<BlogRead/>} />
