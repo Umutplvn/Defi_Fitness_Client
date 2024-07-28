@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import LocalSeeIcon from '@mui/icons-material/LocalSee';
 import SendRoundedIcon from '@mui/icons-material/SendRounded';
-
+import loadingGif from "../assets/loading.gif"
 import {
   Box,
   Typography,
@@ -32,7 +32,7 @@ const Chat = () => {
   const user = users?.filter((user) => user._id === chatUserId);
   const navigate = useNavigate();
   const [fileName, setFileName] = useState('');
-const [loading, setLoading] = useState("Loading")
+  const [loading, setLoading] = useState(false); 
 
   useEffect(() => {
     const fetchMessages = async () => {
@@ -64,11 +64,9 @@ const [loading, setLoading] = useState("Loading")
     };
   }, [userId, chatUserId]);
 
-
-
   const handleSubmit = async (e) => {
-    setMessages([...messages, loading]);
     e.preventDefault();
+    setLoading(true); 
     const formData = new FormData();
     formData.append("senderId", userId);
     formData.append("receiverId", chatUserId);
@@ -96,7 +94,9 @@ const [loading, setLoading] = useState("Loading")
       setVideo(null);
     } catch (error) {
       console.error("Failed to send message", error);
-      toast("Failed to send message.")
+      toast("Failed to send message.");
+    } finally {
+      setLoading(false); 
     }
   };
 
@@ -123,7 +123,7 @@ const [loading, setLoading] = useState("Loading")
           boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
           borderBottomLeftRadius: "0.7rem",
           borderBottomRightRadius: "0.7rem",
-          height:"4rem"
+          height: "4rem"
         }}
       >
         <Box
@@ -134,12 +134,12 @@ const [loading, setLoading] = useState("Loading")
             display: "flex",
             alignItems: "start",
             cursor: "pointer",
-            mb:"0.8rem",
-            mr:"0.5rem"
+            mb: "0.8rem",
+            mr: "0.5rem"
           }}
           onClick={() => navigate("/chats")}
         >
-          <ReplyRoundedIcon sx={{fontSize:"2rem"}} />
+          <ReplyRoundedIcon sx={{ fontSize: "2rem" }} />
         </Box>
         <Avatar src={user[0].avatar} />
         <Typography>{user[0].name}</Typography>
@@ -148,7 +148,7 @@ const [loading, setLoading] = useState("Loading")
       <Box
         sx={{
           paddingLeft: { xs: "0", sm: "4rem", md: "9rem" },
-          mb:"8rem"
+          mb: "8rem"
         }}
       >
         <List>
@@ -224,63 +224,106 @@ const [loading, setLoading] = useState("Loading")
               )}
             </ListItem>
           ))}
+          {loading && (
+            <ListItem
+              alignItems="flex-start"
+              sx={{
+                display: "flex",
+                justifyContent: "flex-end",
+                padding: "1rem",
+              }}
+            >
+              <Box
+                sx={{
+                  width: "200px",
+                  height: "240px",
+                  borderRadius: "0.5rem",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  overflow: "hidden",
+                  backgroundColor: "rgba(255, 255, 255, 0.8)",
+                  boxShadow:
+                    "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
+                  backdropFilter: "blur(10px)",
+                }}
+              >
+
+                <img
+                  src={loadingGif}
+                  alt="Loading"
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    objectFit: "contain",
+                  }}
+                />
+              </Box>
+            </ListItem>
+          )}
         </List>
         <Box>
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            sx={{
+              display: "flex",
+              gap: "0.5rem",
+              padding: "1rem",
+              width: "100%",
+              alignItems: "center",
+              height: "3.7rem",
+              zIndex: "4",
+              backgroundColor: "white",
+              borderTopLeftRadius: "1rem",
+              borderTopRightRadius: "1rem",
+              boxShadow:
+                "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
+              position: "fixed",
+              bottom: "0rem",
+              right: "0"
+            }}
+          >
+            <input
+              type="file"
+              id="file-upload"
+              accept="image/*,video/*"
+              onChange={handleFileChange}
+              style={{ display: 'none' }}
+            />
+            <label htmlFor="file-upload">
+              <IconButton component="span">
+                <LocalSeeIcon sx={{ color: "black" }} />
+              </IconButton>
+            </label>
 
-        <Box
-          component="form"
-          onSubmit={handleSubmit}
-          sx={{ display: "flex", gap: "0.5rem", padding:"1rem", 
-          width:"100%",
-          alignItems:"center",
-          height:"3.7rem",
-          zIndex:"4",
-          backgroundColor:"white",
-          borderTopLeftRadius:"1rem",
-          borderTopRightRadius:"1rem",
-          boxShadow:
-          "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px", position:"fixed", bottom:"0rem", right:"0" }}
-        > 
-        <input
-        type="file"
-        id="file-upload"
-        accept="image/*,video/*"
-        onChange={handleFileChange}
-        style={{ display: 'none' }}
-      />
-      <label htmlFor="file-upload">
-        <IconButton  component="span">
-          <LocalSeeIcon sx={{color:"black"}} />
-        </IconButton>
-      </label>
-     
-      <TextField
-        variant="outlined"
-        fullWidth
-        sx={{
-          '& .MuiInputBase-root': {
-            height: '2rem',
-            padding: 0,
-            borderRadius:"2rem"
-          },
-          '& .MuiOutlinedInput-input': {
-            height: '2rem',
-            padding: '0 14px',
-          },
-          '& .MuiInputLabel-root': {
-            height: '2rem',
-            lineHeight: '2rem',
-          },
-        }}
-        placeholder="Type..."
-        value={message}
-            onChange={(e) => setMessage(e.target.value)}
-          />
-         
-         <Button type="submit" sx={{backgroundColor:"#fefefe", color:"black"}}>
-         <SendRoundedIcon />
-      </Button>
-        </Box>
+            <TextField
+              variant="outlined"
+              fullWidth
+              sx={{
+                '& .MuiInputBase-root': {
+                  height: '2rem',
+                  padding: 0,
+                  borderRadius: "2rem"
+                },
+                '& .MuiOutlinedInput-input': {
+                  height: '2rem',
+                  padding: '0 14px',
+                },
+                '& .MuiInputLabel-root': {
+                  height: '2rem',
+                  lineHeight: '2rem',
+                },
+              }}
+              placeholder="Type..."
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+            />
+
+            <Button type="submit" sx={{ backgroundColor: "#fefefe", color: "black" }}>
+              <SendRoundedIcon />
+            </Button>
+          </Box>
         </Box>
       </Box>
     </>
