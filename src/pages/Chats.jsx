@@ -14,7 +14,9 @@ import dayjs from "dayjs";
 import isToday from "dayjs/plugin/isToday";
 import isYesterday from "dayjs/plugin/isYesterday";
 import useAuthCall from "../hooks/useAuthCall";
-
+import CheckIcon from "@mui/icons-material/Check";
+import DoneAllIcon from "@mui/icons-material/DoneAll";
+//! Working way 
 dayjs.extend(isToday);
 dayjs.extend(isYesterday);
 
@@ -53,7 +55,9 @@ const Chats = () => {
             ...prevChats[receiverId],
             unreadCount: 0,
             messages: prevChats[receiverId].messages.map((message) =>
-              message.receiverId === userId ? { ...message, read: true } : message
+              message.receiverId === userId
+                ? { ...message, read: true }
+                : message
             ),
           },
         }));
@@ -71,8 +75,21 @@ const Chats = () => {
 
   const getLastMessage = (receiverId) => {
     const userChats = chats[receiverId]?.messages || [];
-    const lastMessage = userChats.sort((a, b) => b.timestamp - a.timestamp)[0];
-    return lastMessage ? lastMessage.message : "No messages yet";
+    const lastMessage = userChats.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))[0];
+  
+    if (!lastMessage) {
+      return "No messages yet";
+    }
+  
+    if (lastMessage.image) {
+      return "Image";
+    }
+  
+    if (lastMessage.video) {
+      return "Video";
+    }
+  
+    return lastMessage.message || "No message yet.";
   };
 
   const getLastMessageTime = (receiverId) => {
@@ -98,6 +115,7 @@ const Chats = () => {
   };
 
   const getUnreadCount = (receiverId) => {
+    console.log(chats);
     return chats[receiverId]?.unreadCount || 0;
   };
 
@@ -113,6 +131,8 @@ const Chats = () => {
       </Typography>
       <List>
         {members?.map((user) => (
+          <Box sx={{width:"100%", display:"flex", justifyContent:"center", flexDirection:"column", alignItems:"center"}}>
+
           <ListItem
             button
             sx={{
@@ -142,30 +162,52 @@ const Chats = () => {
                   <Typography>{user.name}</Typography>
 
                   <Box sx={{ display: "flex", gap: "1rem" }}>
-                    <Typography
-                      variant="body2"
-                      color={
-                        isMessageRead(user._id) ? "textSecondary" : "primary"
-                      }
-                    >
-                      {isMessageRead(user._id) ? "Read" : "Unread"}
-                    </Typography>
+            
                     <Typography variant="body2" color="textSecondary">
                       {getLastMessage(user._id)}
                     </Typography>
-                    <Typography variant="body2" color="textSecondary">
-                      {`(${getUnreadCount(user._id)} unread)`}
-                    </Typography>
                   </Box>
                 </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "end",
+                  }}
+                >
+                  {getUnreadCount(user._id) !== 0 && (
+                    <Typography
+                      variant="body2"
+                      color="textSecondary"
+                      sx={{
+                        border: "1px solid #FE5E00",
+                        borderRadius: "50%",
+                        width: "1rem",
+                        height: "1rem",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        backgroundColor: "#FE5E00",
+                        color: "white",
+                        fontSize: "0.8rem",
+                      }}
+                    >
+                      {getUnreadCount(user._id)}
+                    </Typography>
+                  )}
 
-                <Typography variant="body2" color="textSecondary">
-                  {getLastMessageTime(user._id)}
-                </Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    {getLastMessageTime(user._id)}
+                  </Typography>
+                </Box>
               </Box>
             </Box>
           </ListItem>
+          <hr style={{width:"90%"}}/>
+          </Box>
+
         ))}
+        
       </List>
     </Box>
   );

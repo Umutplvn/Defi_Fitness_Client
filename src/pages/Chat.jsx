@@ -18,12 +18,12 @@ const Chat = () => {
   useEffect(() => {
     socket.emit('joinRoom', userId);
 
-    axios.get(`https://defi-chat-backend.onrender.com/api/messages/${userId}`)
+    axios.get(`https://defi-chat-backend.onrender.com/api/messages/${userId}/${chatUserId}`)
       .then(res => setMessages(res.data))
       .catch(err => console.error(err));
 
     socket.on('message', (newMessage) => {
-      if (newMessage.receiverId === userId || newMessage.senderId === userId) {
+      if ((newMessage.receiverId === userId && newMessage.senderId === chatUserId) || (newMessage.receiverId === chatUserId && newMessage.senderId === userId)) {
         setMessages(prevMessages => [newMessage, ...prevMessages]);
       }
     });
@@ -31,9 +31,7 @@ const Chat = () => {
     return () => {
       socket.off('message');
     };
-  }, [userId]);
-
-  console.log(messages);
+  }, [userId, chatUserId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -68,7 +66,7 @@ const Chat = () => {
       <Typography variant="h4">Chat with {chatUserId}</Typography>
       <List>
         {messages?.map((msg, index) => (
-          <ListItem key={index}>
+          <ListItem key={index} alignItems="flex-start">
             <ListItemAvatar>
               <Avatar src="" />
             </ListItemAvatar>
@@ -81,7 +79,7 @@ const Chat = () => {
           </ListItem>
         ))}
       </List>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
         <TextField
           variant="outlined"
           fullWidth
