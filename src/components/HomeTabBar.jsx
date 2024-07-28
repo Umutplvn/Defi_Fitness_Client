@@ -58,7 +58,7 @@ const HomeTabBar = () => {
           />
         </Link>
 
-        {membership =="Basic" &&  <Link
+        {membership !=="Basic" &&  <Link
           to="/chats"
         >
           <TelegramIcon  sx={{
@@ -67,6 +67,7 @@ const HomeTabBar = () => {
               color: "black",
             }}/>
         </Link>}
+        
         <Link to="/paidcontent">
           <WorkspacePremiumIcon
             sx={{

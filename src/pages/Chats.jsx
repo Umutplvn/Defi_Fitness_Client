@@ -9,7 +9,6 @@ import {
   List,
   ListItem,
   ListItemAvatar,
-  ListItemText,
 } from "@mui/material";
 import dayjs from "dayjs";
 import isToday from "dayjs/plugin/isToday";
@@ -20,13 +19,14 @@ dayjs.extend(isToday);
 dayjs.extend(isYesterday);
 
 const Chats = () => {
-  const {listUsers}=useAuthCall()
+  const { listUsers } = useAuthCall();
   const { userId, users } = useSelector((state) => state?.auth);
   const [chats, setChats] = useState([]);
   const navigate = useNavigate();
-const members=users.filter((user)=>user._id!==userId)
+  const members = users.filter((user) => user._id !== userId);
+
   useEffect(() => {
-    listUsers()
+    listUsers();
     const fetchChats = async () => {
       try {
         const res = await axios.get(
@@ -47,38 +47,36 @@ const members=users.filter((user)=>user._id!==userId)
         await axios.put(
           `https://defi-chat-backend.onrender.com/api/messages/read/${userId}/${receiverId}`
         );
-        setChats((prevChats) =>
-          prevChats.map((chat) =>
-            chat.receiverId === receiverId || chat.senderId === receiverId
-              ? { ...chat, read: true }
-              : chat
-          )
-        );
+        setChats((prevChats) => ({
+          ...prevChats,
+          [receiverId]: {
+            ...prevChats[receiverId],
+            unreadCount: 0,
+            messages: prevChats[receiverId].messages.map((message) =>
+              message.receiverId === userId ? { ...message, read: true } : message
+            ),
+          },
+        }));
       } catch (err) {
         console.error(err);
       }
     },
     [userId]
   );
-  console.log("chat", chats);
 
   const handleChatClick = (receiverId) => {
     markMessagesAsRead(receiverId);
-    navigate(`/chat/${receiverId}`); 
+    navigate(`/chat/${receiverId}`);
   };
 
   const getLastMessage = (receiverId) => {
-    const userChats = chats.filter(
-      (chat) => chat.receiverId === receiverId || chat.senderId === receiverId
-    );
+    const userChats = chats[receiverId]?.messages || [];
     const lastMessage = userChats.sort((a, b) => b.timestamp - a.timestamp)[0];
     return lastMessage ? lastMessage.message : "No messages yet";
   };
 
   const getLastMessageTime = (receiverId) => {
-    const userChats = chats.filter(
-      (chat) => chat.receiverId === receiverId || chat.senderId === receiverId
-    );
+    const userChats = chats[receiverId]?.messages || [];
     const lastMessage = userChats.sort((a, b) => b.timestamp - a.timestamp)[0];
     if (lastMessage) {
       const messageTime = dayjs(lastMessage.timestamp);
@@ -94,11 +92,13 @@ const members=users.filter((user)=>user._id!==userId)
   };
 
   const isMessageRead = (receiverId) => {
-    const userChats = chats.filter(
-      (chat) => chat.receiverId === receiverId || chat.senderId === receiverId
-    );
+    const userChats = chats[receiverId]?.messages || [];
     const lastMessage = userChats.sort((a, b) => b.timestamp - a.timestamp)[0];
     return lastMessage ? lastMessage.read : false;
+  };
+
+  const getUnreadCount = (receiverId) => {
+    return chats[receiverId]?.unreadCount || 0;
   };
 
   return (
@@ -153,6 +153,9 @@ const members=users.filter((user)=>user._id!==userId)
                     <Typography variant="body2" color="textSecondary">
                       {getLastMessage(user._id)}
                     </Typography>
+                    <Typography variant="body2" color="textSecondary">
+                      {`(${getUnreadCount(user._id)} unread)`}
+                    </Typography>
                   </Box>
                 </Box>
 
@@ -162,8 +165,7 @@ const members=users.filter((user)=>user._id!==userId)
               </Box>
             </Box>
           </ListItem>
-
-))}
+        ))}
       </List>
     </Box>
   );

@@ -33,6 +33,8 @@ const Chat = () => {
     };
   }, [userId]);
 
+  console.log(messages);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -65,7 +67,7 @@ const Chat = () => {
     <Box sx={{ padding: '2rem' }}>
       <Typography variant="h4">Chat with {chatUserId}</Typography>
       <List>
-        {messages.map((msg, index) => (
+        {messages?.map((msg, index) => (
           <ListItem key={index}>
             <ListItemAvatar>
               <Avatar src="" />

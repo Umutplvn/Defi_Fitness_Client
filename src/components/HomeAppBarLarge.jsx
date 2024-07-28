@@ -214,7 +214,7 @@ const HomeAppBarLarge = () => {
         </Link>} */}
    
         {/*ADMIN CHAT */}
-        {(isAdmin==true ) &&  <Link
+        {(membership!=="Basic" ) &&  <Link
           to="/chats"
           style={{
             display: "flex",
@@ -232,7 +232,7 @@ const HomeAppBarLarge = () => {
               ml: 1,
             }}
           >
-            Chats
+            Chat
           </Typography>
         </Link>}
         {/* PAID CONTENT */}
