@@ -78,9 +78,13 @@ const Chat = () => {
     // Mesajlar güncellendiğinde otomatik olarak en alta kaydır
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!message.trim() && !image && !video) {
+      return;
+    }
+    
     const formData = new FormData();
     formData.append("senderId", userId);
     formData.append("receiverId", chatUserId);
@@ -215,6 +219,8 @@ const Chat = () => {
                     sx={{
                       maxWidth: "200px",
                       maxHeight: "320px",
+                      minWidth:"100px",
+                      minHeight:"100px",
                       borderRadius: "0.5rem",
                       display: "flex",
                       justifyContent: "center",
@@ -289,8 +295,9 @@ const Chat = () => {
                     src={loadingGif}
                     alt="Loading"
                     style={{
-                      width: "40px",
-                      height: "40px",
+                      width: "200px",
+                      height: "220px",
+                      padding:"80px",
                       objectFit: "contain",
                     }}
                   />
