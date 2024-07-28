@@ -16,16 +16,21 @@ import isYesterday from "dayjs/plugin/isYesterday";
 import useAuthCall from "../hooks/useAuthCall";
 import CheckIcon from "@mui/icons-material/Check";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
-//! Working way 
+//! Working way
 dayjs.extend(isToday);
 dayjs.extend(isYesterday);
 
 const Chats = () => {
   const { listUsers } = useAuthCall();
-  const { userId, users } = useSelector((state) => state?.auth);
+  const { userId, users, isAdmin } = useSelector((state) => state?.auth);
   const [chats, setChats] = useState([]);
   const navigate = useNavigate();
-  const members = users?.filter((user) => user?._id !== userId);
+  const members = users?.filter(
+    (user) => user?.isAdmin == true && user?._id !== userId
+  );
+  const admin = users?.filter((user) => user._id !== userId);
+  const userList = isAdmin ? admin : members;
+  console.log("object", users);
 
   useEffect(() => {
     listUsers();
@@ -43,7 +48,7 @@ const Chats = () => {
     fetchChats();
   }, [userId]);
 
-  console.log("users",users);
+  console.log("users", users);
 
   const markMessagesAsRead = useCallback(
     async (receiverId) => {
@@ -77,20 +82,22 @@ const Chats = () => {
 
   const getLastMessage = (receiverId) => {
     const userChats = chats[receiverId]?.messages || [];
-    const lastMessage = userChats.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))[0];
-  
+    const lastMessage = userChats.sort(
+      (a, b) => new Date(b.timestamp) - new Date(a.timestamp)
+    )[0];
+
     if (!lastMessage) {
       return "No messages yet";
     }
-  
+
     if (lastMessage.image) {
       return "Image";
     }
-  
+
     if (lastMessage.video) {
       return "Video";
     }
-  
+
     return lastMessage.message || "No message yet.";
   };
 
@@ -125,87 +132,96 @@ const Chats = () => {
       <Typography sx={{ fontWeight: "800", fontSize: "1.4rem" }}>
         Chats
       </Typography>
-      <List sx={{ display:"flex", flexDirection:"column", justifyContent:"center"}}>
-        {members?.map((user) => (
-          <Box sx={{ display:"flex", justifyContent:"center", flexDirection:"column", alignItems:"center"}}>
-
-          <ListItem
-            button
+      <List
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+        }}
+      >
+        {userList?.map((user) => (
+          <Box
             sx={{
-              width:"95%",
-              height:"2.5rem",
-              mt:"1rem",
               display: "flex",
-              justifyContent: "space-between",
+              justifyContent: "center",
+              flexDirection: "column",
+              alignItems: "center",
             }}
-            key={user._id}
-            onClick={() => handleChatClick(user._id)}
           >
-            <ListItemAvatar sx={{ width: "5%" }}>
-              <Avatar
-                src={user?.avatar}
-                sx={{ width: "3rem", height: "3rem" }}
-              />
-            </ListItemAvatar>
+            <ListItem
+              button
+              sx={{
+                width: "95%",
+                height: "2.5rem",
+                mt: "1rem",
+                display: "flex",
+                justifyContent: "space-between",
+              }}
+              key={user._id}
+              onClick={() => handleChatClick(user._id)}
+            >
+              <ListItemAvatar sx={{ width: "5%" }}>
+                <Avatar
+                  src={user?.avatar}
+                  sx={{ width: "3rem", height: "3rem" }}
+                />
+              </ListItemAvatar>
 
-            <Box sx={{ width: "95%" }}>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "end",
-                }}
-              >
-                <Box>
-                  <Typography>{user.name}</Typography>
-
-                  <Box sx={{ display: "flex", gap: "1rem" }}>
-            
-                    <Typography variant="body2" color="textSecondary">
-                      {getLastMessage(user._id)}
-                    </Typography>
-                  </Box>
-                </Box>
+              <Box sx={{ width: "95%" }}>
                 <Box
                   sx={{
                     display: "flex",
-                    flexDirection: "column",
+                    justifyContent: "space-between",
                     alignItems: "end",
                   }}
                 >
-                  {getUnreadCount(user._id) !== 0 && (
-                    <Typography
-                      variant="body2"
-                      color="textSecondary"
-                      sx={{
-                        border: "1px solid #FE5E00",
-                        borderRadius: "50%",
-                        width: "1rem",
-                        height: "1rem",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        backgroundColor: "#FE5E00",
-                        color: "white",
-                        fontSize: "0.8rem",
-                      }}
-                    >
-                      {getUnreadCount(user._id)}
-                    </Typography>
-                  )}
+                  <Box>
+                    <Typography>{user.name}</Typography>
 
-                  <Typography variant="body2" color="textSecondary">
-                    {getLastMessageTime(user._id)}
-                  </Typography>
+                    <Box sx={{ display: "flex", gap: "1rem" }}>
+                      <Typography variant="body2" color="textSecondary">
+                        {getLastMessage(user._id)}
+                      </Typography>
+                    </Box>
+                  </Box>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "end",
+                    }}
+                  >
+                    {getUnreadCount(user._id) !== 0 && (
+                      <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        sx={{
+                          border: "1px solid #FE5E00",
+                          borderRadius: "50%",
+                          width: "1rem",
+                          height: "1rem",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          backgroundColor: "#FE5E00",
+                          color: "white",
+                          fontSize: "0.8rem",
+                        }}
+                      >
+                        {getUnreadCount(user._id)}
+                      </Typography>
+                    )}
+
+                    <Typography variant="body2" color="textSecondary">
+                      {getLastMessageTime(user._id)}
+                    </Typography>
+                  </Box>
                 </Box>
               </Box>
-            </Box>
-          </ListItem>
-          <hr style={{width:"95%"}}/>
+            </ListItem>
+            <hr style={{ width: "95%" }} />
           </Box>
-
         ))}
-        
       </List>
     </Box>
   );
