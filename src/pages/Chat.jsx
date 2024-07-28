@@ -16,22 +16,30 @@ const Chat = () => {
   const [video, setVideo] = useState(null);
 
   useEffect(() => {
+    const fetchMessages = async () => {
+      try {
+        const response = await axios.get(`https://defi-chat-backend.onrender.com/api/chats/${userId}/${chatUserId}`);
+        setMessages(response.data);
+      } catch (error) {
+        console.error('Failed to fetch messages:', error);
+      }
+    };
+  
     socket.emit('joinRoom', userId);
-
-    axios.get(`https://defi-chat-backend.onrender.com/api/messages/${userId}/${chatUserId}`)
-      .then(res => setMessages(res.data))
-      .catch(err => console.error(err));
-
+  
+    fetchMessages();
+  
     socket.on('message', (newMessage) => {
       if ((newMessage.receiverId === userId && newMessage.senderId === chatUserId) || (newMessage.receiverId === chatUserId && newMessage.senderId === userId)) {
         setMessages(prevMessages => [newMessage, ...prevMessages]);
       }
     });
-
+  
     return () => {
       socket.off('message');
     };
   }, [userId, chatUserId]);
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -52,7 +60,7 @@ const Chat = () => {
           'Content-Type': 'multipart/form-data'
         }
       });
-      setMessages([response.data, ...messages]);
+      setMessages([...messages,response.data]);
       setMessage('');
       setImage(null);
       setVideo(null);
@@ -65,7 +73,7 @@ const Chat = () => {
     <Box sx={{ padding: '2rem' }}>
       <Typography variant="h4">Chat with {chatUserId}</Typography>
       <List>
-        {messages?.map((msg, index) => (
+        {messages?.reverse().map((msg, index) => (
           <ListItem key={index} alignItems="flex-start">
             <ListItemAvatar>
               <Avatar src="" />

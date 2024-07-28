@@ -25,7 +25,7 @@ const Chats = () => {
   const { userId, users } = useSelector((state) => state?.auth);
   const [chats, setChats] = useState([]);
   const navigate = useNavigate();
-  const members = users.filter((user) => user._id !== userId);
+  const members = users?.filter((user) => user?._id !== userId);
 
   useEffect(() => {
     listUsers();
@@ -42,6 +42,8 @@ const Chats = () => {
 
     fetchChats();
   }, [userId]);
+
+  console.log("users",users);
 
   const markMessagesAsRead = useCallback(
     async (receiverId) => {
@@ -108,12 +110,6 @@ const Chats = () => {
     return "";
   };
 
-  const isMessageRead = (receiverId) => {
-    const userChats = chats[receiverId]?.messages || [];
-    const lastMessage = userChats.sort((a, b) => b.timestamp - a.timestamp)[0];
-    return lastMessage ? lastMessage.read : false;
-  };
-
   const getUnreadCount = (receiverId) => {
     console.log(chats);
     return chats[receiverId]?.unreadCount || 0;
@@ -126,17 +122,19 @@ const Chats = () => {
         pt: "1rem",
       }}
     >
-      <Typography sx={{ fontWeight: "800", fontSize: "1.2rem" }}>
+      <Typography sx={{ fontWeight: "800", fontSize: "1.4rem" }}>
         Chats
       </Typography>
-      <List>
+      <List sx={{ display:"flex", flexDirection:"column", justifyContent:"center"}}>
         {members?.map((user) => (
-          <Box sx={{width:"100%", display:"flex", justifyContent:"center", flexDirection:"column", alignItems:"center"}}>
+          <Box sx={{ display:"flex", justifyContent:"center", flexDirection:"column", alignItems:"center"}}>
 
           <ListItem
             button
             sx={{
-              width: "100wh",
+              width:"95%",
+              height:"2.5rem",
+              mt:"1rem",
               display: "flex",
               justifyContent: "space-between",
             }}
@@ -145,7 +143,7 @@ const Chats = () => {
           >
             <ListItemAvatar sx={{ width: "5%" }}>
               <Avatar
-                src={user.avatar}
+                src={user?.avatar}
                 sx={{ width: "3rem", height: "3rem" }}
               />
             </ListItemAvatar>
@@ -203,7 +201,7 @@ const Chats = () => {
               </Box>
             </Box>
           </ListItem>
-          <hr style={{width:"90%"}}/>
+          <hr style={{width:"95%"}}/>
           </Box>
 
         ))}
