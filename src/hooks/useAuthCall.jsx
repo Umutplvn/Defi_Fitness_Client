@@ -134,7 +134,6 @@ const useAuthCall = () => {
       const { data } = await axiosWithToken.get(
         `${process.env.REACT_APP_BASE_URL}/users/`
       );
-      console.log("data", data);
       dispatch(usersSuccess(data));
     } catch (error) {
       dispatch(fetchFail());

@@ -24,7 +24,7 @@ const Chats = () => {
   const { userId, users } = useSelector((state) => state?.auth);
   const [chats, setChats] = useState([]);
   const navigate = useNavigate();
-
+const members=users.filter((user)=>user._id!==userId)
   useEffect(() => {
     listUsers()
     const fetchChats = async () => {
@@ -33,7 +33,6 @@ const Chats = () => {
           `https://defi-chat-backend.onrender.com/api/chats/${userId}`
         );
         setChats(res.data);
-        console.log("chats", chats);
       } catch (err) {
         console.error(err);
       }
@@ -42,7 +41,6 @@ const Chats = () => {
     fetchChats();
   }, [userId]);
 
-  console.log("user",users);
   const markMessagesAsRead = useCallback(
     async (receiverId) => {
       try {
@@ -62,6 +60,7 @@ const Chats = () => {
     },
     [userId]
   );
+  console.log("chat", chats);
 
   const handleChatClick = (receiverId) => {
     markMessagesAsRead(receiverId);
@@ -113,7 +112,7 @@ const Chats = () => {
         Chats
       </Typography>
       <List>
-        {users?.map((user) => (
+        {members?.map((user) => (
           <ListItem
             button
             sx={{

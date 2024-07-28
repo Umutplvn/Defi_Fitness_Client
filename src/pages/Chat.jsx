@@ -1,4 +1,3 @@
-// Chat.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import io from 'socket.io-client';
@@ -6,27 +5,23 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Box, Typography, TextField, Button, List, ListItem, ListItemText, ListItemAvatar, Avatar } from '@mui/material';
 
-// Güncellenmiş URL
 const socket = io('https://defi-chat-backend.onrender.com');
 
 const Chat = () => {
   const { userId } = useSelector(state => state?.auth);
-  const { chatUserId } = useParams(); 
+  const { id: chatUserId } = useParams(); 
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
   const [image, setImage] = useState(null);
   const [video, setVideo] = useState(null);
 
   useEffect(() => {
-    // Kullanıcıya özel odaya katıl
     socket.emit('joinRoom', userId);
 
-    // Mesajları getirme
     axios.get(`https://defi-chat-backend.onrender.com/api/messages/${userId}`)
       .then(res => setMessages(res.data))
       .catch(err => console.error(err));
 
-    // Mesajları dinleme
     socket.on('message', (newMessage) => {
       if (newMessage.receiverId === userId || newMessage.senderId === userId) {
         setMessages(prevMessages => [newMessage, ...prevMessages]);
@@ -51,10 +46,19 @@ const Chat = () => {
       formData.append('video', video);
     }
 
-    await axios.post('https://defi-chat-backend.onrender.com/api/messages', formData);
-    setMessage('');
-    setImage(null);
-    setVideo(null);
+    try {
+      const response = await axios.post('https://defi-chat-backend.onrender.com/api/messages', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      setMessages([response.data, ...messages]);
+      setMessage('');
+      setImage(null);
+      setVideo(null);
+    } catch (error) {
+      console.error('Failed to send message', error);
+    }
   };
 
   return (
@@ -64,11 +68,11 @@ const Chat = () => {
         {messages.map((msg, index) => (
           <ListItem key={index}>
             <ListItemAvatar>
-              <Avatar src={`https://example.com/avatars/${msg.senderId}.png`} />
+              <Avatar src="" />
             </ListItemAvatar>
             <ListItemText
               primary={msg.message}
-              secondary={msg.timestamp}
+              secondary={new Date(msg.timestamp).toLocaleString()}
             />
             {msg.image && <img src={`https://defi-chat-backend.onrender.com/uploads/${msg.image}`} alt="Uploaded" style={{ maxWidth: '200px', margin: '10px' }} />}
             {msg.video && <video controls src={`https://defi-chat-backend.onrender.com/uploads/${msg.video}`} style={{ maxWidth: '200px', margin: '10px' }} />}

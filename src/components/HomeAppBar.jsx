@@ -7,7 +7,6 @@ import HomeTabBar from "./HomeTabBar";
 
 const HomeAppBar = () => {
   const { avatar } = useSelector((state) => state.auth);
-  console.log(avatar);
 
   const headerStyles = {
     container: {
