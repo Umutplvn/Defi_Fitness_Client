@@ -228,6 +228,7 @@ const deleteMessage=async (messageId)=>{
                                 borderRadius: "50%",
                                 padding: "0.2rem",
                                 fontSize: "1.5rem",
+                                cursor:"pointer"
                               }}
                               onClick={() => deleteMessage(msg._id)}
                             />}
