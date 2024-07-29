@@ -8,6 +8,7 @@ import SendRoundedIcon from '@mui/icons-material/SendRounded';
 import loadingGif from "../assets/loading.gif"
 import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
 import { ReactTyped } from "react-typed";
+import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 
 import {
   Box,
@@ -75,7 +76,6 @@ const Chat = () => {
   }, [userId, chatUserId]);
 
   useEffect(() => {
-    // Mesajlar güncellendiğinde otomatik olarak en alta kaydır
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
   
@@ -120,6 +120,18 @@ const Chat = () => {
       setLoading(false);
     }
   };
+
+const deleteMessage=async (messageId)=>{
+  try {
+    await axios.delete(`https://defi-chat-backend.onrender.com/api/messages/delete/${messageId}`);
+    setMessages((prevMessages) => prevMessages.filter((msg) => msg._id !== messageId));
+    toast("Message deleted successfully.");
+  } catch (error) {
+    console.error("Failed to delete message", error);
+    toast("Failed to delete message.");
+  }
+}
+
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -178,7 +190,7 @@ const Chat = () => {
           mb: "3rem",
           mt: "4rem",
           flexGrow: 1,
-          overflowY: "auto", // Mesajların taşmasını sağlamak için
+          overflowY: "auto",
         }}
       >
         {messages.length === 0 ? (
@@ -189,6 +201,7 @@ const Chat = () => {
           <List>
             {messages?.slice().map((msg, index) => (
               <ListItem
+              
                 key={index}
                 alignItems="flex-start"
                 sx={{
@@ -200,7 +213,26 @@ const Chat = () => {
                   <MessageBox
                     position={msg.senderId === userId ? "right" : "left"}
                     type="text"
-                    text={msg.message}
+                    text={
+                      <Box>
+                        <Typography sx={{mt:"0.6rem", fontSize:"0.9rem", mb:"-1rem"}}>{msg.message}</Typography>
+
+{msg.senderId == userId && <CancelOutlinedIcon
+                              sx={{
+                                position: "absolute",
+                                top: "-0.1rem",
+                                left:"0",
+                                transform:"translateX(-1rem) translateY(-1rem)",
+                                color:"#d32828",
+                                backgroundColor: "white",
+                                borderRadius: "50%",
+                                padding: "0.2rem",
+                                fontSize: "1.5rem",
+                              }}
+                              onClick={() => deleteMessage(msg._id)}
+                            />}
+                      </Box>
+                    }
                     date={new Date(msg.timestamp)}
                     styles={
                       msg.senderId === userId
