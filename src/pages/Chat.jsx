@@ -3,10 +3,10 @@ import axios from "axios";
 import io from "socket.io-client";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import LocalSeeIcon from '@mui/icons-material/LocalSee';
-import SendRoundedIcon from '@mui/icons-material/SendRounded';
-import loadingGif from "../assets/loading.gif"
-import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
+import LocalSeeIcon from "@mui/icons-material/LocalSee";
+import SendRoundedIcon from "@mui/icons-material/SendRounded";
+import loadingGif from "../assets/loading.gif";
+import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
 import { ReactTyped } from "react-typed";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 
@@ -37,7 +37,7 @@ const Chat = () => {
   const [video, setVideo] = useState(null);
   const user = users?.filter((user) => user._id === chatUserId);
   const navigate = useNavigate();
-  const [fileName, setFileName] = useState('');
+  const [fileName, setFileName] = useState("");
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = React.useState(false);
   const messagesEndRef = useRef(null); // Mesajlar sonuna referans
@@ -78,13 +78,13 @@ const Chat = () => {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!message.trim() && !image && !video) {
       return;
     }
-    
+
     const formData = new FormData();
     formData.append("senderId", userId);
     formData.append("receiverId", chatUserId);
@@ -121,21 +121,24 @@ const Chat = () => {
     }
   };
 
-const deleteMessage=async (messageId)=>{
-  try {
-    await axios.delete(`https://defi-chat-backend.onrender.com/api/messages/delete/${messageId}`);
-    setMessages((prevMessages) => prevMessages.filter((msg) => msg._id !== messageId));
-    toast("Message deleted successfully.");
-  } catch (error) {
-    console.error("Failed to delete message", error);
-    toast("Failed to delete message.");
-  }
-}
-
+  const deleteMessage = async (messageId) => {
+    try {
+      await axios.delete(
+        `https://defi-chat-backend.onrender.com/api/messages/delete/${messageId}`
+      );
+      setMessages((prevMessages) =>
+        prevMessages.filter((msg) => msg._id !== messageId)
+      );
+      toast("Message deleted successfully.");
+    } catch (error) {
+      console.error("Failed to delete message", error);
+      toast("Failed to delete message.");
+    }
+  };
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    setFileName(file ? file.name : '');
+    setFileName(file ? file.name : "");
     if (file && file.type.startsWith("image/")) {
       setImage(file);
     } else if (file && file.type.startsWith("video/")) {
@@ -144,7 +147,15 @@ const deleteMessage=async (messageId)=>{
   };
 
   return (
-    <Box sx={{ height: "98vh", width: "100%", overflow: "hidden", display: 'flex', flexDirection: 'column' }}>
+    <Box
+      sx={{
+        height: "98vh",
+        width: "100%",
+        overflow: "hidden",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
       <Box
         sx={{
           display: "flex",
@@ -158,7 +169,7 @@ const deleteMessage=async (messageId)=>{
           height: "4rem",
           position: "fixed",
           zIndex: "2",
-          width: "100%"
+          width: "100%",
         }}
       >
         <Box sx={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
@@ -175,15 +186,33 @@ const deleteMessage=async (messageId)=>{
             }}
             onClick={() => navigate("/chats")}
           >
-            <ReplyRoundedIcon sx={{ fontSize: "2rem", cursor: "pointer", transition: "0.4s", "&:hover": { scale: "1.05" } }} />
+            <ReplyRoundedIcon
+              sx={{
+                fontSize: "2rem",
+                cursor: "pointer",
+                transition: "0.4s",
+                "&:hover": { scale: "1.05" },
+              }}
+            />
           </Box>
           <Avatar src={user[0].avatar} sx={{ ml: "0.5rem" }} />
           <Typography>{user[0].name}</Typography>
         </Box>
-        <CancelRoundedIcon sx={{ cursor: "pointer", transition: "0.4s", "&:hover": { scale: "1.05" } }} onClick={handleOpen} />
+        <CancelRoundedIcon
+          sx={{
+            cursor: "pointer",
+            transition: "0.4s",
+            "&:hover": { scale: "1.05" },
+          }}
+          onClick={handleOpen}
+        />
       </Box>
 
-      <ModalUnstyled handleClose={handleClose} open={open} setMessages={setMessages} />
+      <ModalUnstyled
+        handleClose={handleClose}
+        open={open}
+        setMessages={setMessages}
+      />
 
       <Box
         sx={{
@@ -194,19 +223,34 @@ const deleteMessage=async (messageId)=>{
         }}
       >
         {messages.length === 0 ? (
-          <Box sx={{ backgroundColor: "#faf8f8", maxWidth: "20rem", padding: "1rem", margin: "auto", mt: "1rem", borderRadius: "1rem", display: "flex", justifyContent: "center" }}>
-            <ReactTyped style={{ fontSize: "0.8rem", color: "#434343" }} strings={["I will be pleased to help you. Just text me!"]} typeSpeed={40} />
+          <Box
+            sx={{
+              backgroundColor: "#faf8f8",
+              maxWidth: "20rem",
+              padding: "1rem",
+              margin: "auto",
+              mt: "1rem",
+              borderRadius: "1rem",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <ReactTyped
+              style={{ fontSize: "0.8rem", color: "#434343" }}
+              strings={["I will be pleased to help you. Just text me!"]}
+              typeSpeed={40}
+            />
           </Box>
         ) : (
           <List>
             {messages?.slice().map((msg, index) => (
               <ListItem
-              
                 key={index}
                 alignItems="flex-start"
                 sx={{
                   display: "flex",
-                  justifyContent: msg.senderId === userId ? "flex-end" : "flex-start",
+                  justifyContent:
+                    msg.senderId === userId ? "flex-end" : "flex-start",
                 }}
               >
                 {msg.message && (
@@ -215,30 +259,37 @@ const deleteMessage=async (messageId)=>{
                     type="text"
                     text={
                       <Box>
-                        <Typography sx={{mt:"0.6rem", fontSize:"0.9rem", mb:"-1rem"}}>{msg.message}</Typography>
+                        <Typography
+                          sx={{ mt: "0.6rem", fontSize: "0.9rem", mb: "-1rem" }}
+                        >
+                          {msg.message}
+                        </Typography>
 
-{msg.senderId == userId && <CancelOutlinedIcon
-                              sx={{
-                                position: "absolute",
-                                top: "-0.1rem",
-                                left:"0",
-                                transform:"translateX(-1rem) translateY(-1rem)",
-                                color:"#d32828",
-                                backgroundColor: "white",
-                                borderRadius: "50%",
-                                padding: "0.2rem",
-                                fontSize: "1.5rem",
-                                cursor:"pointer"
-                              }}
-                              onClick={() => deleteMessage(msg._id)}
-                            />}
+                        {msg.senderId == userId && (
+                          <CancelOutlinedIcon
+                            sx={{
+                              position: "absolute",
+                              top: "-0.1rem",
+                              left: "0",
+                              transform: "translateX(-1rem) translateY(-1rem)",
+                              color: "#519f37",
+                              backgroundColor: "white",
+                              borderRadius: "50%",
+                              padding: "0.2rem",
+                              fontSize: "1.5rem",
+                              cursor: "pointer",
+                            }}
+                            onClick={() => deleteMessage(msg._id)}
+                          />
+                        )}
                       </Box>
                     }
                     date={new Date(msg.timestamp)}
                     styles={
                       msg.senderId === userId
                         ? {
-                            background: "linear-gradient(to top right, #D9FDD3, #fff",
+                            background:
+                              "linear-gradient(to top right, #D9FDD3, #fff",
                             maxWidth: "80%",
                           }
                         : {
@@ -248,55 +299,98 @@ const deleteMessage=async (messageId)=>{
                   />
                 )}
                 {msg.image && (
-                  <Box
-                    sx={{
-                      maxWidth: "200px",
-                      maxHeight: "320px",
-                      minWidth:"100px",
-                      minHeight:"100px",
-                      borderRadius: "0.5rem",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      overflow: "hidden",
-                      boxShadow: "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
-                    }}
-                  >
-                    <img
-                      src={`https://defi-chat-backend.onrender.com/uploads/${msg.image}`}
-                      alt="Uploaded"
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "contain",
+                  <Box sx={{ maxWidth: "320px", maxHeight: "320px" }}>
+                    {msg.senderId == userId && (
+                      <CancelOutlinedIcon
+                        sx={{
+                          position: "absolute",
+                          top: "1rem",
+                          left: "calc(100% - 320px)",
+                          transform: "translateX(-1rem) translateY(-1rem)",
+                          color: "#519f37",
+                          backgroundColor: "white",
+                          borderRadius: "50%",
+                          padding: "0.2rem",
+                          fontSize: "1.5rem",
+                          cursor: "pointer",
+                        }}
+                        onClick={() => deleteMessage(msg._id)}
+                      />
+                    )}
+                    <Box
+                      sx={{
+                        maxWidth: "310px",
+                        maxHeight: "320px",
+                        minWidth: "100px",
+                        minHeight: "100px",
+                        borderRadius: "0.5rem",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        overflow: "hidden",
+                        boxShadow:
+                          "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
                       }}
-                    />
+                    >
+                      <img
+                        src={`https://defi-chat-backend.onrender.com/uploads/${msg.image}`}
+                        alt="Uploaded"
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "contain",
+                        }}
+                      />
+                    </Box>
                   </Box>
                 )}
+
                 {msg.video && (
-                  <Box
-                    sx={{
-                      maxWidth: "300px",
-                      maxHeight: "340px",
-                      borderRadius: "0.5rem",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      overflow: "hidden",
-                      backgroundColor: "fefefe",
-                      boxShadow: "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
-                      backdropFilter: "blur(10px)",
-                    }}
-                  >
-                    <video
-                      controls
-                      src={`https://defi-chat-backend.onrender.com/uploads/${msg.video}`}
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "contain",
+                  <Box sx={{ maxWidth: "320px", maxHeight: "350px" }}>
+                    {msg.senderId == userId && (
+                      <CancelOutlinedIcon
+                        sx={{
+                          position: "absolute",
+                          top: "1rem",
+                          left: "calc(100% - 320px)",
+                          transform: "translateX(-1rem) translateY(-1rem)",
+                          color: "#519f37",
+                          backgroundColor: "white",
+                          borderRadius: "50%",
+                          padding: "0.2rem",
+                          fontSize: "1.5rem",
+                          cursor: "pointer",
+                          zIndex: "5",
+                        }}
+                        onClick={() => deleteMessage(msg._id)}
+                      />
+                    )}
+                    <Box
+                      sx={{
+                        maxWidth: "310px",
+                        maxHeight: "350px",
+                        borderRadius: "0.5rem",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        overflow: "hidden",
+                        backgroundColor: "#efefef",
+                        boxShadow:
+                          "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
+                        backdropFilter: "blur(10px)",
+                        position: "relative",
                       }}
-                    />
+                    >
+                      <video
+                        controls
+                        src={`https://defi-chat-backend.onrender.com/uploads/${msg.video}`}
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "contain",
+                        }}
+                      />
+                    </Box>
                   </Box>
                 )}
               </ListItem>
@@ -320,7 +414,8 @@ const deleteMessage=async (messageId)=>{
                     alignItems: "center",
                     overflow: "hidden",
                     backgroundColor: "fefefe",
-                    boxShadow: "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
+                    boxShadow:
+                      "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
                     backdropFilter: "blur(10px)",
                   }}
                 >
@@ -330,7 +425,7 @@ const deleteMessage=async (messageId)=>{
                     style={{
                       width: "200px",
                       height: "220px",
-                      padding:"80px",
+                      padding: "80px",
                       objectFit: "contain",
                     }}
                   />
@@ -356,7 +451,8 @@ const deleteMessage=async (messageId)=>{
             backgroundColor: "white",
             borderTopRightRadius: "0.5rem",
             borderTopLeftRadius: "0.5rem",
-            boxShadow: "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
+            boxShadow:
+              "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
           }}
         >
           <input
@@ -364,7 +460,7 @@ const deleteMessage=async (messageId)=>{
             id="file-upload"
             accept="image/*,video/*"
             onChange={handleFileChange}
-            style={{ display: 'none' }}
+            style={{ display: "none" }}
           />
           <label htmlFor="file-upload">
             <IconButton component="span">
@@ -376,18 +472,18 @@ const deleteMessage=async (messageId)=>{
             variant="outlined"
             fullWidth
             sx={{
-              '& .MuiInputBase-root': {
-                height: '2rem',
+              "& .MuiInputBase-root": {
+                height: "2rem",
                 padding: 0,
-                borderRadius: "2rem"
+                borderRadius: "2rem",
               },
-              '& .MuiOutlinedInput-input': {
-                height: '2rem',
-                padding: '0 14px',
+              "& .MuiOutlinedInput-input": {
+                height: "2rem",
+                padding: "0 14px",
               },
-              '& .MuiInputLabel-root': {
-                height: '2rem',
-                lineHeight: '2rem',
+              "& .MuiInputLabel-root": {
+                height: "2rem",
+                lineHeight: "2rem",
               },
             }}
             placeholder="Type..."
@@ -395,7 +491,10 @@ const deleteMessage=async (messageId)=>{
             onChange={(e) => setMessage(e.target.value)}
           />
 
-          <Button type="submit" sx={{ backgroundColor: "#fefefe", color: "black" }}>
+          <Button
+            type="submit"
+            sx={{ backgroundColor: "#fefefe", color: "black" }}
+          >
             <SendRoundedIcon />
           </Button>
         </Box>
