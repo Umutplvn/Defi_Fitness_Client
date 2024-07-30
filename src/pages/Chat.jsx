@@ -9,6 +9,9 @@ import loadingGif from "../assets/loading.gif";
 import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
 import { ReactTyped } from "react-typed";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
 
 import {
   Box,
@@ -44,7 +47,11 @@ const Chat = () => {
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [drop, setDrop] = React.useState(false);
 
+  const handleChange = () => {
+    setDrop(!drop);
+  };
   useEffect(() => {
     const fetchMessages = async () => {
       try {
@@ -253,47 +260,88 @@ const Chat = () => {
                     msg.senderId === userId ? "flex-end" : "flex-start",
                 }}
               >
+              
                 {msg.message && (
                   <MessageBox
                     position={msg.senderId === userId ? "right" : "left"}
                     type="text"
                     text={
-                      <Box>
+                      <>
+                   
+                      <Box sx={{position:"relative"}}>
                         <Typography
-                          sx={{ mt: "0.6rem", fontSize: "0.9rem", mb: "-1rem" }}
+                          sx={{ mt: "-0.2rem", fontSize: "0.9rem", mb: "-1.5rem" }}
                         >
                           {msg.message}
                         </Typography>
 
-                        {msg.senderId == userId && (
-                          <CancelOutlinedIcon
-                            sx={{
-                              position: "absolute",
-                              top: "-0.1rem",
-                              left: "0",
-                              transform: "translateX(-1rem) translateY(-1rem)",
-                              color: "#519f37",
-                              backgroundColor: "white",
-                              borderRadius: "50%",
-                              padding: "0.2rem",
-                              fontSize: "1.5rem",
-                              cursor: "pointer",
-                            }}
-                            onClick={() => deleteMessage(msg._id)}
-                          />
-                        )}
+                       
                       </Box>
+
+                      {msg.senderId == userId && (
+                          <Select 
+                          IconComponent={(props) => (
+                            <KeyboardArrowDownIcon
+                              {...props}
+                              sx={{ fontSize: '1.1rem' }} 
+                            />)}
+                            onChange={() => setDrop(!drop)}
+                            sx={{
+                              display:"flex",
+                              justifyContent:"center",
+                              alignItems:"center",
+                              textAlign:"center",
+                              width: "1.5rem",
+                              height: "1.3rem",
+                              position: "absolute",
+                              left:"-0.1rem",  
+                              bottom:"-0.3rem", 
+                              overflow:"hidden",  
+                              '& fieldset': {
+                                border: "none",
+                              },
+                              "&:hover": { color: "red" },
+
+                            }}
+                          >
+
+                            <Typography
+                              sx={{
+                                position:"relative",
+                                cursor:"pointer",
+                                width: "120px",
+                                marginLeft:"1rem",
+                                fontSize: "0.8rem",
+                                marginRight:"-3rem",
+                                pl:"0.4rem"
+
+                              }}
+                              onClick={()=>deleteMessage(msg._id)}
+                              >
+                              Delete
+                            </Typography>
+                            
+                          </Select>
+                        )}
+                      </>
+
                     }
+                    
                     date={new Date(msg.timestamp)}
                     styles={
+
                       msg.senderId === userId
                         ? {
                             background:
                               "linear-gradient(to top right, #D9FDD3, #fff",
                             maxWidth: "80%",
+                            overflow: "hidden",
+
                           }
                         : {
                             maxWidth: "80%",
+                            overflow: "hidden",
+
                           }
                     }
                   />
@@ -391,8 +439,38 @@ const Chat = () => {
                         }}
                       />
                     </Box>
+                     {msg.senderId == userId && (
+                          <Select
+                           
+                            onChange={() => setDrop(!drop)}
+                            sx={{
+                              width: "1.5rem",
+                              borderRadius: "50%",
+                              height: "1rem",
+                              position: "relative",
+                              // bottom: "-3rem",        
+                              '& fieldset': {
+                                border: "none",
+                              },
+                            }}
+                          >
+                            <MenuItem
+                              sx={{
+                                position: "relative",
+                                bottom: "-0.5rem",
+                                left: "0.5rem",
+                                width: "100px",
+                                fontSize: "0.8rem",
+                              }}
+                            >
+                              Delete
+                            </MenuItem>
+                          </Select>
+                        )}
                   </Box>
                 )}
+
+                
               </ListItem>
             ))}
             {loading && (
@@ -429,6 +507,7 @@ const Chat = () => {
                       objectFit: "contain",
                     }}
                   />
+                  
                 </Box>
               </ListItem>
             )}
