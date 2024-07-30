@@ -8,11 +8,9 @@ import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import loadingGif from "../assets/loading.gif";
 import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
 import { ReactTyped } from "react-typed";
-import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import MenuItem from "@mui/material/MenuItem";
+import AttachFileIcon from '@mui/icons-material/AttachFile';
 import Select from "@mui/material/Select";
-
 import {
   Box,
   Typography,
@@ -43,15 +41,13 @@ const Chat = () => {
   const [fileName, setFileName] = useState("");
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = React.useState(false);
-  const messagesEndRef = useRef(null); // Mesajlar sonuna referans
-
+  const messagesEndRef = useRef(null); 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [file, setFile] = useState(null)
   const [drop, setDrop] = React.useState(false);
 
-  const handleChange = () => {
-    setDrop(!drop);
-  };
+ 
   useEffect(() => {
     const fetchMessages = async () => {
       try {
@@ -233,7 +229,7 @@ const Chat = () => {
           <Box
             sx={{
               backgroundColor: "#faf8f8",
-              maxWidth: "20rem",
+              maxWidth: "22rem",
               padding: "1rem",
               margin: "auto",
               mt: "1rem",
@@ -243,8 +239,12 @@ const Chat = () => {
             }}
           >
             <ReactTyped
-              style={{ fontSize: "0.8rem", color: "#434343" }}
-              strings={["I will be pleased to help you. Just text me!"]}
+              style={{
+                fontSize: "0.8rem",
+                color: "#434343",
+                textAlign: "center",
+              }}
+              strings={["Messages older than 7 days will be auto-deleted"]}
               typeSpeed={40}
             />
           </Box>
@@ -260,159 +260,86 @@ const Chat = () => {
                     msg.senderId === userId ? "flex-end" : "flex-start",
                 }}
               >
-              
                 {msg.message && (
                   <MessageBox
                     position={msg.senderId === userId ? "right" : "left"}
                     type="text"
                     text={
                       <>
-                   
-                      <Box sx={{position:"relative"}}>
-                        <Typography
-                          sx={{ mt: "-0.2rem", fontSize: "0.9rem", mb: "-1.5rem" }}
-                        >
-                          {msg.message}
-                        </Typography>
+                        <Box sx={{ position: "relative" }}>
+                          <Typography
+                            sx={{
+                              mt: "-0.2rem",
+                              fontSize: "0.9rem",
+                              mb: "-1.5rem",
+                            }}
+                          >
+                            {msg.message}
+                          </Typography>
+                        </Box>
 
-                       
-                      </Box>
-
-                      {msg.senderId == userId && (
-                          <Select 
-                          IconComponent={(props) => (
-                            <KeyboardArrowDownIcon
-                              {...props}
-                              sx={{ fontSize: '1.1rem' }} 
-                            />)}
+                        {msg.senderId == userId && (
+                          <Select
+                            IconComponent={(props) => (
+                              <KeyboardArrowDownIcon
+                                {...props}
+                                sx={{ fontSize: "1.1rem" }}
+                              />
+                            )}
                             onChange={() => setDrop(!drop)}
                             sx={{
-                              display:"flex",
-                              justifyContent:"center",
-                              alignItems:"center",
-                              textAlign:"center",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              textAlign: "center",
                               width: "1.5rem",
                               height: "1.3rem",
                               position: "absolute",
-                              left:"-0.1rem",  
-                              bottom:"-0.3rem", 
-                              overflow:"hidden",  
-                              '& fieldset': {
+                              left: "-0.1rem",
+                              bottom: "-0.3rem",
+                              overflow: "hidden",
+                              "& fieldset": {
                                 border: "none",
                               },
-                              "&:hover": { color: "red" },
-
                             }}
                           >
-
                             <Typography
                               sx={{
-                                position:"relative",
-                                cursor:"pointer",
+                                position: "relative",
+                                cursor: "pointer",
                                 width: "120px",
-                                marginLeft:"1rem",
+                                marginLeft: "1rem",
                                 fontSize: "0.8rem",
-                                marginRight:"-3rem",
-                                pl:"0.4rem"
-
+                                marginRight: "-3rem",
+                                pl: "0.4rem",
                               }}
-                              onClick={()=>deleteMessage(msg._id)}
-                              >
+                              onClick={() => deleteMessage(msg._id)}
+                            >
                               Delete
                             </Typography>
-                            
                           </Select>
                         )}
                       </>
-
                     }
-                    
                     date={new Date(msg.timestamp)}
                     styles={
-
                       msg.senderId === userId
                         ? {
                             background:
                               "linear-gradient(to top right, #D9FDD3, #fff",
                             maxWidth: "80%",
                             overflow: "hidden",
-
                           }
                         : {
                             maxWidth: "80%",
                             overflow: "hidden",
-
                           }
                     }
                   />
                 )}
-                {msg.image && (
-                  <Box sx={{ maxWidth: "320px", maxHeight: "320px" }}>
-                    {msg.senderId == userId && (
-                      <CancelOutlinedIcon
-                        sx={{
-                          position: "absolute",
-                          top: "1rem",
-                          left: "calc(100% - 320px)",
-                          transform: "translateX(-1rem) translateY(-1rem)",
-                          color: "#519f37",
-                          backgroundColor: "white",
-                          borderRadius: "50%",
-                          padding: "0.2rem",
-                          fontSize: "1.5rem",
-                          cursor: "pointer",
-                        }}
-                        onClick={() => deleteMessage(msg._id)}
-                      />
-                    )}
-                    <Box
-                      sx={{
-                        maxWidth: "310px",
-                        maxHeight: "320px",
-                        minWidth: "100px",
-                        minHeight: "100px",
-                        borderRadius: "0.5rem",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        overflow: "hidden",
-                        boxShadow:
-                          "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
-                      }}
-                    >
-                      <img
-                        src={`https://defi-chat-backend.onrender.com/uploads/${msg.image}`}
-                        alt="Uploaded"
-                        style={{
-                          width: "100%",
-                          height: "100%",
-                          objectFit: "contain",
-                        }}
-                      />
-                    </Box>
-                  </Box>
-                )}
-
-                {msg.video && (
+                   {msg.image && (
                   <Box sx={{ maxWidth: "320px", maxHeight: "350px" }}>
-                    {msg.senderId == userId && (
-                      <CancelOutlinedIcon
-                        sx={{
-                          position: "absolute",
-                          top: "1rem",
-                          left: "calc(100% - 320px)",
-                          transform: "translateX(-1rem) translateY(-1rem)",
-                          color: "#519f37",
-                          backgroundColor: "white",
-                          borderRadius: "50%",
-                          padding: "0.2rem",
-                          fontSize: "1.5rem",
-                          cursor: "pointer",
-                          zIndex: "5",
-                        }}
-                        onClick={() => deleteMessage(msg._id)}
-                      />
-                    )}
+                  
                     <Box
                       sx={{
                         maxWidth: "310px",
@@ -421,7 +348,7 @@ const Chat = () => {
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center",
-                        overflow: "hidden",
+                        overflow: "scroll",
                         backgroundColor: "#efefef",
                         boxShadow:
                           "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
@@ -429,48 +356,144 @@ const Chat = () => {
                         position: "relative",
                       }}
                     >
-                      <video
+                        {msg.senderId == userId && (
+                         <Select
+                         IconComponent={(props) => (
+                           <KeyboardArrowDownIcon
+                             {...props}
+                             sx={{
+                               fontSize: "1.1rem",
+                               backgroundColor: "white",
+                               borderRadius: "50%",
+                             }}
+                           />
+                         )}
+                         onChange={() => setDrop(!drop)}
+                         sx={{
+                           display: "flex",
+                           justifyContent: "center",
+                           alignItems: "center",
+                           textAlign: "center",
+                           width: "1.5rem",
+                           height: "1.3rem",
+                           position: "absolute",
+                           left: "0.5rem",
+                           top: "0.5rem",
+                           zIndex:"22",
+                           overflow: "hidden",
+                           "& fieldset": {
+                             border: "none",
+                           },
+                         }}
+                       >
+                         <Typography
+                           sx={{
+                             position: "relative",
+                             cursor: "pointer",
+                             width: "120px",
+                             marginLeft: "1rem",
+                             fontSize: "0.8rem",
+                             marginRight: "-3rem",
+                             pl: "0.4rem",
+                           }}
+                           onClick={() => deleteMessage(msg._id)}
+                         >
+                           Delete
+                         </Typography>
+                       </Select>
+                    )}
+                      <img
                         controls
-                        src={`https://defi-chat-backend.onrender.com/uploads/${msg.video}`}
+                        src={`https://defi-chat-backend.onrender.com/uploads/${msg.image}`}
                         style={{
-                          width: "100%",
-                          height: "100%",
+                          maxWidth: "310px",
+                          maxHeight: "350px",
                           objectFit: "contain",
                         }}
                       />
                     </Box>
-                     {msg.senderId == userId && (
-                          <Select
-                           
-                            onChange={() => setDrop(!drop)}
-                            sx={{
-                              width: "1.5rem",
-                              borderRadius: "50%",
-                              height: "1rem",
-                              position: "relative",
-                              // bottom: "-3rem",        
-                              '& fieldset': {
-                                border: "none",
-                              },
-                            }}
-                          >
-                            <MenuItem
-                              sx={{
-                                position: "relative",
-                                bottom: "-0.5rem",
-                                left: "0.5rem",
-                                width: "100px",
-                                fontSize: "0.8rem",
-                              }}
-                            >
-                              Delete
-                            </MenuItem>
-                          </Select>
-                        )}
+                  
                   </Box>
                 )}
-
-                
+{/*  */}
+                {msg.video && (
+                  <Box sx={{ maxWidth: "320px", maxHeight: "350px" }}>
+                  
+                    <Box
+                      sx={{
+                        maxWidth: "310px",
+                        maxHeight: "350px",
+                        borderRadius: "0.5rem",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        overflow: "scroll",
+                        backgroundColor: "#efefef",
+                        boxShadow:
+                          "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
+                        backdropFilter: "blur(10px)",
+                        position: "relative",
+                      }}
+                    >
+                        {msg.senderId == userId && (
+                         <Select
+                         IconComponent={(props) => (
+                           <KeyboardArrowDownIcon
+                             {...props}
+                             sx={{
+                               fontSize: "1.1rem",
+                               backgroundColor: "white",
+                               borderRadius: "50%",
+                             }}
+                           />
+                         )}
+                         onChange={() => setDrop(!drop)}
+                         sx={{
+                           display: "flex",
+                           justifyContent: "center",
+                           alignItems: "center",
+                           textAlign: "center",
+                           width: "1.5rem",
+                           height: "1.3rem",
+                           position: "absolute",
+                           left: "0.5rem",
+                           top: "0.5rem",
+                           zIndex:"22",
+                           overflow: "hidden",
+                           "& fieldset": {
+                             border: "none",
+                           },
+                         }}
+                       >
+                         <Typography
+                           sx={{
+                             position: "relative",
+                             cursor: "pointer",
+                             width: "120px",
+                             marginLeft: "1rem",
+                             fontSize: "0.8rem",
+                             marginRight: "-3rem",
+                             pl: "0.4rem",
+                           }}
+                           onClick={() => deleteMessage(msg._id)}
+                         >
+                           Delete
+                         </Typography>
+                       </Select>
+                    )}
+                      <video
+                        controls
+                        src={`https://defi-chat-backend.onrender.com/uploads/${msg.video}`}
+                        style={{
+                          maxWidth: "310px",
+                          maxHeight: "350px",
+                          objectFit: "contain",
+                        }}
+                      />
+                    </Box>
+                  
+                  </Box>
+                )}
               </ListItem>
             ))}
             {loading && (
@@ -507,11 +530,10 @@ const Chat = () => {
                       objectFit: "contain",
                     }}
                   />
-                  
                 </Box>
               </ListItem>
             )}
-            <div ref={messagesEndRef} /> {/* Mesajların sonuna referans */}
+            <div ref={messagesEndRef} /> 
           </List>
         )}
       </Box>
@@ -547,6 +569,10 @@ const Chat = () => {
             </IconButton>
           </label>
 
+          <IconButton component="span">
+              <AttachFileIcon sx={{ color: "black" }} />
+            </IconButton>
+            
           <TextField
             variant="outlined"
             fullWidth
