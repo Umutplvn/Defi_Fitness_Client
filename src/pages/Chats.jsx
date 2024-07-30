@@ -30,7 +30,6 @@ const Chats = () => {
   );
   const admin = users?.filter((user) => user._id !== userId);
   const userList = isAdmin ? admin : members;
-  console.log("object", users);
 
   useEffect(() => {
     listUsers();
@@ -48,7 +47,6 @@ const Chats = () => {
     fetchChats();
   }, [userId]);
 
-  console.log("users", users);
 
   const markMessagesAsRead = useCallback(
     async (receiverId) => {
@@ -118,7 +116,6 @@ const Chats = () => {
   };
 
   const getUnreadCount = (receiverId) => {
-    console.log(chats);
     return chats[receiverId]?.unreadCount || 0;
   };
 
