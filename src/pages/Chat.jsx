@@ -107,6 +107,7 @@ const Chat = () => {
         setMessage("");
         setImage(null);
         setVideo(null);
+        setFile(null)
         toast("File uploaded successfully");
       } catch (err) {
         console.error("File upload failed", err);
