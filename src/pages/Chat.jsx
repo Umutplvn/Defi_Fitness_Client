@@ -9,8 +9,9 @@ import loadingGif from "../assets/loading.gif";
 import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
 import { ReactTyped } from "react-typed";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import AttachFileIcon from '@mui/icons-material/AttachFile';
+import AttachFileIcon from "@mui/icons-material/AttachFile";
 import Select from "@mui/material/Select";
+import documentSvg from "../assets/documentsvg.png";
 import {
   Box,
   Typography,
@@ -41,13 +42,12 @@ const Chat = () => {
   const [fileName, setFileName] = useState("");
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = React.useState(false);
-  const messagesEndRef = useRef(null); 
+  const messagesEndRef = useRef(null);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [file, setFile] = useState(null)
   const [drop, setDrop] = React.useState(false);
+  const [file, setFile] = useState(null);
 
- 
   useEffect(() => {
     const fetchMessages = async () => {
       try {
@@ -84,6 +84,41 @@ const Chat = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    //! DOCUMENT
+    if (Boolean(file)) {
+      const formData = new FormData();
+      formData.append("senderId", userId);
+      formData.append("receiverId", chatUserId);
+      formData.append("file", file);
+      setLoading(true);
+
+      try {
+        const res = await axios.post(
+          "https://defi-chat-backend.onrender.com/uploaddoc",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+
+        setMessages([...messages, res.data]);
+        setMessage("");
+        setImage(null);
+        setVideo(null);
+        toast.success("File uploaded successfully");
+      } catch (err) {
+        console.error("File upload failed", err);
+        toast.error("File upload failed");
+      }finally {
+        setLoading(false);
+      }
+      return;
+    }
+    //! DOCUMENT END
+
+    // ! MESSAGE || IMAGE || VIDEO
     if (!message.trim() && !image && !video) {
       return;
     }
@@ -148,6 +183,27 @@ const Chat = () => {
       setVideo(file);
     }
   };
+
+  //! DOCUMENT
+  const handleDocumentChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+
+  const ShortenedText = ({ text }) => {
+    if (text.length <= 9) {
+      return <Typography>{text}</Typography>;
+    }
+      const firstFive = text.substring(0, 5);
+    const lastFour = text.substring(text.length - 4);
+  
+    return (
+      <Typography>
+        {firstFive}...{lastFour}
+      </Typography>
+    );
+  };
+
 
   return (
     <Box
@@ -283,7 +339,7 @@ const Chat = () => {
                             IconComponent={(props) => (
                               <KeyboardArrowDownIcon
                                 {...props}
-                                sx={{ fontSize: "1.1rem" }}
+                                sx={{ fontSize: "1rem" }}
                               />
                             )}
                             onChange={() => setDrop(!drop)}
@@ -337,9 +393,8 @@ const Chat = () => {
                     }
                   />
                 )}
-                   {msg.image && (
+                {msg.image && (
                   <Box sx={{ maxWidth: "320px", maxHeight: "350px" }}>
-                  
                     <Box
                       sx={{
                         maxWidth: "310px",
@@ -356,69 +411,73 @@ const Chat = () => {
                         position: "relative",
                       }}
                     >
-                        {msg.senderId == userId && (
-                         <Select
-                         IconComponent={(props) => (
-                           <KeyboardArrowDownIcon
-                             {...props}
-                             sx={{
-                               fontSize: "1.1rem",
-                               backgroundColor: "white",
-                               borderRadius: "50%",
-                             }}
-                           />
-                         )}
-                         onChange={() => setDrop(!drop)}
-                         sx={{
-                           display: "flex",
-                           justifyContent: "center",
-                           alignItems: "center",
-                           textAlign: "center",
-                           width: "1.5rem",
-                           height: "1.3rem",
-                           position: "absolute",
-                           left: "0.5rem",
-                           top: "0.5rem",
-                           zIndex:"22",
-                           overflow: "hidden",
-                           "& fieldset": {
-                             border: "none",
-                           },
-                         }}
-                       >
-                         <Typography
-                           sx={{
-                             position: "relative",
-                             cursor: "pointer",
-                             width: "120px",
-                             marginLeft: "1rem",
-                             fontSize: "0.8rem",
-                             marginRight: "-3rem",
-                             pl: "0.4rem",
-                           }}
-                           onClick={() => deleteMessage(msg._id)}
-                         >
-                           Delete
-                         </Typography>
-                       </Select>
-                    )}
-                      <img
-                        controls
-                        src={`https://defi-chat-backend.onrender.com/uploads/${msg.image}`}
-                        style={{
-                          maxWidth: "310px",
-                          maxHeight: "350px",
-                          objectFit: "contain",
-                        }}
-                      />
+                      {msg.senderId == userId && (
+                        <Select
+                          IconComponent={(props) => (
+                            <KeyboardArrowDownIcon
+                              {...props}
+                              sx={{
+                                fontSize: "1rem",
+                                backgroundColor: "white",
+                                borderRadius: "50%",
+                              }}
+                            />
+                          )}
+                          onChange={() => setDrop(!drop)}
+                          sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            textAlign: "center",
+                            width: "1.5rem",
+                            height: "1.3rem",
+                            position: "absolute",
+                            left: "0.5rem",
+                            top: "0.5rem",
+                            zIndex: "22",
+                            overflow: "hidden",
+                            "& fieldset": {
+                              border: "none",
+                            },
+                          }}
+                        >
+                          <Typography
+                            sx={{
+                              position: "relative",
+                              cursor: "pointer",
+                              width: "120px",
+                              marginLeft: "1rem",
+                              fontSize: "0.8rem",
+                              marginRight: "-3rem",
+                              pl: "0.4rem",
+                            }}
+                            onClick={() => deleteMessage(msg._id)}
+                          >
+                            Delete
+                          </Typography>
+                        </Select>
+                      )}
+                      <a
+                        target="_blank"
+                        href={`https://defi-chat-backend.onrender.com/uploads/${msg.image}`}
+                        download={`https://defi-chat-backend.onrender.com/uploads/${msg.image}`}
+                      >
+                        <img
+                          controls
+                          src={`https://defi-chat-backend.onrender.com/uploads/${msg.image}`}
+                          style={{
+                            maxWidth: "310px",
+                            maxHeight: "350px",
+                            objectFit: "contain",
+                          }}
+                        />
+                      </a>
                     </Box>
-                  
                   </Box>
                 )}
-{/*  */}
+                {/*  */}
                 {msg.video && (
                   <Box sx={{ maxWidth: "320px", maxHeight: "350px" }}>
-                  
                     <Box
                       sx={{
                         maxWidth: "310px",
@@ -435,52 +494,52 @@ const Chat = () => {
                         position: "relative",
                       }}
                     >
-                        {msg.senderId == userId && (
-                         <Select
-                         IconComponent={(props) => (
-                           <KeyboardArrowDownIcon
-                             {...props}
-                             sx={{
-                               fontSize: "1.1rem",
-                               backgroundColor: "white",
-                               borderRadius: "50%",
-                             }}
-                           />
-                         )}
-                         onChange={() => setDrop(!drop)}
-                         sx={{
-                           display: "flex",
-                           justifyContent: "center",
-                           alignItems: "center",
-                           textAlign: "center",
-                           width: "1.5rem",
-                           height: "1.3rem",
-                           position: "absolute",
-                           left: "0.5rem",
-                           top: "0.5rem",
-                           zIndex:"22",
-                           overflow: "hidden",
-                           "& fieldset": {
-                             border: "none",
-                           },
-                         }}
-                       >
-                         <Typography
-                           sx={{
-                             position: "relative",
-                             cursor: "pointer",
-                             width: "120px",
-                             marginLeft: "1rem",
-                             fontSize: "0.8rem",
-                             marginRight: "-3rem",
-                             pl: "0.4rem",
-                           }}
-                           onClick={() => deleteMessage(msg._id)}
-                         >
-                           Delete
-                         </Typography>
-                       </Select>
-                    )}
+                      {msg.senderId == userId && (
+                        <Select
+                          IconComponent={(props) => (
+                            <KeyboardArrowDownIcon
+                              {...props}
+                              sx={{
+                                fontSize: "1rem",
+                                backgroundColor: "white",
+                                borderRadius: "50%",
+                              }}
+                            />
+                          )}
+                          onChange={() => setDrop(!drop)}
+                          sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            textAlign: "center",
+                            width: "1.5rem",
+                            height: "1.3rem",
+                            position: "absolute",
+                            left: "0.5rem",
+                            top: "0.5rem",
+                            zIndex: "22",
+                            overflow: "hidden",
+                            "& fieldset": {
+                              border: "none",
+                            },
+                          }}
+                        >
+                          <Typography
+                            sx={{
+                              position: "relative",
+                              cursor: "pointer",
+                              width: "120px",
+                              marginLeft: "1rem",
+                              fontSize: "0.8rem",
+                              marginRight: "-3rem",
+                              pl: "0.4rem",
+                            }}
+                            onClick={() => deleteMessage(msg._id)}
+                          >
+                            Delete
+                          </Typography>
+                        </Select>
+                      )}
                       <video
                         controls
                         src={`https://defi-chat-backend.onrender.com/uploads/${msg.video}`}
@@ -491,7 +550,87 @@ const Chat = () => {
                         }}
                       />
                     </Box>
-                  
+                  </Box>
+                )}
+
+                {msg.file && (
+                  <Box sx={{ maxWidth: "320px", maxHeight: "350px" }}>
+                    <Box
+                      sx={{
+                        maxWidth: "310px",
+                        maxHeight: "350px",
+                        borderRadius: "0.5rem",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        flexDirection: "column",
+                        overflow: "scroll",
+                        backgroundColor: "white",
+                        boxShadow:
+                          "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
+                        backdropFilter: "blur(10px)",
+                        position: "relative",
+                      }}
+                    >
+                      {msg.senderId == userId && (
+                        <Select
+                          IconComponent={(props) => (
+                            <KeyboardArrowDownIcon
+                              {...props}
+                              sx={{
+                                fontSize: "1rem",
+                                backgroundColor: "white",
+                                borderRadius: "50%",
+                                border: "1px solid #666666",
+                              }}
+                            />
+                          )}
+                          onChange={() => setDrop(!drop)}
+                          sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            textAlign: "center",
+                            width: "1.5rem",
+                            height: "1.3rem",
+                            position: "absolute",
+                            left: "0.5rem",
+                            top: "0.5rem",
+                            zIndex: "22",
+                            overflow: "hidden",
+                            "& fieldset": {
+                              border: "none",
+                            },
+                          }}
+                        >
+                          <Typography
+                            sx={{
+                              position: "relative",
+                              cursor: "pointer",
+                              width: "120px",
+                              marginLeft: "1rem",
+                              fontSize: "0.8rem",
+                              marginRight: "-3rem",
+                              pl: "0.4rem",
+                            }}
+                            onClick={() => deleteMessage(msg._id)}
+                          >
+                            Delete
+                          </Typography>
+                        </Select>
+                      )}
+                      <IconButton
+                        sx={{ display: "flex", justifyContent: "center" }}
+                        component="a"
+                        href={`https://defi-chat-backend.onrender.com/uploads/${msg.file}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        download
+                      >
+                        <img style={{ width: "100px" }} src={documentSvg} />
+                      </IconButton>
+                      <ShortenedText text={msg.file} />
+                 </Box>
                   </Box>
                 )}
               </ListItem>
@@ -533,7 +672,7 @@ const Chat = () => {
                 </Box>
               </ListItem>
             )}
-            <div ref={messagesEndRef} /> 
+            <div ref={messagesEndRef} />
           </List>
         )}
       </Box>
@@ -569,10 +708,18 @@ const Chat = () => {
             </IconButton>
           </label>
 
-          <IconButton component="span">
-              <AttachFileIcon sx={{ color: "black" }} />
+          <form onSubmit={handleSubmit}>
+            <IconButton component="label">
+              <AttachFileIcon />
+              <input
+                accept=".pdf,.doc,.docx"
+                type="file"
+                hidden
+                onChange={handleDocumentChange}
+              />
             </IconButton>
-            
+          </form>
+
           <TextField
             variant="outlined"
             fullWidth
@@ -595,7 +742,6 @@ const Chat = () => {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
           />
-
           <Button
             type="submit"
             sx={{ backgroundColor: "#fefefe", color: "black" }}

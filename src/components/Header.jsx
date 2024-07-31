@@ -61,7 +61,6 @@ const Header = ({ play, setPlay }) => {
           pl: "1rem",
           pr: "1rem",
           zIndex: 4,
-          maxWidth: "1536px",
           m: "auto",
           position: "relative",
         }}
