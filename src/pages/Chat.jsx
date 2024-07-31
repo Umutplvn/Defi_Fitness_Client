@@ -107,10 +107,10 @@ const Chat = () => {
         setMessage("");
         setImage(null);
         setVideo(null);
-        toast.success("File uploaded successfully");
+        toast("File uploaded successfully");
       } catch (err) {
         console.error("File upload failed", err);
-        toast.error("File upload failed");
+        toast("File upload failed");
       }finally {
         setLoading(false);
       }
@@ -695,6 +695,11 @@ const Chat = () => {
               "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
           }}
         >
+                  {(image||video) && (
+        <Typography sx={{position:"fixed", marginTop: "-1.7rem", left:"2.5rem",color: "white", backgroundColor:"#94cf70", borderRadius:"50%", fontSize:"0.7rem", width:"0.9rem", height:"0.9rem", display:"flex", justifyContent:'center', alignItems:"center"}}>
+         1
+        </Typography>
+      )}
           <input
             type="file"
             id="file-upload"
@@ -706,9 +711,14 @@ const Chat = () => {
             <IconButton component="span">
               <LocalSeeIcon sx={{ color: "black" }} />
             </IconButton>
+  
           </label>
-
-          <form onSubmit={handleSubmit}>
+          {file && (
+        <Typography sx={{position:"fixed", marginTop: "-1.7rem", left:"5.5rem",color: "white", backgroundColor:"#94cf70", borderRadius:"50%", fontSize:"0.7rem", width:"0.9rem", height:"0.9rem", display:"flex", justifyContent:'center', alignItems:"center"}}>
+         1
+        </Typography>
+      )}
+          <form onSubmit={handleSubmit} >
             <IconButton component="label">
               <AttachFileIcon />
               <input
