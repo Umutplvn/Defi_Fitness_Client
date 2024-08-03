@@ -10,43 +10,56 @@ import { Box, TextField } from "@mui/material";
 import { useSelector } from "react-redux";
 import EditIcon from "@mui/icons-material/Edit";
 import CancelIcon from "@mui/icons-material/Cancel";
-import { useState } from "react";
-import ModalUnstyled from "../components/DeleteUserModel"
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
+import ModalUnstyled from "../components/DeleteUserModel";
 import useAuthCall from "../hooks/useAuthCall";
-import ReactStars from 'react-stars'
-import { render } from 'react-dom'
- 
-
+import ReactStars from 'react-stars';
+import EditModalUnstyled from "../components/EditUserModal";
 
 const Members = () => {
   const { users, userId } = useSelector((state) => state.auth);
-  const {listUsers}=useAuthCall()
+  const { listUsers } = useAuthCall();
   const [search, setSearch] = useState("");
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
   const [open, setOpen] = useState(false);
-
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [editUser, setEditUser] = useState(null);
 
   useEffect(() => {
-    listUsers()
-  }, [])
-  
-  console.log(users);
+    listUsers();
+  }, []);
 
-  const ratingChanged = (newRating) => {
-    console.log(newRating)
-  }
+  const handleOpen = (user) => {
+    setSelectedUser(user);
+    setOpen(true);
+  };
 
-  
+  const handleEditOpen = (user) => {
+    setEditUser(user);
+    setOpen(true);
+  };
+
+
+  const handleClose = () => {
+    setOpen(false);
+    setSelectedUser(null);
+    setEditUser(null)
+  };
+
+  const formatName = (name) => {
+    if (!name) return "";
+    return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+  };
+
+
+
   const filterUsers = users?.filter(
     (item) =>
-    item._id!==userId && item.verified &&
+      item._id !== userId &&
+      item.verified &&
       (item.name.toLowerCase().includes(search.toLowerCase()) ||
-      item.membership.toLowerCase().includes(search.toLowerCase()) ||
-      item.email.toLowerCase().includes(search.toLowerCase()) )
+        item.membership.toLowerCase().includes(search.toLowerCase()) ||
+        item.email.toLowerCase().includes(search.toLowerCase()))
   );
-
 
   return (
     <Box sx={{ ml: { xs: "0", sm: "6rem", md: "12rem" }, padding: "1rem" }}>
@@ -56,7 +69,7 @@ const Members = () => {
           display: "flex",
           justifyContent: "center",
           pt: "2rem",
-          mb:"2rem",
+          mb: "2rem",
           ml: { sm: "4.5rem", md: "10rem" },
         }}
       >
@@ -87,12 +100,12 @@ const Members = () => {
           }}
         />
       </Box>
-     
+
       <TableContainer component={Paper} sx={{ borderRadius: "1rem" }}>
         <Table sx={{ minWidth: 350 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-            <TableCell> </TableCell>
+              <TableCell></TableCell>
               <TableCell align="left">Name</TableCell>
               <TableCell align="left">Email</TableCell>
               <TableCell align="left">Membership</TableCell>
@@ -101,19 +114,14 @@ const Members = () => {
           </TableHead>
           <TableBody>
             {filterUsers?.map((row) => (
-                <>
-                <ModalUnstyled handleClose={handleClose}  open={open} userId={row._id} name={row.name}/>
               <TableRow
-                key={row._id} 
+                key={row._id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-              
-              
-
-
                 <TableCell component="th" scope="row">
                   <Box sx={{ display: "flex", gap: "0.5rem" }}>
                     <EditIcon
+                      onClick={() => handleEditOpen(row)}
                       sx={{
                         color: "#4b4b4b",
                         ":hover": {
@@ -126,7 +134,7 @@ const Members = () => {
                       }}
                     />
                     <CancelIcon
-                    onClick={()=>setOpen(true)}
+                      onClick={() => handleOpen(row)}
                       sx={{
                         color: "#4b4b4b",
                         ":hover": {
@@ -141,30 +149,47 @@ const Members = () => {
                   </Box>
                 </TableCell>
                 <TableCell sx={{ minWidth: "150px" }} align="left">
-                  {row.name}
+                  {formatName(row.name)}
                 </TableCell>
                 <TableCell sx={{ minWidth: "150px" }} align="left">
                   {row.email}
                 </TableCell>
-                <TableCell  align="left">
-                  {row.membership}
-                </TableCell>
-                <TableCell  align="left" sx={{minWidth:"95px"}}>
-                  
-                <ReactStars 
-  count={5}
-  value={row.level}
-edit={false}
-  size={12}
-  color2={'#ffd700'} />
-
+                <TableCell align="left">{row.membership}</TableCell>
+                <TableCell align="left" sx={{ minWidth: "95px" }}>
+                  <ReactStars
+                    count={5}
+                    value={row.level}
+                    edit={false}
+                    size={12}
+                    color2={"#ffd700"}
+                  />
                 </TableCell>
               </TableRow>
-              </>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
+      {selectedUser && (
+        <ModalUnstyled
+          handleClose={handleClose}
+          open={open}
+          userId={selectedUser._id}
+          name={selectedUser.name}
+        />
+      )}
+
+      {editUser && (
+        <EditModalUnstyled
+        handleClose={handleClose}
+        open={open}
+        userId={editUser._id}
+        name={editUser.name}
+        email={editUser.email}
+        membership={editUser.membership}
+        level={editUser.level}
+
+        />
+      )}
     </Box>
   );
 };

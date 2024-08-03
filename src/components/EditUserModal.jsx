@@ -3,25 +3,46 @@ import PropTypes from "prop-types";
 import clsx from "clsx";
 import { styled, css } from "@mui/system";
 import { Modal as BaseModal } from "@mui/base/Modal";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import useAuthCall from "../hooks/useAuthCall";
 import { toast } from "react-hot-toast";
+import { useState } from "react";
+import ReactStars from 'react-stars';
+import InputLabel from '@mui/material/InputLabel';
+import NativeSelect from '@mui/material/NativeSelect';
+import FormControl from '@mui/material/FormControl';
 
-export default function ModalUnstyled({ handleClose, open, userId, name}) {
+export default function EditModalUnstyled({
+  handleClose,
+  open,
+  userId,
+  name,
+  level,
+  membership,
+  email,
+}) {
+  const { updateUser } = useAuthCall();
+  const [info, setInfo] = useState({ name, level, email, membership });
+  const [age, setAge] = useState('');
 
-const {deleteUser, listUsers}=useAuthCall()
-const formatName = (name) => {
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
+
+  const ratingChanged = (newRating) => {
+    setInfo({...info, level:newRating})
+  }
+  const formatName = (name) => {
     if (!name) return "";
     return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
   };
 
-  const deleteUserFunc=()=>{
-    deleteUser(userId)
+  const updateFunc=()=>{
+    updateUser(userId, info)
     handleClose()
-    listUsers()
-    toast("Successfully deleted.")
-}
-  
+  }
+
+
   return (
     <Box>
       <Modal
@@ -32,16 +53,96 @@ const formatName = (name) => {
         onClose={handleClose}
         slots={{ backdrop: StyledBackdrop }}
       >
-        <ModalContent sx={{ width: 400, maxHeight: "12.5rem" }}>
-        <Typography
-      sx={{ fontSize: "1rem", fontWeight: "600", textAlign: "center" }}
-      id="unstyled-modal-title"
-      className="modal-title"
-    >
-      {`Do you really want to delete the membership of ${formatName(name)}?`}
-    </Typography>
-          <Box sx={{ margin: "auto", display: "flex", gap: "1rem" }}>
+        <ModalContent sx={{ width: 400, maxHeight: "16.5rem" }}>
+<Box sx={{display:"flex", alignItems:"center", gap:"0.5rem"}}>
+  <Typography sx={{fontWeight:"700",  width:"130px"}}>Name:</Typography>
+  <TextField
+            variant="outlined"
+            sx={{
+              width: { xs: "15rem", md: "20rem" },
+              "& .MuiOutlinedInput-root": {
+                height: "1.7rem",
+                "& fieldset": {
+                  borderColor: "transparent",
+                  borderRadius: "0.5rem",
+                },
+                "&:hover fieldset": {
+                  borderColor: "#FE5E00",
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: "#FE5E00",
+                },
+                "& input": {
+                  height: "auto",
+                  padding: "0.75rem",
+                },
+              },
+            }}
+    value={formatName(info.name)}
+    onChange={(e)=>setInfo({...info, name:e.target.value})}
+          />
+</Box>
 
+<Box sx={{display:"flex", alignItems:"center", gap:"0.5rem"}}>
+  <Typography sx={{fontWeight:"700", width:"130px"}}>Email:</Typography>
+  <TextField
+            variant="outlined"
+            sx={{
+              width: { xs: "15rem", md: "20rem" },
+              "& .MuiOutlinedInput-root": {
+                height: "1.7rem",
+                "& fieldset": {
+                  borderColor: "transparent",
+                  borderRadius: "0.5rem",
+                },
+                "&:hover fieldset": {
+                  borderColor: "#FE5E00",
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: "#FE5E00",
+                },
+                "& input": {
+                  height: "auto",
+                  padding: "0.75rem",
+                },
+              },
+            }}
+    value={info.email}
+    onChange={(e)=>setInfo({...info, email:e.target.value})}
+          />
+</Box>
+
+
+<Box sx={{display:"flex", alignItems:"center", gap:"0.5rem"}}>
+  <Typography sx={{fontWeight:"700",  width:"130px"}}>Membership:</Typography>
+  <FormControl sx={{width:"205px"}}>
+
+  <NativeSelect
+    defaultValue={info.membership}
+    inputProps={{
+      id: 'uncontrolled-native',
+    }}
+    onChange={(e)=>setInfo({...info, membership:e.target.value})}
+  >
+    <option value={"Basic"}>Bronze</option>
+    <option value={"Silver"}>Silver</option>
+    <option value={"Gold"}>Gold</option>
+  </NativeSelect>
+</FormControl>
+</Box>
+
+<Box sx={{display:"flex", alignItems:"center", gap:"0.5rem"}}>
+<Typography sx={{fontWeight:"700",  width:"113px"}}>Level:</Typography>
+  <ReactStars
+                    count={5}
+                    value={info.level}
+                    size={20}
+                    color2={"#ffd700"}
+                    onChange={ratingChanged}
+                    />
+</Box>
+
+          <Box sx={{ margin: "auto", display: "flex", gap: "1rem" }}>
             <Button
               type="submit"
               variant="contained"
@@ -59,9 +160,9 @@ const formatName = (name) => {
                   color: "white",
                 },
               }}
-              onClick={deleteUserFunc}
+              onClick={updateFunc}
             >
-              Yes
+              submit
             </Button>
 
             <Button
@@ -80,7 +181,6 @@ const formatName = (name) => {
                 "&:hover": {
                   backgroundColor: "#bc3a3a",
                   color: "white",
-                  
                 },
               }}
             >

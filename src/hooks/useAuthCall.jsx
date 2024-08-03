@@ -112,7 +112,7 @@ const useAuthCall = () => {
     
   };
 
-//! UPDATE USER
+//! UPDATE PROFILE
   const update = async (userId,updateData) => {
     dispatch(fetchStart());
     try {
@@ -121,6 +121,20 @@ const useAuthCall = () => {
         updateData
       );
       dispatch(registerSuccess(data));
+    } catch (error) {
+      dispatch(fetchFail());
+    }
+  };
+
+  //! UPDATE A USER
+  const updateUser = async (userId,updateData) => {
+    dispatch(fetchStart());
+    try {
+      const { data } = await axiosWithToken.put(
+        `${process.env.REACT_APP_BASE_URL}/users/${userId}`,
+        updateData
+      );
+        listUsers()
     } catch (error) {
       dispatch(fetchFail());
     }
@@ -210,7 +224,8 @@ const useAuthCall = () => {
     // removeContact,
     // getMyContacts,
     passwordUpdate,
-    saveBlog
+    saveBlog,
+    updateUser
     // syncContacts,
   };
 };
