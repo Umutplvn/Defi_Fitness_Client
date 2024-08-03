@@ -10,7 +10,6 @@ import {
   registerSuccess,
   // logoutSuccess,
   passwordUpdateSuccess,
-  deleteSuccess,
   saveBlogSuccess,
   usersSuccess
   // updateContactSuccess,
@@ -105,7 +104,7 @@ const useAuthCall = () => {
       const { data } = await axios.delete(
         `${process.env.REACT_APP_BASE_URL}/users/${userId}`
       );
-      dispatch(deleteSuccess(data));
+      listUsers()
     } catch (error) {
       dispatch(fetchFail());
       toast("User delete failed!")
@@ -134,6 +133,7 @@ const useAuthCall = () => {
       const { data } = await axiosWithToken.get(
         `${process.env.REACT_APP_BASE_URL}/users/`
       );
+      console.log("data", data);
       dispatch(usersSuccess(data));
     } catch (error) {
       dispatch(fetchFail());

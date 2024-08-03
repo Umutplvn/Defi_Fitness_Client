@@ -44,23 +44,6 @@ export const authSlice = createSlice({
       state.isAdmin=false
     },
 
-
-    deleteSuccess: (state) => {
-      state.isAdmin=false;
-      state.isPremium=false;
-      state.loading= false;
-      state.error= false;
-      state.token= null;
-      state.userId= null;
-      state.email=null;
-      state. verified=null;
-      state.avatar="";
-      state.name="";
-      state.password="";
-      state.passcode="";
-      state.sportBranch=[]
-    },
-
     loginSuccess: (state, { payload }) => {
       state.loading = false;
       state.error = false;
@@ -128,7 +111,6 @@ export const {
   loginSuccess,
   // logoutSuccess,
   registerSuccess,
-  deleteSuccess,
   passwordUpdateSuccess,
   saveBlogSuccess,
   usersSuccess

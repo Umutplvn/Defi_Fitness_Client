@@ -31,6 +31,7 @@
     "react-router-dom": "^6.22.0",
     "react-scripts": "5.0.1",
     "react-scroll": "^1.9.0",
+    "react-stars": "^2.2.5",
     "react-toastify": "^10.0.4",
     "react-typed": "^2.0.12",
     "redux-persist": "^6.0.0",
