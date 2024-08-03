@@ -19,6 +19,10 @@ import BlogRead from "../pages/BlogRead";
 import Chats from "../pages/Chats";
 import Chat from "../pages/Chat";
 import UpdateBlog from "../pages/UpdateBlog";
+import CreateBlog from "../pages/CreateBlog";
+import CreatePaidPlan from "../pages/CreatePaidPlan";
+import ShareVideo from "../pages/ShareVideo";
+import Members from "../pages/Members";
 
 const AppRouter = () => {
   return (
@@ -49,6 +53,10 @@ const AppRouter = () => {
           <Route path="/adminpanel" element={<AdminPanel/>} />
           <Route path="/blogs/:blogId" element={<BlogRead/>} />
           <Route path="/adminpanel/:blogId" element={<UpdateBlog/>} />
+          <Route path="/adminpanel/createblog" element={<CreateBlog/>} />
+          <Route path="/adminpanel/createpaidplan" element={<CreatePaidPlan/>} />
+          <Route path="/adminpanel/sharevideo" element={<ShareVideo/>} />
+          <Route path="/adminpanel/members" element={<Members/>} />
         </Route>
         </Route>
       </Routes>

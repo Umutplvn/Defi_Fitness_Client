@@ -128,8 +128,7 @@ const HomeAppBarLarge = () => {
             alignItems: "center",
             gap: "0.5rem",
             textDecoration: "none",
-            color: "white",
-          }}
+            color: "white"}}
         >
           <AdminPanelSettingsIcon style={{ fontSize: "2.2rem" }} />
 
@@ -189,29 +188,6 @@ const HomeAppBarLarge = () => {
             Videos
           </Typography>
         </Link>
-
-        {/*USER CHAT */}
-       {/* {(membership !=="Basic" && isAdmin==true ) &&  <Link
-          to="/chat"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "0.5rem",
-            textDecoration: "none",
-            color: "white",
-          }}
-        >
-          <TelegramIcon style={{ fontSize: "2.2rem" }} />
-
-          <Typography
-            sx={{
-              display: { xs: "none", md: "block" },
-              ml: 1,
-            }}
-          >
-            Chat
-          </Typography>
-        </Link>} */}
    
         {/*ADMIN CHAT */}
         {(membership!=="Basic" ) &&  <Link
@@ -224,7 +200,7 @@ const HomeAppBarLarge = () => {
             color: "white",
           }}
         >
-          <TelegramIcon style={{ fontSize: "2.2rem" }} />
+          <TelegramIcon style={{ fontSize: "2.2rem",  }} />
 
           <Typography
             sx={{

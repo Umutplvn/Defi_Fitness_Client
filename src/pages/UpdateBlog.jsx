@@ -18,7 +18,7 @@ const UpdateBlog = () => {
   const handleEditorChange = (newContent) => {
     setInfo({ ...info, content: newContent });
   };
-
+console.log(blog[0]);
   return (
     <Box
       sx={{
@@ -48,10 +48,10 @@ const UpdateBlog = () => {
           
         <JoditEditor
           ref={editor}
-          value={info.content}
+          // value={info}
           onChange={handleEditorChange}
           config={{
-            readonly: false, // edit state
+            readonly: false,
             height: 400,
           }}
         />
