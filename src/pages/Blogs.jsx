@@ -14,7 +14,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import useDataCall from "../hooks/useDataCall";
 import { useSelector } from "react-redux";
-import { ListItem, MenuItem, Select, TextField } from "@mui/material";
+import { MenuItem, Select, TextField } from "@mui/material";
 import defiIcon from "../assets/defi-icon.jpeg";
 import { useEffect } from "react";
 import { useState } from "react";
