@@ -19,7 +19,7 @@ import Comments from "../components/Comments";
 const BlogRead = () => {
   const { blogId } = useParams();
   const [blog, setBlog] = useState(null);
-  const { likeBlog, getBlogs } = useDataCall();
+  const { likeBlog } = useDataCall();
   const { saveBlog } = useAuthCall();
   const { userId, savedBlog } = useSelector((state) => state?.auth);
   const { axiosWithToken } = useAxios();
@@ -32,7 +32,7 @@ const BlogRead = () => {
         `${process.env.REACT_APP_BASE_URL}/blog/${blogId}`
       );
 
-      setBlog(data.result); // Set blog data correctly
+      setBlog(data.result); 
     } catch (error) {
       console.error("Error fetching blog data:", error);
       toast.error("Error fetching blog data!");
@@ -42,7 +42,7 @@ const BlogRead = () => {
   const handleLikeBlog = async () => {
     try {
       await likeBlog({ blogId });
-      readBlog(); // Refresh blog data after liking
+      readBlog(); 
     } catch (error) {
       console.error("Error liking blog:", error);
       toast.error("Error liking blog!");
@@ -52,7 +52,7 @@ const BlogRead = () => {
   const handleSaveBlog = async () => {
     try {
       await saveBlog({ blogId });
-      readBlog(); // Refresh blog data after saving
+      readBlog(); 
     } catch (error) {
       console.error("Error saving blog:", error);
       toast.error("Error saving blog!");

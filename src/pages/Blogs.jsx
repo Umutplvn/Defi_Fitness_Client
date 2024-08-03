@@ -14,7 +14,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import useDataCall from "../hooks/useDataCall";
 import { useSelector } from "react-redux";
-import { TextField } from "@mui/material";
+import { ListItem, MenuItem, Select, TextField } from "@mui/material";
 import defiIcon from "../assets/defi-icon.jpeg";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -24,13 +24,14 @@ import useAuthCall from "../hooks/useAuthCall";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { useNavigate } from "react-router-dom";
 import spinner from "../assets/spinner.svg";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
 const Blogs = () => {
-  const { getBlogs, likeBlog } = useDataCall();
+  const { getBlogs, likeBlog, deleteBlog } = useDataCall();
   const { saveBlog } = useAuthCall();
   const navigate = useNavigate();
   const { blogs } = useSelector((state) => state?.appData);
-  const { userId, savedBlog } = useSelector((state) => state?.auth);
+  const { userId, savedBlog, isAdmin } = useSelector((state) => state?.auth);
   const [search, setSearch] = useState("");
   const publicBlogs = blogs?.filter((item) => item.status == "public");
   const filteredBlogs = publicBlogs.filter(
@@ -42,6 +43,7 @@ const Blogs = () => {
   useEffect(() => {
     getBlogs();
   }, []);
+
   return (
     <Box sx={{ marginBottom: "10rem" }}>
       {/* SEARCH BAR */}
@@ -81,9 +83,8 @@ const Blogs = () => {
           }}
         />
       </Box>
-
       {/* BLOG CARD COMPONENT */}
-      {blogs.length>0 ? (
+      {blogs.length > 0 ? (
         <Box
           sx={{
             display: "flex",
@@ -110,6 +111,67 @@ const Blogs = () => {
                   },
                 }}
               >
+                {isAdmin && (
+                  <Select
+                    IconComponent={(props) => (
+                      <MoreHorizIcon
+                        {...props}
+                        sx={{
+                          width: "100%",
+                          backgroundColor: "white",
+                        }}
+                      />
+                    )}
+                    sx={{
+                      width: "2.5rem",
+                      height: "1.3rem",
+                      display: "flex",
+                      justifyContent: "flex-start",
+                      "& fieldset": {
+                        border: "none",
+                      },
+                    }}
+                  >
+                    <MenuItem
+                      sx={{
+                        cursor: "pointer",
+                        width: "130px",
+                        fontSize: "0.8rem",
+                        marginRight: "-3rem",
+                        pl: "0.4rem",
+                        minHeight: "1rem",
+                        backgroundColor: "#ffffff !important",
+                        "&:hover": {
+                          backgroundColor: "#f0f0f0 !important",
+                        },
+                      }}
+                      onClick={() => console.log(item._id)}
+                    >
+                      Delete
+                    </MenuItem>
+
+                    <MenuItem
+                      sx={{
+                        cursor: "pointer",
+                        width: "130px",
+                        fontSize: "0.8rem",
+                        marginRight: "-3rem",
+                        pl: "0.4rem",
+                        minHeight: "1rem",
+                        marginBottom: "-0.3rem",
+
+                        backgroundColor: "#ffffff !important",
+                        "&:hover": {
+                          backgroundColor: "#f0f0f0 !important",
+                        },
+                      }}
+                      onClick={() => navigate(`/adminpanel/${item._id}`)}
+                    >
+                      Update
+                    </MenuItem>
+                  </Select>
+                )}
+
                 <CardContent>
                   <Box
                     sx={{
@@ -284,14 +346,15 @@ const Blogs = () => {
                     type="submit"
                     variant="contained"
                     onClick={() => navigate(`/blogs/${item._id}`)}
-                    style={{ color: "#ff5100", fontSize: "1rem",
-                  
-                    "&:hover": {
-                      boxShadow: "rgba(17, 17, 26, 0.1) 32px 0px 16px",
-                      cursor: "pointer",
-                    },
-                  }}
-                 
+                    style={{
+                      color: "#ff5100",
+                      fontSize: "1rem",
+
+                      "&:hover": {
+                        boxShadow: "rgba(17, 17, 26, 0.1) 32px 0px 16px",
+                        cursor: "pointer",
+                      },
+                    }}
                   >
                     Read More
                   </Typography>

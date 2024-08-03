@@ -39,13 +39,26 @@ const useDataCall = () => {
     }
   };
 
+//DELETE BLOG
+const deleteBlog = async (blogId) => {
+  dispatch(fetchStart());
+  try {
+    const { data } = await axiosWithToken.delete(
+      `${process.env.REACT_APP_BASE_URL}/blog/delete/${blogId}`
+    );
+    getBlogs();
+  } catch (error) {
+    toast("Error!");
+    dispatch(fetchFail());
+  }
+};   
 
 
 
   return {
     getBlogs,
     likeBlog,
-    
+    deleteBlog
   };
 };
 

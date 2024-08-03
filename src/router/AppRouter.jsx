@@ -18,6 +18,7 @@ import AdminPanel from "../pages/AdminPanel";
 import BlogRead from "../pages/BlogRead";
 import Chats from "../pages/Chats";
 import Chat from "../pages/Chat";
+import UpdateBlog from "../pages/UpdateBlog";
 
 const AppRouter = () => {
   return (
@@ -47,6 +48,7 @@ const AppRouter = () => {
           <Route path="/paidcontent" element={<PaidContent/>} />
           <Route path="/adminpanel" element={<AdminPanel/>} />
           <Route path="/blogs/:blogId" element={<BlogRead/>} />
+          <Route path="/adminpanel/:blogId" element={<UpdateBlog/>} />
         </Route>
         </Route>
       </Routes>
