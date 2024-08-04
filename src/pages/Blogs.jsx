@@ -44,6 +44,9 @@ const Blogs = () => {
     getBlogs();
   }, []);
 
+  console.log(blogs);
+
+
   return (
     <Box sx={{ marginBottom: "10rem" }}>
       {/* SEARCH BAR */}
@@ -200,7 +203,7 @@ const Blogs = () => {
                       }}
                     />
                   </Box>
-                  <Typography
+                  {/* <Typography
                     sx={{
                       fontSize: "1rem",
                       fontWeight: "600",
@@ -213,7 +216,7 @@ const Blogs = () => {
                     }}
                   >
                     {item?.title}
-                  </Typography>
+                  </Typography> */}
                 </CardContent>
 
                 <CardOverflow>
@@ -316,9 +319,9 @@ const Blogs = () => {
                     </IconButton>
                   </Box>
                 </CardContent>
-                <Typography sx={{ color: "#898989", fontSize: "0.7rem" }}>
+                {/* <Typography sx={{ color: "#898989", fontSize: "0.7rem" }}>
                   # {item?.category_name}
-                </Typography>
+                </Typography> */}
                 <CardContent>
                   <Typography
                     sx={{

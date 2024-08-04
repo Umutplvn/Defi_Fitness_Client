@@ -10,6 +10,25 @@ const useDataCall = () => {
   const navigate = useNavigate();
   const { axiosWithToken } = useAxios();
 
+  //CREATE BLOG
+  const createBlog = async (blogData) => {
+    dispatch(fetchStart());
+    try {
+      console.log("Posting content:", blogData);
+  
+      const { data } = await axiosWithToken.post(
+        `${process.env.REACT_APP_BASE_URL}/blog/create`,
+        blogData
+        );
+        getBlogs()
+      } catch (error) {
+      toast("Error!");
+      dispatch(fetchFail());
+    }
+  };
+
+
+
   // GET BLOGS
   const getBlogs = async () => {
     dispatch(fetchStart());
@@ -58,7 +77,8 @@ const deleteBlog = async (blogId) => {
   return {
     getBlogs,
     likeBlog,
-    deleteBlog
+    deleteBlog,
+    createBlog
   };
 };
 

@@ -18,7 +18,7 @@ const UpdateBlog = () => {
   const handleEditorChange = (newContent) => {
     setInfo({ ...info, content: newContent });
   };
-console.log(blog[0]);
+
   return (
     <Box
       sx={{

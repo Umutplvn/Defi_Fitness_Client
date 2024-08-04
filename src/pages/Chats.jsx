@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Typography,
@@ -14,8 +14,6 @@ import dayjs from "dayjs";
 import isToday from "dayjs/plugin/isToday";
 import isYesterday from "dayjs/plugin/isYesterday";
 import useAuthCall from "../hooks/useAuthCall";
-import CheckIcon from "@mui/icons-material/Check";
-import DoneAllIcon from "@mui/icons-material/DoneAll";
 //! Working way
 dayjs.extend(isToday);
 dayjs.extend(isYesterday);
@@ -26,7 +24,7 @@ const Chats = () => {
   const [chats, setChats] = useState([]);
   const navigate = useNavigate();
   const members = users?.filter(
-    (user) => user?.isAdmin == true && user?._id !== userId
+    (user) => user?.isAdmin === true && user?._id !== userId
   );
   const admin = users?.filter((user) => user._id !== userId);
   const userList = isAdmin ? admin : members;
@@ -45,8 +43,7 @@ const Chats = () => {
     };
 
     fetchChats();
-  }, [userId]);
-
+  }, [userId, listUsers]);
 
   const markMessagesAsRead = useCallback(
     async (receiverId) => {
@@ -101,7 +98,7 @@ const Chats = () => {
 
   const getLastMessageTime = (receiverId) => {
     const userChats = chats[receiverId]?.messages || [];
-    const lastMessage = userChats.sort((a, b) => b.timestamp - a.timestamp)[0];
+    const lastMessage = userChats.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))[0];
     if (lastMessage) {
       const messageTime = dayjs(lastMessage.timestamp);
       if (messageTime.isToday()) {
@@ -115,15 +112,24 @@ const Chats = () => {
     return "";
   };
 
+  const getLastMessageTimestamp = (receiverId) => {
+    const userChats = chats[receiverId]?.messages || [];
+    const lastMessage = userChats.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))[0];
+    return lastMessage ? new Date(lastMessage.timestamp).getTime() : 0;
+  };
+
   const getUnreadCount = (receiverId) => {
     return chats[receiverId]?.unreadCount || 0;
   };
+
+  const sortedUserList = [...userList].sort((a, b) => getLastMessageTimestamp(b._id) - getLastMessageTimestamp(a._id));
 
   return (
     <Box
       sx={{
         paddingLeft: { xs: "1rem", sm: "5rem", md: "10.5rem" },
         pt: "1rem",
+        pb: "7rem",
       }}
     >
       <Typography sx={{ fontWeight: "800", fontSize: "1.4rem" }}>
@@ -136,8 +142,9 @@ const Chats = () => {
           justifyContent: "center",
         }}
       >
-        {userList?.map((user) => (
+        {sortedUserList?.map((user) => (
           <Box
+            key={user._id}
             sx={{
               display: "flex",
               justifyContent: "center",
@@ -154,7 +161,6 @@ const Chats = () => {
                 display: "flex",
                 justifyContent: "space-between",
               }}
-              key={user._id}
               onClick={() => handleChatClick(user._id)}
             >
               <ListItemAvatar sx={{ width: "5%" }}>
