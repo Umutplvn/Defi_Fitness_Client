@@ -5,18 +5,18 @@ import useDataCall from '../hooks/useDataCall';
 
 const CreateBlog = () => {
   const editor = useRef(null);
-  const [blogData, setBlogData] = useState({ content: '' }); // Sadece içeriği saklamak için state
+  const [blogData, setBlogData] = useState({ content: '' });
   const { createBlog } = useDataCall();
 
   // Cloudinary API URL ve upload preset
-  const cloudinaryUploadPreset = 'DEFI_BLOGS';
+  const cloudinaryUploadPreset = 'te2q5ckc';
 
   // Cloudinary Upload Widget
   const openWidget = () => {
     if (window.cloudinary) {
       const myWidget = window.cloudinary.createUploadWidget(
         {
-          cloudName: 'dl1dmkgzh',
+          cloudName: 'dhaltl88a',
           uploadPreset: cloudinaryUploadPreset,
         },
         (error, result) => {

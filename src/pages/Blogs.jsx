@@ -43,7 +43,7 @@ const Blogs = () => {
       replace: (domNode) => {
         if (domNode.name === 'img') {
           domNode.attribs.class = `${domNode.attribs.class || ''} resized-image`;
-          domNode.attribs.style = 'width: 100%; max-height: 150px; object-fit: contain;';
+          domNode.attribs.style = 'width: 100%; max-height: 150px; object-fit: contain; border-radius:"1rem"';
         }
       }
     });
