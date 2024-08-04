@@ -4,7 +4,6 @@ import Avatar from "@mui/joy/Avatar";
 import Box from "@mui/joy/Box";
 import Card from "@mui/joy/Card";
 import CardContent from "@mui/joy/CardContent";
-import CardOverflow from "@mui/joy/CardOverflow";
 import Link from "@mui/material/Link";
 import IconButton from "@mui/joy/IconButton";
 import Typography from "@mui/joy/Typography";
@@ -24,7 +23,7 @@ import useAuthCall from "../hooks/useAuthCall";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { useNavigate } from "react-router-dom";
 import spinner from "../assets/spinner.svg";
-import parse from 'html-react-parser'; // Import html-react-parser
+import parse from 'html-react-parser';
 
 const Blogs = () => {
   const { getBlogs, likeBlog, deleteBlog } = useDataCall();
@@ -34,18 +33,22 @@ const Blogs = () => {
   const { userId, savedBlog, isAdmin } = useSelector((state) => state?.auth);
   const [search, setSearch] = useState("");
   const publicBlogs = blogs?.filter((item) => item.status === "public");
-  // const filteredBlogs = publicBlogs.filter(
-  //   (item) =>
-  //     item.category_name.toLowerCase().includes(search.toLowerCase()) ||
-  //     item.title.toLowerCase().includes(search.toLowerCase())
-  // );
 
   useEffect(() => {
     getBlogs();
   }, []);
 
+  const handleContent = (content) => {
+    return parse(content, {
+      replace: (domNode) => {
+        if (domNode.name === 'img') {
+          domNode.attribs.class = `${domNode.attribs.class || ''} resized-image`;
+          domNode.attribs.style = 'width: 100%; max-height: 150px; object-fit: contain;';
+        }
+      }
+    });
+  };
 
-  console.log(blogs);
   return (
     <Box sx={{ marginBottom: "10rem" }}>
       {/* SEARCH BAR */}
@@ -175,7 +178,7 @@ const Blogs = () => {
                   sx={{
                     position: "absolute",
                     right: "1rem",
-                    top:"1rem",
+                    top: "1rem",
                     "&::before": {
                       content: '""',
                       position: "absolute",
@@ -196,80 +199,74 @@ const Blogs = () => {
                     sx={{ border: "2px solid", borderColor: "background.body" }}
                   />
                 </Box>
-          
               </CardContent>
 
+              <CardContent>
+                <Box              
+                  sx={{
+                    maxWidth: "300px",
+                    height: "300px", 
+                    overflow:"hidden",
+                    WebkitBoxOrient: "vertical",
+                    lineHeight: "1.2em",
+                  }}
+                >
+                  {handleContent(item.content)}
+                </Box>
+                <Typography>...</Typography>
+              </CardContent>
 
-              <CardContent orientation="horizontal" sx={{ alignItems: "center", mx: -1 }}>
-                <Box sx={{ width: "100%", display: "flex", justifyContent: "space-between", paddingLeft: "0.75rem" }}>
-                  <Box>
-                    <IconButton
-                      variant="plain"
-                      color="neutral"
-                      size="sm"
-                      onClick={() => likeBlog({ blogId: item?._id })}
-                    >
-                      <Box sx={{ display: "flex", alignItems: "center", width: "2.4rem" }}>
-                        {item.likes.some((like) => like === userId) ? (
-                          <FavoriteIcon style={{ fontSize: "1.5rem", marginRight: "0.1rem", color: "red" }} />
-                        ) : (
-                          <FavoriteBorderIcon style={{ fontSize: "1.5rem", marginRight: "0.1rem" }} />
-                        )}
-                        <Typography sx={{ fontSize: "1rem", color: "#535353" }}>{item?.likes_n}</Typography>
-                      </Box>
-                    </IconButton>
-                    <IconButton
-                      variant="plain"
-                      color="neutral"
-                      size="sm"
-                      sx={{ width: "2.6rem", textAlign: "start" }}
-                    >
-                      <MessageOutlinedIcon style={{ fontSize: "1.5rem", marginRight: "0.2rem" }} />
-                      <Typography sx={{ fontSize: "1rem", color: "#535353" }}>{item?.comments.length}</Typography>
-                    </IconButton>
-                    <IconButton variant="plain" color="neutral" size="sm">
-                      <VisibilityOutlinedIcon style={{ fontSize: "1.5rem", marginRight: "0.2rem" }} />
-                      <Typography sx={{ color: "black", fontSize: "0.9rem" }}>{item?.post_views?.length}</Typography>
-                    </IconButton>
-                  </Box>
+              <Box sx={{ width: "100%", display: "flex", justifyContent: "space-between" }}>
+                <Box>
                   <IconButton
                     variant="plain"
                     color="neutral"
                     size="sm"
-                    onClick={() => saveBlog({ blogId: item?._id })}
+                    onClick={() => likeBlog({ blogId: item?._id })}
                   >
-                    {savedBlog.some((save) => save._id === item._id) ? (
-                      <BookmarkIcon style={{ fontSize: "1.5rem" }} />
-                    ) : (
-                      <BookmarkBorderIcon style={{ fontSize: "1.5rem" }} />
-                    )}
+                    <Box sx={{ display: "flex", alignItems: "center", width: "2.4rem" }}>
+                      {item.likes.some((like) => like === userId) ? (
+                        <FavoriteIcon style={{ fontSize: "1.5rem", marginRight: "0.1rem", color: "red" }} />
+                      ) : (
+                        <FavoriteBorderIcon style={{ fontSize: "1.5rem", marginRight: "0.1rem" }} />
+                      )}
+                      <Typography sx={{ fontSize: "1rem", color: "#535353" }}>{item?.likes_n}</Typography>
+                    </Box>
+                  </IconButton>
+                  <IconButton
+                    variant="plain"
+                    color="neutral"
+                    size="sm"
+                    sx={{ width: "2.6rem", textAlign: "start" }}
+                  >
+                    <MessageOutlinedIcon style={{ fontSize: "1.5rem", marginRight: "0.2rem" }} />
+                    <Typography sx={{ fontSize: "1rem", color: "#535353" }}>{item?.comments.length}</Typography>
+                  </IconButton>
+                  <IconButton variant="plain" color="neutral" size="sm">
+                    <VisibilityOutlinedIcon style={{ fontSize: "1.5rem", marginRight: "0.2rem" }} />
+                    <Typography sx={{ color: "black", fontSize: "0.9rem" }}>{item?.post_views?.length}</Typography>
                   </IconButton>
                 </Box>
-              </CardContent>
-
-              <CardContent>
-              <Box sx={{ maxWidth: "320px", maxHeight:"220px",overflow:"hidden" }}>
-      <div
-        style={{ maxWidth: "50px" }}
-        dangerouslySetInnerHTML={{ __html: item.content }}
-      />
-      <style>
-        {`
-          .resized-image {
-            max-width: 50px;
-            height: auto;
-          }
-        `}
-      </style>
-    </Box>
-              </CardContent>
+                <IconButton
+                  variant="plain"
+                  color="neutral"
+                  size="sm"
+                  onClick={() => saveBlog({ blogId: item?._id })}
+                >
+                  {savedBlog.some((save) => save._id === item._id) ? (
+                    <BookmarkIcon style={{ fontSize: "1.5rem" }} />
+                  ) : (
+                    <BookmarkBorderIcon style={{ fontSize: "1.5rem" }} />
+                  )}
+                </IconButton>
+              </Box>
 
               <CardContent orientation="horizontal" sx={{ gap: 1, width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <Typography
                   type="submit"
                   variant="contained"
                   onClick={() => navigate(`/blogs/${item._id}`)}
-                  sx={{ color: "#ff5100", fontSize: "1rem", cursor: "pointer", "&:hover": { boxShadow: "rgba(17, 17, 26, 0.1) 32px 0px 16px" } }}
+                  sx={{ color: "#ff5100", fontSize: "1rem", cursor: "pointer", "&:hover": {color:"red" } }}
                 >
                   Read More
                 </Typography>
