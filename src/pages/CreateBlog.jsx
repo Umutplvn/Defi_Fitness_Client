@@ -2,22 +2,19 @@ import { Box, Button } from '@mui/material';
 import React, { useRef, useState, useMemo } from 'react';
 import JoditEditor from 'jodit-react';
 import useDataCall from '../hooks/useDataCall';
+import { toast } from 'react-hot-toast';
 
 const CreateBlog = () => {
   const editor = useRef(null);
   const [blogData, setBlogData] = useState({ content: '' });
   const { createBlog } = useDataCall();
 
-  // Cloudinary API URL ve upload preset
-  const cloudinaryUploadPreset = 'te2q5ckc';
-
-  // Cloudinary Upload Widget
   const openWidget = () => {
     if (window.cloudinary) {
       const myWidget = window.cloudinary.createUploadWidget(
         {
           cloudName: 'dhaltl88a',
-          uploadPreset: cloudinaryUploadPreset,
+          uploadPreset: process.env.cloudinaryUploadPreset,
         },
         (error, result) => {
           if (!error && result && result.event === 'success') {
@@ -37,19 +34,21 @@ const CreateBlog = () => {
     }
   };
 
-  console.log(blogData);
 
-  // JoditEditor konfigürasyonu
   const config = useMemo(() => ({
     height: '80vh',
     readonly: false,
   }), []);
 
-  // İçeriği gönderme işlemi
   const handleSubmit = async () => {
+    if (blogData?.content?.trim() === '') {
+      toast('Blog content cannot be empty.');
+      return; // İçerik boşsa gönderme işlemini durdur
+    }
+
     try {
-      await createBlog(blogData); 
-      setBlogData({ content: '' }); // İçeriği temizle
+      await createBlog(blogData);
+      setBlogData({ content: '' });
     } catch (error) {
       console.error('Error posting content:', error);
     }

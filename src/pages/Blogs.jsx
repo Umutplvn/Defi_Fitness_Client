@@ -22,7 +22,7 @@ import useAuthCall from "../hooks/useAuthCall";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { useNavigate } from "react-router-dom";
 import spinner from "../assets/spinner.svg";
-import parse from 'html-react-parser';
+import parse from "html-react-parser";
 
 const Blogs = () => {
   const { getBlogs, likeBlog, deleteBlog } = useDataCall();
@@ -39,24 +39,28 @@ const Blogs = () => {
   const handleContent = (content) => {
     return parse(content, {
       replace: (domNode) => {
-        if (domNode.name === 'img') {
-          domNode.attribs.class = `${domNode.attribs.class || ''} resized-image`;
-          domNode.attribs.style = 'width: 100%; max-height: 150px; object-fit: contain; border-radius:0.3rem';
+        if (domNode.name === "img") {
+          domNode.attribs.class = `${
+            domNode.attribs.class || ""
+          } resized-image`;
+          domNode.attribs.style =
+            "width: 100%; max-height: 150px; object-fit: contain; border-radius:0.3rem";
         }
-      }
+      },
     });
   };
 
   return (
-    <Box sx={{ marginBottom: "10rem" }}>
+    <Box sx={{ marginBottom: "10rem",height:"100%"  }}>
       {/* SEARCH BAR */}
       <Box
         sx={{
-          width: "100%",
+          width: "100wh",
           display: "flex",
           justifyContent: "center",
           pt: "2rem",
-          ml: { sm: "4.5rem", md: "10rem" },
+          pl: { xs:"0", sm: "4.5rem", md: "10rem" },
+
         }}
       >
         <TextField
@@ -92,11 +96,12 @@ const Blogs = () => {
           sx={{
             display: "flex",
             flexWrap: "wrap",
-            justifyContent: { xs: "center" },
-            ml: { xs: "0", sm: "6rem", md: "12rem" },
+            justifyContent: {xs:"center", lg:"flex-start"},
+            pl: {xs:"0",  sm: "4.5rem", md: "12rem" },
             pt: "3rem",
-            width: "100%",
             gap: 4,
+            width:"100wh",
+
           }}
         >
           {blogs?.map((item) => (
@@ -116,143 +121,154 @@ const Blogs = () => {
               }}
             >
               {isAdmin && (
-              <Box>
+                <Box >
                   <Select
-                  IconComponent={(props) => (
-                    <MoreHorizIcon
-                      {...props}
-                      sx={{ width: "100%", backgroundColor: "white" }}
-                    />
-                  )}
-                  sx={{
-                    width: "2.5rem",
-                    height: "1.7rem",
-                    display: "flex",
-                    justifyContent: "flex-start",
-                    "& fieldset": {
-                      border: "none",
-                    },
-                  }}
-                >
-                  <MenuItem
+                    IconComponent={(props) => (
+                      <MoreHorizIcon
+                        {...props}
+                        sx={{ width: "100%", backgroundColor: "white" }}
+                      />
+                    )}
                     sx={{
-                      cursor: "pointer",
-                      width: "130px",
-                      fontSize: "0.8rem",
-                      marginRight: "-3rem",
-                      pl: "0.4rem",
-                      minHeight: "1rem",
-                      backgroundColor: "#ffffff !important",
-                      "&:hover": {
-                        backgroundColor: "#f0f0f0 !important",
+                      width: "2.5rem",
+                      height: "1.7rem",
+                      display: "flex",
+                      justifyContent: "flex-start",
+                      "& fieldset": {
+                        border: "none",
                       },
                     }}
-                    onClick={() => deleteBlog(item._id)}
                   >
-                    Delete
-                  </MenuItem>
-                  <MenuItem
-                    sx={{
-                      cursor: "pointer",
-                      width: "130px",
-                      fontSize: "0.8rem",
-                      marginRight: "-3rem",
-                      pl: "0.4rem",
-                      minHeight: "1rem",
-                      marginBottom: "-0.3rem",
-                      backgroundColor: "#ffffff !important",
-                      "&:hover": {
-                        backgroundColor: "#f0f0f0 !important",
-                      },
-                    }}
-                    onClick={() => navigate(`/adminpanel/${item._id}`)}
-                  >
-                    Update
-                  </MenuItem>
-                </Select>
+                    <MenuItem
+                      sx={{
+                        cursor: "pointer",
+                        width: "130px",
+                        fontSize: "0.8rem",
+                        marginRight: "-3rem",
+                        pl: "0.4rem",
+                        minHeight: "1rem",
+                        backgroundColor: "#ffffff !important",
+                        "&:hover": {
+                          backgroundColor: "#f0f0f0 !important",
+                        },
+                      }}
+                      onClick={() => deleteBlog(item._id)}
+                    >
+                      Delete
+                    </MenuItem>
+                    <MenuItem
+                      sx={{
+                        cursor: "pointer",
+                        width: "130px",
+                        fontSize: "0.8rem",
+                        marginRight: "-3rem",
+                        pl: "0.4rem",
+                        minHeight: "1rem",
+                        marginBottom: "-0.3rem",
+                        backgroundColor: "#ffffff !important",
+                        "&:hover": {
+                          backgroundColor: "#f0f0f0 !important",
+                        },
+                      }}
+                      onClick={() => navigate(`/adminpanel/${item._id}`)}
+                    >
+                      Update
+                    </MenuItem>
+                  </Select>
 
-                <CardContent>
-                <Box
-                  sx={{
-                    position: "absolute",
-                    right: "1rem",
-                    top: "1rem",
-                    "&::before": {
-                      content: '""',
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      bottom: 0,
-                      right: 0,
-                      m: "-2px",
-                      borderRadius: "50%",
-                      background:
-                        "linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)",
-                    },
-                  }}
-                >
-                  <Avatar
-                    size="sm"
-                    src={defiIcon}
-                    sx={{ border: "2px solid", borderColor: "background.body" }}
-                  />
+                  <CardContent>
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        right: "1rem",
+                        top: "1rem",
+                        "&::before": {
+                          content: '""',
+                          position: "absolute",
+                          top: 0,
+                          left: 0,
+                          bottom: 0,
+                          right: 0,
+                          m: "-2px",
+                          borderRadius: "50%",
+                          background:
+                            "linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)",
+                        },
+                      }}
+                    >
+                      <Avatar
+                        size="sm"
+                        src={defiIcon}
+                        sx={{
+                          border: "2px solid",
+                          borderColor: "background.body",
+                        }}
+                      />
+                    </Box>
+                  </CardContent>
                 </Box>
-              </CardContent>
-              </Box>
               )}
 
-            
-
               <CardContent>
+                {!isAdmin && (
+                  <Box sx={{ height: "2rem" }}>
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        right: "1rem",
+                        top: "0.6rem",
+                        "&::before": {
+                          content: '""',
+                          position: "absolute",
+                          top: 0,
+                          left: 0,
+                          bottom: 0,
+                          right: 0,
+                          m: "-2px",
+                          borderRadius: "50%",
+                          background:
+                            "linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)",
+                        },
+                      }}
+                    >
+                      <Avatar
+                        size="sm"
+                        src={defiIcon}
+                        sx={{
+                          border: "2px solid",
+                          borderColor: "background.body",
+                        }}
+                      />
+                    </Box>
+                  </Box>
+                )}
 
-        {!isAdmin && 
-        
-     <Box sx={{ height:"2rem"}}>
-         <Box
+                <Box
                   sx={{
-                    position: "absolute",
-                    right: "1rem",
-                    top: "0.6rem",
-                    "&::before": {
-                      content: '""',
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      bottom: 0,
-                      right: 0,
-                      m: "-2px",
-                      borderRadius: "50%",
-                      background:
-                        "linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)",
-                    },
-                  }}
-                >
-                  <Avatar
-                    size="sm"
-                    src={defiIcon}
-                    sx={{ border: "2px solid", borderColor: "background.body" }}
-                  />
-                </Box>
-                
-     </Box>
-                }
-
-                <Box              
-                  sx={{
-
                     maxWidth: "300px",
-                    height: "298px", 
-                    overflow:"hidden",
+                    height: "298px",
+                    overflow: "scroll",
                     WebkitBoxOrient: "vertical",
                     lineHeight: "1.2em",
+                    "&::-webkit-scrollbar": {
+                      width: "0px", 
+                    },
+                    "&::-webkit-scrollbar-thumb": {
+                      background: "transparent", 
+                    },
                   }}
                 >
                   {handleContent(item.content)}
                 </Box>
-                <Typography>...</Typography>
               </CardContent>
 
-              <Box sx={{ width: "100%", display: "flex", justifyContent: "space-between" }}>
+              <Box
+                sx={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
+              >
                 <Box>
                   <IconButton
                     variant="plain"
@@ -260,13 +276,29 @@ const Blogs = () => {
                     size="sm"
                     onClick={() => likeBlog({ blogId: item?._id })}
                   >
-                    <Box sx={{ display: "flex", alignItems: "center", width: "2.4rem" }}>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        width: "2.4rem",
+                      }}
+                    >
                       {item.likes.some((like) => like === userId) ? (
-                        <FavoriteIcon style={{ fontSize: "1.5rem", marginRight: "0.1rem", color: "red" }} />
+                        <FavoriteIcon
+                          style={{
+                            fontSize: "1.5rem",
+                            marginRight: "0.1rem",
+                            color: "red",
+                          }}
+                        />
                       ) : (
-                        <FavoriteBorderIcon style={{ fontSize: "1.5rem", marginRight: "0.1rem" }} />
+                        <FavoriteBorderIcon
+                          style={{ fontSize: "1.5rem", marginRight: "0.1rem" }}
+                        />
                       )}
-                      <Typography sx={{ fontSize: "1rem", color: "#535353" }}>{item?.likes_n}</Typography>
+                      <Typography sx={{ fontSize: "1rem", color: "#535353" }}>
+                        {item?.likes_n}
+                      </Typography>
                     </Box>
                   </IconButton>
                   <IconButton
@@ -275,12 +307,20 @@ const Blogs = () => {
                     size="sm"
                     sx={{ width: "2.6rem", textAlign: "start" }}
                   >
-                    <MessageOutlinedIcon style={{ fontSize: "1.5rem", marginRight: "0.2rem" }} />
-                    <Typography sx={{ fontSize: "1rem", color: "#535353" }}>{item?.comments.length}</Typography>
+                    <MessageOutlinedIcon
+                      style={{ fontSize: "1.5rem", marginRight: "0.2rem" }}
+                    />
+                    <Typography sx={{ fontSize: "1rem", color: "#535353" }}>
+                      {item?.comments.length}
+                    </Typography>
                   </IconButton>
                   <IconButton variant="plain" color="neutral" size="sm">
-                    <VisibilityOutlinedIcon style={{ fontSize: "1.5rem", marginRight: "0.2rem" }} />
-                    <Typography sx={{ color: "black", fontSize: "0.9rem" }}>{item?.post_views?.length}</Typography>
+                    <VisibilityOutlinedIcon
+                      style={{ fontSize: "1.5rem", marginRight: "0.2rem" }}
+                    />
+                    <Typography sx={{ color: "black", fontSize: "0.9rem" }}>
+                      {item?.post_views?.length}
+                    </Typography>
                   </IconButton>
                 </Box>
                 <IconButton
@@ -297,16 +337,35 @@ const Blogs = () => {
                 </IconButton>
               </Box>
 
-              <CardContent orientation="horizontal" sx={{ gap: 1, width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <CardContent
+                orientation="horizontal"
+                sx={{
+                  gap: 1,
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
                 <Typography
                   type="submit"
                   variant="contained"
                   onClick={() => navigate(`/blogs/${item._id}`)}
-                  sx={{ color: "#ff5100", fontSize: "1rem", cursor: "pointer", "&:hover": {color:"red" } }}
+                  sx={{
+                    color: "#ff5100",
+                    fontSize: "1rem",
+                    cursor: "pointer",
+                    "&:hover": { color: "red" },
+                  }}
                 >
                   Read More
                 </Typography>
-                <Link component="button" underline="none" fontSize="10px" sx={{ color: "text.tertiary", my: 0.5 }}>
+                <Link
+                  component="button"
+                  underline="none"
+                  fontSize="10px"
+                  sx={{ color: "text.tertiary", my: 0.5 }}
+                >
                   {formatDateTime(item.createdAt)}
                 </Link>
               </CardContent>
@@ -317,7 +376,8 @@ const Blogs = () => {
         <Box sx={{ width: "100%", display: "flex", justifyContent: "center" }}>
           <Box
             sx={{
-              ml: { sm: "4rem", md: "10rem" },
+              pl: { xs:"0", sm: "4.5rem", md: "10rem" },
+
               width: { xs: "8rem", md: "10rem" },
               mt: "4rem",
               display: "flex",

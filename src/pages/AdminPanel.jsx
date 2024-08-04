@@ -39,27 +39,48 @@ const AdminPanel = () => {
   ];
 
   return (
-    <Box sx={{display:"flex", flexWrap:"wrap" ,gap:"2rem", p:"1rem", ml: { xs: "0", sm: "6rem", md: "12rem"}, justifyContent:"center", mt:"2rem", mb:"7rem"
-  }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexWrap: "wrap",
+        gap: "2rem",
+        p: "1rem",
+        ml: { xs: "0", sm: "6rem", md: "12rem" },
+        justifyContent: "center",
+        pt: "3rem",
+        mb: "10rem",
+      }}
+    >
       {Data?.map((item, index) => (
         <Card
           key={index}
           onClick={() => navigate(item.link)}
-          sx={{ width: "270px", height:"240px", marginBottom: "1rem", display:"flex", justifyContent:"center", alignItems:"center", flexDirection:"column",  borderRadius:"2rem",       "&:hover": {
-            boxShadow: "rgba(17, 17, 26, 0.1) 0px 0px 16px",
-            scale: "1.001",
-            transform: "ease in out",
-            transition: "0.5s",}
-        }}
+          sx={{
+            width: "270px",
+            height: "240px",
+            marginBottom: "1rem",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+            borderRadius: "2rem",
+            "&:hover": {
+              boxShadow: "rgba(17, 17, 26, 0.1) 0px 0px 16px",
+              scale: "1.001",
+              transform: "ease in out",
+              transition: "0.5s",
+            },
+          }}
         >
           <CardMedia
-            sx={{ height:"100px", width:"100px" }}
-            image={
-              item.image 
-            }
+            sx={{ height: "100px", width: "100px" }}
+            image={item.image}
           />
           <CardContent>
-            <Typography gutterBottom sx={{fontSize:"1.4rem", fontWeight:"600"}}>
+            <Typography
+              gutterBottom
+              sx={{ fontSize: "1.4rem", fontWeight: "600" }}
+            >
               {item.title}
             </Typography>
           </CardContent>

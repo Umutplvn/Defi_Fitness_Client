@@ -62,7 +62,7 @@ const Members = () => {
   );
 
   return (
-    <Box sx={{ ml: { xs: "0", sm: "6rem", md: "12rem" }, padding: "1rem", mb:"10rem" }}>
+    <Box sx={{ ml: { xs: "0", sm: "4.5rem", md: "10rem" }, padding: "1rem", mb:"10rem" }}>
       <Box
         sx={{
           width: "100wh",
@@ -70,7 +70,6 @@ const Members = () => {
           justifyContent: "center",
           pt: "2rem",
           mb: "2rem",
-          ml: { sm: "4.5rem", md: "10rem" },
         }}
       >
         <TextField
@@ -101,7 +100,7 @@ const Members = () => {
         />
       </Box>
 
-      <TableContainer component={Paper} sx={{ borderRadius: "1rem" }}>
+      <TableContainer component={Paper} sx={{ borderRadius: "1rem", maxWidth:"850px", overflow:"scroll", m:"auto" }}>
         <Table sx={{ minWidth: 350 }} aria-label="simple table">
           <TableHead>
             <TableRow>
