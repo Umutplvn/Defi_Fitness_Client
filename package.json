@@ -17,6 +17,7 @@
     "bootstrap": "^5.3.3",
     "dayjs": "^1.11.12",
     "hamburger-react": "^2.5.1",
+    "html-react-parser": "^5.1.12",
     "jodit": "^4.2.27",
     "jodit-react": "^4.1.2",
     "prop-types": "^15.8.1",

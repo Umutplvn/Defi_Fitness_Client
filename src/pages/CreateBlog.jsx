@@ -1,45 +1,55 @@
 import { Box, Button } from '@mui/material';
 import React, { useRef, useState, useMemo } from 'react';
 import JoditEditor from 'jodit-react';
-import useDataCall from '../hooks/useDataCall'; // Uygun bir şekilde import et
+import useDataCall from '../hooks/useDataCall';
 
 const CreateBlog = () => {
   const editor = useRef(null);
-  const [content, setContent] = useState('');
+  const [blogData, setBlogData] = useState({ content: '' }); // Sadece içeriği saklamak için state
   const { createBlog } = useDataCall();
 
-  // Cloudinary Upload Widget
-  const myWidget = window.cloudinary.createUploadWidget(
-    {
-      cloudName: 'dl1dmkgzh', // Cloudinary cloud name
-      uploadPreset: 'DEFI_BLOGS', // Upload preset
-    },
-    (error, result) => {
-      if (!error && result && result.event === 'success') {
-        const imageUrl = result.info.secure_url;
-        setContent(prevContent => `${prevContent}<img src="${imageUrl}" alt="Uploaded Image"/>`);
-      } else if (error) {
-        console.error('Error uploading image:', error);
-      }
-    }
-  );
+  // Cloudinary API URL ve upload preset
+  const cloudinaryUploadPreset = 'DEFI_BLOGS';
 
+  // Cloudinary Upload Widget
   const openWidget = () => {
-    myWidget.open();
+    if (window.cloudinary) {
+      const myWidget = window.cloudinary.createUploadWidget(
+        {
+          cloudName: 'dl1dmkgzh',
+          uploadPreset: cloudinaryUploadPreset,
+        },
+        (error, result) => {
+          if (!error && result && result.event === 'success') {
+            const imageUrl = result.info.secure_url;
+            setBlogData(prevBlogData => ({
+              ...prevBlogData,
+              content: `${prevBlogData.content}<img src="${imageUrl}" alt="Uploaded Image"/>`
+            }));
+          } else if (error) {
+            console.error('Error uploading image:', error);
+          }
+        }
+      );
+      myWidget.open();
+    } else {
+      console.error('Cloudinary is not loaded.');
+    }
   };
+
+  console.log(blogData);
 
   // JoditEditor konfigürasyonu
   const config = useMemo(() => ({
     height: '80vh',
     readonly: false,
-    // JoditEditor için herhangi bir özel yapılandırma ekleyebilirsiniz
   }), []);
 
   // İçeriği gönderme işlemi
   const handleSubmit = async () => {
     try {
-      await createBlog(content);
-      setContent(''); // İçeriği temizle
+      await createBlog(blogData); 
+      setBlogData({ content: '' }); // İçeriği temizle
     } catch (error) {
       console.error('Error posting content:', error);
     }
@@ -59,10 +69,10 @@ const CreateBlog = () => {
     >
       <JoditEditor
         ref={editor}
-        value={content}
+        value={blogData.content}
         config={config}
         tabIndex={1}
-        onChange={newContent => setContent(newContent)}
+        onChange={newContent => setBlogData({ content: newContent })}
       />
       <Box sx={{ display: 'flex', gap: '1rem', width: '100%', justifyContent: 'center' }}>
         <Button
@@ -87,7 +97,9 @@ const CreateBlog = () => {
         </Button>
         <Button
           variant="contained"
-          onClick={() => setContent('')}
+          onClick={() => {
+            setBlogData({ content: '' }); // İçeriği temizle
+          }}
           sx={{
             mt: 4,
             mb: 5,
