@@ -205,7 +205,7 @@ const Blogs = () => {
                 <Box              
                   sx={{
                     maxWidth: "300px",
-                    height: "300px", 
+                    height: "298px", 
                     overflow:"hidden",
                     WebkitBoxOrient: "vertical",
                     lineHeight: "1.2em",
