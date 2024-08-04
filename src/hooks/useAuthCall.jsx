@@ -53,7 +53,7 @@ const useAuthCall = () => {
         toast("No such account found!")
       } else {
         dispatch(loginSuccess(data));
-        toast("Welcome to the DEFI.")
+        toast("Welcome to the DEFI")
         navigate("/blogs");
       }
     } catch (error) {
@@ -126,7 +126,7 @@ const useAuthCall = () => {
     }
   };
 
-  //! UPDATE A USER
+  //! UPDATE A MEMBER
   const updateUser = async (userId,updateData) => {
     dispatch(fetchStart());
     try {
@@ -135,8 +135,10 @@ const useAuthCall = () => {
         updateData
       );
         listUsers()
+toast("Profile updated successfully")
     } catch (error) {
       dispatch(fetchFail());
+      toast("This email is already taken")
     }
   };
 
@@ -147,7 +149,6 @@ const useAuthCall = () => {
       const { data } = await axiosWithToken.get(
         `${process.env.REACT_APP_BASE_URL}/users/`
       );
-      console.log("data", data);
       dispatch(usersSuccess(data));
     } catch (error) {
       dispatch(fetchFail());

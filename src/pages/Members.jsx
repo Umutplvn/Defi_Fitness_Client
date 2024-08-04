@@ -62,7 +62,7 @@ const Members = () => {
   );
 
   return (
-    <Box sx={{ ml: { xs: "0", sm: "6rem", md: "12rem" }, padding: "1rem" }}>
+    <Box sx={{ ml: { xs: "0", sm: "6rem", md: "12rem" }, padding: "1rem", mb:"10rem" }}>
       <Box
         sx={{
           width: "100wh",

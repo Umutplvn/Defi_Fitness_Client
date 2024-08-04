@@ -19,7 +19,7 @@ const formatName = (name) => {
     deleteUser(userId)
     handleClose()
     listUsers()
-    toast("Successfully deleted.")
+    toast("User successfully deleted.")
 }
   
   return (
