@@ -32,7 +32,6 @@ const Blogs = () => {
   const { blogs } = useSelector((state) => state?.appData);
   const { userId, savedBlog, isAdmin } = useSelector((state) => state?.auth);
   const [search, setSearch] = useState("");
-  const publicBlogs = blogs?.filter((item) => item.status === "public");
 
   useEffect(() => {
     getBlogs();
@@ -43,7 +42,7 @@ const Blogs = () => {
       replace: (domNode) => {
         if (domNode.name === 'img') {
           domNode.attribs.class = `${domNode.attribs.class || ''} resized-image`;
-          domNode.attribs.style = 'width: 100%; max-height: 150px; object-fit: contain; border-radius:"1rem"';
+          domNode.attribs.style = 'width: 100%; max-height: 150px; object-fit: contain; border-radius:0.3rem';
         }
       }
     });
@@ -118,7 +117,8 @@ const Blogs = () => {
               }}
             >
               {isAdmin && (
-                <Select
+              <Box>
+                  <Select
                   IconComponent={(props) => (
                     <MoreHorizIcon
                       {...props}
@@ -127,7 +127,7 @@ const Blogs = () => {
                   )}
                   sx={{
                     width: "2.5rem",
-                    height: "1.3rem",
+                    height: "1.7rem",
                     display: "flex",
                     justifyContent: "flex-start",
                     "& fieldset": {
@@ -171,9 +171,8 @@ const Blogs = () => {
                     Update
                   </MenuItem>
                 </Select>
-              )}
 
-              <CardContent>
+                <CardContent>
                 <Box
                   sx={{
                     position: "absolute",
@@ -200,10 +199,48 @@ const Blogs = () => {
                   />
                 </Box>
               </CardContent>
+              </Box>
+              )}
+
+            
 
               <CardContent>
+
+        {!isAdmin && 
+        
+     <Box sx={{ height:"2rem"}}>
+         <Box
+                  sx={{
+                    position: "absolute",
+                    right: "1rem",
+                    top: "0.6rem",
+                    "&::before": {
+                      content: '""',
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      bottom: 0,
+                      right: 0,
+                      m: "-2px",
+                      borderRadius: "50%",
+                      background:
+                        "linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)",
+                    },
+                  }}
+                >
+                  <Avatar
+                    size="sm"
+                    src={defiIcon}
+                    sx={{ border: "2px solid", borderColor: "background.body" }}
+                  />
+                </Box>
+                
+     </Box>
+                }
+
                 <Box              
                   sx={{
+
                     maxWidth: "300px",
                     height: "298px", 
                     overflow:"hidden",
