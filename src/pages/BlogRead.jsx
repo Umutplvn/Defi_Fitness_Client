@@ -15,6 +15,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import MessageOutlinedIcon from "@mui/icons-material/MessageOutlined";
 import useAxios from "../hooks/useAxios";
 import Comments from "../components/Comments";
+import parse from "html-react-parser";
 
 const BlogRead = () => {
   const { blogId } = useParams();
@@ -24,7 +25,6 @@ const BlogRead = () => {
   const { userId, savedBlog } = useSelector((state) => state?.auth);
   const { axiosWithToken } = useAxios();
   const [show, setShow] = useState(false);
-  
 
   const readBlog = async () => {
     try {
@@ -32,7 +32,7 @@ const BlogRead = () => {
         `${process.env.REACT_APP_BASE_URL}/blog/${blogId}`
       );
 
-      setBlog(data.result); 
+      setBlog(data.result);
     } catch (error) {
       console.error("Error fetching blog data:", error);
       toast.error("Error fetching blog data!");
@@ -42,7 +42,7 @@ const BlogRead = () => {
   const handleLikeBlog = async () => {
     try {
       await likeBlog({ blogId });
-      readBlog(); 
+      readBlog();
     } catch (error) {
       console.error("Error liking blog:", error);
       toast.error("Error liking blog!");
@@ -52,13 +52,25 @@ const BlogRead = () => {
   const handleSaveBlog = async () => {
     try {
       await saveBlog({ blogId });
-      readBlog(); 
+      readBlog();
     } catch (error) {
       console.error("Error saving blog:", error);
       toast.error("Error saving blog!");
     }
   };
-
+  const handleContent = (content) => {
+    return parse(content, {
+      replace: (domNode) => {
+        if (domNode.name === "img") {
+          domNode.attribs.class = `${
+            domNode.attribs.class || ""
+          } resized-image`;
+          domNode.attribs.style =
+            "width: 95%; max-height:270px; object-fit: contain; border-radius:1rem";
+        }
+      },
+    });
+  };
 
   useEffect(() => {
     readBlog();
@@ -114,41 +126,26 @@ const BlogRead = () => {
             width: "100%",
           }}
         >
+
           <Box
             sx={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "center",
-              flexDirection: "column",
+              width: "100wh",
+              maxWidth: "1532px",
+              pr: { xs: "1rem", md: "2rem" },
+              pl: "1rem",
+              height: "auto",
+              WebkitBoxOrient: "vertical",
+              lineHeight: "1.2em",
+              "&::-webkit-scrollbar": {
+                width: "0px",
+              },
+              "&::-webkit-scrollbar-thumb": {
+                background: "transparent",
+              },
             }}
           >
-            <Box sx={{ display: "flex", justifyContent: "center", p: "1rem" }}>
-              <img
-                style={{
-                  width: "100%",
-                  maxWidth: "600px",
-                  marginBottom: "2rem",
-                  borderRadius: "1rem",
-                }}
-                src={blog?.image}
-                alt={blog?.title}
-              />
-            </Box>
+            {handleContent(blog.content)}
           </Box>
-          <Typography
-            sx={{
-              textTransform: "capitalize",
-              p: "0 1rem 0 1rem",
-              fontWeight: "800",
-              textAlign: "center",
-              color: "#FE5E00",
-            }}
-          >
-            {blog?.title}
-          </Typography>
-          <Typography sx={{pl:"1rem", pr:{xs:"1rem", md:"2rem"}, mt: "1rem" }}>
-            {blog?.content}
-          </Typography>
 
           <Typography
             sx={{
@@ -226,32 +223,31 @@ const BlogRead = () => {
             variant="plain"
             color="neutral"
             size="sm"
-            sx={{pr:{xs:"1rem", md:"2rem"}}}
+            sx={{ pr: { xs: "1rem", md: "2rem" } }}
             onClick={handleSaveBlog}
           >
             {savedBlog.some((save) => save._id === blog._id) ? (
-              <BookmarkIcon style={{ fontSize: "1.5rem"}} />
+              <BookmarkIcon style={{ fontSize: "1.5rem" }} />
             ) : (
-              <BookmarkBorderIcon style={{ fontSize: "1.5rem"}} />
+              <BookmarkBorderIcon style={{ fontSize: "1.5rem" }} />
             )}
           </IconButton>
         </Box>
       </Box>
       {/* COMMENTS SECTION */}
-      <Box      sx={{
-            ml: { sm: "4rem", md: "10rem" },
-            pl:{xs:"1rem", sm:"3rem"},
-            pr: "1rem",
-            width: "100wh",
-            mt: "4rem",
-            display: "flex",
-            maxWidth:"1532px",
-          }}>
-
-      {show && <Comments blog={blog}  setBlog={setBlog}/>}
-    
+      <Box
+        sx={{
+          ml: { sm: "4rem", md: "10rem" },
+          pl: { xs: "1rem", sm: "3rem" },
+          pr: "1rem",
+          width: "100wh",
+          mt: "4rem",
+          display: "flex",
+          maxWidth: "1532px",
+        }}
+      >
+        {show && <Comments blog={blog} setBlog={setBlog} />}
       </Box>
-
     </Box>
   );
 };

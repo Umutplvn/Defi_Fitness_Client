@@ -234,7 +234,7 @@ const HomeAppBarLarge = () => {
           </Typography>
         </Link>
              {/* PROFILE */}
-             <Link
+       {!isAdmin &&       <Link
           to="/profile"
           style={{
             display: "flex",
@@ -249,6 +249,7 @@ const HomeAppBarLarge = () => {
           ) : (
             <Avatar sx={{ width: "2.2rem", height: "2.2rem" }} />
           )}
+          
           <Typography
             sx={{
               display: { xs: "none", md: "block" },
@@ -257,7 +258,7 @@ const HomeAppBarLarge = () => {
           >
             Profile
           </Typography>
-        </Link>
+        </Link>}
 
       </Box>
     </Box>

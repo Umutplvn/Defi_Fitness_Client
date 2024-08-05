@@ -14,7 +14,7 @@ const CreateBlog = () => {
       const myWidget = window.cloudinary.createUploadWidget(
         {
           cloudName: 'dhaltl88a',
-          uploadPreset: process.env.cloudinaryUploadPreset,
+          uploadPreset: process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET,
         },
         (error, result) => {
           if (!error && result && result.event === 'success') {

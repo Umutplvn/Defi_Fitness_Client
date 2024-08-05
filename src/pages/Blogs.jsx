@@ -31,9 +31,11 @@ const Blogs = () => {
   const { blogs } = useSelector((state) => state?.appData);
   const { userId, savedBlog, isAdmin } = useSelector((state) => state?.auth);
   const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    getBlogs();
+    setLoading(true);
+    getBlogs().then(() => setLoading(false));
   }, []);
 
   const handleContent = (content) => {
@@ -51,7 +53,7 @@ const Blogs = () => {
   };
 
   return (
-    <Box sx={{ marginBottom: "10rem",height:"100%"  }}>
+    <Box sx={{ marginBottom: "10rem", height: "100%" }}>
       {/* SEARCH BAR */}
       <Box
         sx={{
@@ -59,8 +61,7 @@ const Blogs = () => {
           display: "flex",
           justifyContent: "center",
           pt: "2rem",
-          pl: { xs:"0", sm: "4.5rem", md: "10rem" },
-
+          pl: { xs: "0", sm: "4.5rem", md: "10rem" },
         }}
       >
         <TextField
@@ -91,17 +92,38 @@ const Blogs = () => {
         />
       </Box>
       {/* BLOG CARD COMPONENT */}
-      {blogs.length > 0 ? (
+      {loading ? (
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            position: "fixed",
+          }}
+        >
+          <Box
+            sx={{
+              pl: { xs: "0", sm: "4.5rem", md: "10rem" },
+              width: { xs: "8rem", md: "10rem" },
+              mt: "4rem",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <img style={{ width: "100%" }} src={spinner} alt="Loading" />
+          </Box>
+        </Box>
+      ) : blogs.length > 0 ? (
         <Box
           sx={{
             display: "flex",
             flexWrap: "wrap",
-            justifyContent: {xs:"center", lg:"flex-start"},
-            pl: {xs:"0",  sm: "4.5rem", md: "12rem" },
+            justifyContent: { xs: "center", lg: "flex-start" },
+            pl: { xs: "0", sm: "4.5rem", md: "12rem" },
             pt: "3rem",
             gap: 4,
-            width:"100wh",
-
+            width: "100wh",
           }}
         >
           {blogs?.map((item) => (
@@ -121,7 +143,7 @@ const Blogs = () => {
               }}
             >
               {isAdmin && (
-                <Box >
+                <Box>
                   <Select
                     IconComponent={(props) => (
                       <MoreHorizIcon
@@ -251,10 +273,10 @@ const Blogs = () => {
                     WebkitBoxOrient: "vertical",
                     lineHeight: "1.2em",
                     "&::-webkit-scrollbar": {
-                      width: "0px", 
+                      width: "0px",
                     },
                     "&::-webkit-scrollbar-thumb": {
-                      background: "transparent", 
+                      background: "transparent",
                     },
                   }}
                 >
@@ -309,6 +331,7 @@ const Blogs = () => {
                   >
                     <MessageOutlinedIcon
                       style={{ fontSize: "1.5rem", marginRight: "0.2rem" }}
+                      onClick={() => navigate(`/blogs/${item._id}`)}
                     />
                     <Typography sx={{ fontSize: "1rem", color: "#535353" }}>
                       {item?.comments.length}
@@ -373,20 +396,18 @@ const Blogs = () => {
           ))}
         </Box>
       ) : (
-        <Box sx={{ width: "100%", display: "flex", justifyContent: "center" }}>
-          <Box
-            sx={{
-              pl: { xs:"0", sm: "4.5rem", md: "10rem" },
-
-              width: { xs: "8rem", md: "10rem" },
-              mt: "4rem",
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <img style={{ width: "100%" }} src={spinner} alt="Loading" />
-          </Box>
-        </Box>
+        <Typography
+          sx={{
+            textAlign: "center",
+            mt: "5rem",
+            fontSize: "1.3rem",
+            fontWeight: "600",
+            color: "#FE5E00",
+            pl: { xs: "0", sm: "4.5rem", md: "10rem" },
+          }}
+        >
+          There is no blog to show!
+        </Typography>
       )}
     </Box>
   );
