@@ -14,7 +14,6 @@ const useDataCall = () => {
   const createBlog = async (blogData) => {
     dispatch(fetchStart());
     try {
-      console.log("Posting content:", blogData);
   
       const { data } = await axiosWithToken.post(
         `${process.env.REACT_APP_BASE_URL}/blog/create`,
@@ -27,6 +26,20 @@ const useDataCall = () => {
     }
   };
 
+    //UPDATE BLOG
+    const updateBlog = async (blogId, blogData) => {
+      dispatch(fetchStart());
+      try {
+        await axiosWithToken.put(
+          `${process.env.REACT_APP_BASE_URL}/blog/update/${blogId}`,
+          blogData
+        );
+        getBlogs();
+      } catch (error) {
+        toast.error("Error!");
+        dispatch(fetchFail());
+      }
+    };
 
 
   // GET BLOGS
@@ -78,7 +91,8 @@ const deleteBlog = async (blogId) => {
     getBlogs,
     likeBlog,
     deleteBlog,
-    createBlog
+    createBlog,
+    updateBlog
   };
 };
 

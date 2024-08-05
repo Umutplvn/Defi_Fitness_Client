@@ -1,115 +1,162 @@
-import React, { useState, useRef } from "react";
-import { Box, TextField, Typography } from "@mui/material";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import JoditEditor from "jodit-react";
-import formatDateTime from "../helper/formatDateTime";
+import { Box, Button } from '@mui/material';
+import React, { useRef, useState, useMemo, useEffect } from 'react';
+import JoditEditor from 'jodit-react';
+import useDataCall from '../hooks/useDataCall';
+import { toast } from 'react-hot-toast';
+import useAxios from '../hooks/useAxios';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const UpdateBlog = () => {
-  const { blogId } = useParams();
-  const { blogs } = useSelector((state) => state.appData);
-  const blog = blogs.filter((item) => item._id == blogId);
-  const [info, setInfo] = useState({
-    content: blog[0]?.content,
-  });
-
   const editor = useRef(null);
+  const { axiosWithToken } = useAxios();
+  const [blogData, setBlogData] = useState({ content: '' });
+  const { updateBlog } = useDataCall();
+  const { blogId } = useParams();
+const navigate=useNavigate()
+  const readBlog = async (id) => {
+    try {
+      const { data } = await axiosWithToken.get(
+        `${process.env.REACT_APP_BASE_URL}/blog/${id}`
+      );
+      setBlogData(data.result);
+    } catch (error) {
+      console.error("Error fetching blog data:", error);
+      toast.error("Error fetching blog data!");
+    }
+  };
 
-  const handleEditorChange = (newContent) => {
-    setInfo({ ...info, content: newContent });
+  useEffect(() => {
+    readBlog(blogId);
+  }, [blogId]);
+
+  const openWidget = () => {
+    if (window.cloudinary) {
+      const myWidget = window.cloudinary.createUploadWidget(
+        {
+          cloudName: 'dhaltl88a',
+          uploadPreset: process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET,
+        },
+        (error, result) => {
+          if (!error && result && result.event === 'success') {
+            const imageUrl = result.info.secure_url;
+            setBlogData(prevBlogData => ({
+              ...prevBlogData,
+              content: `${prevBlogData.content}<img src="${imageUrl}" alt="Uploaded Image"/>`
+            }));
+          } else if (error) {
+            console.error('Error uploading image:', error);
+          }
+        }
+      );
+      myWidget.open();
+    } else {
+      console.error('Cloudinary is not loaded.');
+    }
+  };
+
+  const config = useMemo(() => ({
+    height: '80vh',
+    readonly: false,
+  }), []);
+
+  const handleSubmit = async () => {
+    if (blogData?.content?.trim() === '') {
+      toast('Blog content cannot be empty.');
+      return;
+    }
+
+    try {
+      await updateBlog(blogId, blogData);
+      setBlogData({ content: '' });
+      toast("Blog successfully updated")
+      navigate("/blogs")
+    } catch (error) {
+      console.error('Error updating content:', error);
+    }
   };
 
   return (
     <Box
       sx={{
-        ml: { xs: "0", sm: "6rem", md: "12rem" },
-        mb: "7rem",
-        display: "flex",
-        justifyContent: "center",
-        flexDirection: "column",
-        pt: "2rem",
-        maxWidth: "1536px",
-        width: "100wh",
+        ml: { xs: '0', sm: '4.5rem', md: '10rem' },
+        display: 'flex',
+        flexDirection: 'column',
+        maxWidth: '1536px',
+        width: '100%',
+        height: '100vh',
+        overflow: 'scroll',
       }}
     >
-      <Box
-        sx={{
-          width: "100%",
-        }}
-      >
-        <Box
+      <JoditEditor
+        ref={editor}
+        value={blogData.content}
+        config={config}
+        tabIndex={1}
+        onChange={newContent => setBlogData({ content: newContent })}
+      />
+      <Box sx={{ display: 'flex', gap: '1rem', width: '100%', justifyContent: 'center' }}>
+        <Button
+          variant="contained"
           sx={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
-            flexDirection: "column",
-          }}
-        >
-          
-        <JoditEditor
-          ref={editor}
-          // value={info}
-          onChange={handleEditorChange}
-          config={{
-            readonly: false,
-            height: 400,
-          }}
-        />
-          <Box sx={{ display: "flex", justifyContent: "center", p: "1rem" }}>
-            
-            <img
-              style={{
-                width: "100%",
-                maxWidth: "600px",
-                marginBottom: "2rem",
-                borderRadius: "1rem",
-              }}
-              src={blog[0]?.image}
-              alt={blog[0]?.title}
-            />
-
-            <TextField
-              value={info.image}
-              sx={{
-                fontSize: "0.5rem",
-                "& fieldset": {},
-              }}
-            />
-          </Box>
-        </Box>
-        <TextField
-          sx={{
-            fontSize: "0.5rem",
-            "& fieldset": {
-              border: "none",
+            mt: 4,
+            mb: 5,
+            textAlign: 'center',
+            backgroundColor: '#000000',
+            color: 'white',
+            borderRadius: '0.7rem',
+            width: '5rem',
+            transition: '0.2s',
+            '&:hover': {
+              backgroundColor: '#37a629',
+              color: 'white',
             },
           }}
-          value={info.category_name}
-        />
-
-        <TextField
+          onClick={handleSubmit}
+        >
+          Update
+        </Button>
+        <Button
+          variant="contained"
+          onClick={() => {
+            setBlogData({ content: '' });
+          }}
           sx={{
-            color: "#FE5E00",
-            width: "100%",
-            "& fieldset": {
-              border: "none",
+            mt: 4,
+            mb: 5,
+            textAlign: 'center',
+            backgroundColor: '#000000',
+            color: 'white',
+            borderRadius: '0.7rem',
+            width: '5rem',
+            transition: '0.2s',
+            '&:hover': {
+              backgroundColor: '#bc3a3a',
+              color: 'white',
             },
           }}
-          value={info.title}
-        />
-
-
-        <Typography
+        >
+          Clear
+        </Button>
+        <Button
+          variant="contained"
+          onClick={openWidget}
           sx={{
-            width: "100wh",
-            p: "0 1rem 0 1rem",
-            mt: "1rem",
-            fontSize: "0.8rem",
-            color: "#757575",
+            mt: 4,
+            mb: 5,
+            textAlign: 'center',
+            backgroundColor: '#000000',
+            color: 'white',
+            borderRadius: '0.7rem',
+            width: '5rem',
+            transition: '0.2s',
+            '&:hover': {
+              backgroundColor: '#0078d4',
+              color: 'white',
+            },
           }}
         >
-          {formatDateTime(blog[0]?.createdAt)}
-        </Typography>
+          Upload
+        </Button>
       </Box>
     </Box>
   );

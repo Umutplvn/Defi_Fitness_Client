@@ -52,7 +52,7 @@ const AppRouter = () => {
           <Route path="/paidcontent" element={<PaidContent/>} />
           <Route path="/adminpanel" element={<AdminPanel/>} />
           <Route path="/blogs/:blogId" element={<BlogRead/>} />
-          <Route path="/adminpanel/:blogId" element={<UpdateBlog/>} />
+          <Route path="/adminpanel/updateblog/:blogId" element={<UpdateBlog/>} />
           <Route path="/adminpanel/createblog" element={<CreateBlog/>} />
           <Route path="/adminpanel/createpaidplan" element={<CreatePaidPlan/>} />
           <Route path="/adminpanel/sharevideo" element={<ShareVideo/>} />

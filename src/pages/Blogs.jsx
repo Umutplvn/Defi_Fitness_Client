@@ -192,7 +192,7 @@ const Blogs = () => {
                           backgroundColor: "#f0f0f0 !important",
                         },
                       }}
-                      onClick={() => navigate(`/adminpanel/${item._id}`)}
+                      onClick={() => navigate(`/adminpanel/updateblog/${item._id}`)}
                     >
                       Update
                     </MenuItem>
