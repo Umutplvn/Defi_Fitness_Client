@@ -3,11 +3,13 @@ import React, { useRef, useState, useMemo } from 'react';
 import JoditEditor from 'jodit-react';
 import useDataCall from '../hooks/useDataCall';
 import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const CreateBlog = () => {
   const editor = useRef(null);
   const [blogData, setBlogData] = useState({ content: '' });
   const { createBlog } = useDataCall();
+  const navigate=useNavigate()
 
   const openWidget = () => {
     if (window.cloudinary) {
@@ -43,12 +45,14 @@ const CreateBlog = () => {
   const handleSubmit = async () => {
     if (blogData?.content?.trim() === '') {
       toast('Blog content cannot be empty.');
-      return; // İçerik boşsa gönderme işlemini durdur
+      return; 
     }
 
     try {
       await createBlog(blogData);
       setBlogData({ content: '' });
+      toast("Blog successfully created")
+      navigate("/blogs")
     } catch (error) {
       console.error('Error posting content:', error);
     }
@@ -97,7 +101,7 @@ const CreateBlog = () => {
         <Button
           variant="contained"
           onClick={() => {
-            setBlogData({ content: '' }); // İçeriği temizle
+            setBlogData({ content: '' }); 
           }}
           sx={{
             mt: 4,

@@ -126,7 +126,7 @@ const Blogs = () => {
             width: "100wh",
           }}
         >
-          {blogs?.map((item) => (
+          {blogs?.slice().reverse().map((item) => (
             <Card
               key={item._id}
               variant="outlined"
