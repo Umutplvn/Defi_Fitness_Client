@@ -37,7 +37,8 @@
     "react-typed": "^2.0.12",
     "redux-persist": "^6.0.0",
     "socket.io-client": "^4.7.5",
-    "web-vitals": "^2.1.0"
+    "web-vitals": "^2.1.0",
+    "xlsx": "^0.18.5"
   },
   "scripts": {
     "start": "react-scripts start",

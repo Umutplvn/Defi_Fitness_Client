@@ -105,13 +105,13 @@ const Blogs = () => {
           <Box
             sx={{
               pl: { xs: "0", sm: "4.5rem", md: "10rem" },
-              width: { xs: "8rem", md: "10rem" },
               mt: "4rem",
               display: "flex",
               justifyContent: "center",
+          
             }}
           >
-            <img style={{ width: "100%" }} src={spinner} alt="Loading" />
+            <img style={{ width: "6rem" }} src={spinner} alt="Loading" />
           </Box>
         </Box>
       ) : blogs.length > 0 ? (

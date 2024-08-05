@@ -6,16 +6,17 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Box, TextField } from "@mui/material";
+import { Box, TextField, Button } from "@mui/material";
 import { useSelector } from "react-redux";
 import EditIcon from "@mui/icons-material/Edit";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { useState, useEffect } from "react";
+import * as XLSX from 'xlsx';
 import ModalUnstyled from "../components/DeleteUserModel";
 import useAuthCall from "../hooks/useAuthCall";
 import ReactStars from 'react-stars';
 import EditModalUnstyled from "../components/EditUserModal";
-
+import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 const Members = () => {
   const { users, userId } = useSelector((state) => state.auth);
   const { listUsers } = useAuthCall();
@@ -38,19 +39,16 @@ const Members = () => {
     setOpen(true);
   };
 
-
   const handleClose = () => {
     setOpen(false);
     setSelectedUser(null);
-    setEditUser(null)
+    setEditUser(null);
   };
 
   const formatName = (name) => {
     if (!name) return "";
     return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
   };
-
-
 
   const filterUsers = users?.filter(
     (item) =>
@@ -60,6 +58,21 @@ const Members = () => {
         item.membership.toLowerCase().includes(search.toLowerCase()) ||
         item.email.toLowerCase().includes(search.toLowerCase()))
   );
+
+  const handleExport = () => {
+    const data = filterUsers.map(user => ({
+      Name: formatName(user.name),
+      Email: user.email,
+      Membership: user.membership,
+      Level: user.level
+    }));
+
+    const worksheet = XLSX.utils.json_to_sheet(data);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Members");
+
+    XLSX.writeFile(workbook, "members.xlsx");
+  };
 
   return (
     <Box sx={{ ml: { xs: "0", sm: "4.5rem", md: "10rem" }, padding: "1rem", mb:"10rem" }}>
@@ -100,7 +113,34 @@ const Members = () => {
         />
       </Box>
 
-      <TableContainer component={Paper} sx={{ borderRadius: "1rem", maxWidth:"850px", overflow:"scroll", m:"auto" }}>
+      <Button
+            type="submit"
+            variant="contained"
+            sx={{
+              mt: 4,
+              mb: 5,
+              textAlign: "center",
+              backgroundColor: "#F2F2F2",
+              color: "#494b56",
+              borderRadius: "0.7rem",
+              width: "8rem",
+              transition: "0.4s",
+              position:"fixed",
+              bottom:"2rem",
+              right:"1rem",
+              "&:hover": {
+                backgroundColor: "#000000",
+                color: "white",
+              },
+            }}
+            onClick={handleExport}
+
+          >
+            <CloudDownloadIcon sx={{mr:"0.5rem"}}/>
+            EXPORT
+          </Button>
+
+      <TableContainer component={Paper} sx={{ borderRadius: "1rem", maxWidth:"850px", overflow:"scroll", m:"auto", maxHeight:"23rem" }}>
         <Table sx={{ minWidth: 350 }} aria-label="simple table">
           <TableHead>
             <TableRow>
@@ -186,7 +226,6 @@ const Members = () => {
         email={editUser.email}
         membership={editUser.membership}
         level={editUser.level}
-
         />
       )}
     </Box>
