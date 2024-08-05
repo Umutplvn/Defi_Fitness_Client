@@ -66,7 +66,7 @@ const BlogRead = () => {
             domNode.attribs.class || ""
           } resized-image`;
           domNode.attribs.style =
-            "width: 95%; max-height:270px; object-fit: contain; border-radius:1rem";
+            "width: 100%; max-height:270px; object-fit: contain; border-radius:1rem;"; 
         }
       },
     });
@@ -126,16 +126,16 @@ const BlogRead = () => {
             width: "100%",
           }}
         >
-
           <Box
             sx={{
               width: "100wh",
               maxWidth: "1532px",
-              pr: { xs: "1rem", md: "2rem" },
+              pr: { xs: "1rem", md: "3rem" },
               pl: "1rem",
               height: "auto",
               WebkitBoxOrient: "vertical",
               lineHeight: "1.2em",
+
               "&::-webkit-scrollbar": {
                 width: "0px",
               },
