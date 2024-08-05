@@ -112,35 +112,10 @@ const Members = () => {
           }}
         />
       </Box>
-
-      <Button
-            type="submit"
-            variant="contained"
-            sx={{
-              mt: 4,
-              mb: 5,
-              textAlign: "center",
-              backgroundColor: "#F2F2F2",
-              color: "#494b56",
-              borderRadius: "0.7rem",
-              width: "8rem",
-              transition: "0.4s",
-              position:"fixed",
-              bottom:"2rem",
-              right:"1rem",
-              "&:hover": {
-                backgroundColor: "#000000",
-                color: "white",
-              },
-            }}
-            onClick={handleExport}
-
-          >
-            <CloudDownloadIcon sx={{mr:"0.5rem"}}/>
-            EXPORT
-          </Button>
-
+   
+   <Box sx={{maxWidth:"850px", overflow:"scroll", m:"auto", maxHeight:"28rem"}}>
       <TableContainer component={Paper} sx={{ borderRadius: "1rem", maxWidth:"850px", overflow:"scroll", m:"auto", maxHeight:"23rem" }}>
+     
         <Table sx={{ minWidth: 350 }} aria-label="simple table">
           <TableHead>
             <TableRow>
@@ -208,6 +183,36 @@ const Members = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <Box sx={{width:"100%", display:"flex", justifyContent:"flex-end"}}>
+      <Button
+            type="submit"
+            variant="contained"
+            sx={{
+              mt: 4,
+              mb: 5,
+              textAlign: "center",
+              backgroundColor: "#F2F2F2",
+              color: "#494b56",
+              borderRadius: "0.7rem",
+              width: "8rem",
+              transition: "0.4s",
+            
+              "&:hover": {
+                backgroundColor: "#000000",
+                color: "white",
+              },
+            }}
+            onClick={handleExport}
+
+          >
+            <CloudDownloadIcon sx={{mr:"0.5rem"}}/>
+            EXPORT
+          </Button>
+
+      </Box>
+   </Box>
+
+   
       {selectedUser && (
         <ModalUnstyled
           handleClose={handleClose}

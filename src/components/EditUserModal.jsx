@@ -5,10 +5,8 @@ import { styled, css } from "@mui/system";
 import { Modal as BaseModal } from "@mui/base/Modal";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import useAuthCall from "../hooks/useAuthCall";
-import { toast } from "react-hot-toast";
 import { useState } from "react";
 import ReactStars from 'react-stars';
-import InputLabel from '@mui/material/InputLabel';
 import NativeSelect from '@mui/material/NativeSelect';
 import FormControl from '@mui/material/FormControl';
 
@@ -23,11 +21,6 @@ export default function EditModalUnstyled({
 }) {
   const { updateUser } = useAuthCall();
   const [info, setInfo] = useState({ name, level, email, membership });
-  const [age, setAge] = useState('');
-
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
 
   const ratingChanged = (newRating) => {
     setInfo({...info, level:newRating})
@@ -56,7 +49,7 @@ export default function EditModalUnstyled({
       >
         <ModalContent sx={{ width: 400, maxHeight: "16.5rem" }}>
 <Box sx={{display:"flex", alignItems:"center", gap:"0.5rem"}}>
-  <Typography sx={{fontWeight:"700",  width:"130px"}}>Name:</Typography>
+  <Typography sx={{fontWeight:"700",  minWidth:"130px"}}>Name:</Typography>
   <TextField
             variant="outlined"
             sx={{
@@ -85,7 +78,7 @@ export default function EditModalUnstyled({
 </Box>
 
 <Box sx={{display:"flex", alignItems:"center", gap:"0.5rem"}}>
-  <Typography sx={{fontWeight:"700", width:"130px"}}>Email:</Typography>
+  <Typography sx={{fontWeight:"700", minWidth:"130px"}}>Email:</Typography>
   <TextField
             variant="outlined"
             sx={{
@@ -115,8 +108,8 @@ export default function EditModalUnstyled({
 
 
 <Box sx={{display:"flex", alignItems:"center", gap:"0.5rem"}}>
-  <Typography sx={{fontWeight:"700",  width:"130px"}}>Membership:</Typography>
-  <FormControl sx={{width:"205px"}}>
+  <Typography sx={{fontWeight:"700",  minWidth:"140px"}}>Membership:</Typography>
+  <FormControl sx={{width:"60%"}}>
 
   <NativeSelect
     defaultValue={info.membership}
@@ -125,7 +118,7 @@ export default function EditModalUnstyled({
     }}
     onChange={(e)=>setInfo({...info, membership:e.target.value})}
   >
-    <option value={"Basic"}>Bronze</option>
+    <option value={"Bronze"}>Bronze</option>
     <option value={"Silver"}>Silver</option>
     <option value={"Gold"}>Gold</option>
   </NativeSelect>
@@ -133,7 +126,7 @@ export default function EditModalUnstyled({
 </Box>
 
 <Box sx={{display:"flex", alignItems:"center", gap:"0.5rem"}}>
-<Typography sx={{fontWeight:"700",  width:"113px"}}>Level:</Typography>
+<Typography sx={{fontWeight:"700",  width:"138px"}}>Level:</Typography>
   <ReactStars
                     count={5}
                     value={info.level}
@@ -211,24 +204,18 @@ Backdrop.propTypes = {
 };
 
 const blue = {
-  200: "#99CCFF",
-  300: "#66B2FF",
-  400: "#3399FF",
-  500: "#007FFF",
-  600: "#0072E5",
-  700: "#0066CC",
+  200: "#000000",
+  300: "#000000",
+  400: "#000000",
+  500: "#000000",
+  600: "#000000",
+  700: "#000000",
 };
 
 const grey = {
-  50: "#F3F6F9",
-  100: "#E5EAF2",
-  200: "#DAE2ED",
-  300: "#C7D0DD",
-  400: "#B0B8C4",
-  500: "#9DA8B7",
-  600: "#6B7A90",
-  700: "#434D5B",
-  800: "#303740",
+  50: "#000000",
+  100: "#000000",
+ 
   900: "#1C2025",
 };
 
@@ -288,7 +275,7 @@ const TriggerButton = styled("button")(
     font-family: "IBM Plex Sans", sans-serif;
     font-weight: 600;
     font-size: 0.875rem;
-    line-height: 1.5;
+    line-height: 1;
     padding: 8px 16px;
     border-radius: 8px;
     transition: all 150ms ease;
