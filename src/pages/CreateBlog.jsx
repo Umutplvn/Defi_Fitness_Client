@@ -1,11 +1,11 @@
-import { Box, Button } from '@mui/material';
+import { Box, Button, Select } from '@mui/material';
 import React, { useRef, useState, useMemo } from 'react';
 import JoditEditor from 'jodit-react';
 import useDataCall from '../hooks/useDataCall';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
-const CreateBlog = () => {
+const WorkoutPlan = () => {
   const editor = useRef(null);
   const [blogData, setBlogData] = useState({ content: '' });
   const { createBlog } = useDataCall();
@@ -38,7 +38,7 @@ const CreateBlog = () => {
 
 
   const config = useMemo(() => ({
-    height: '80vh',
+    height: '100vh',
     readonly: false,
   }), []);
 
@@ -61,7 +61,7 @@ const CreateBlog = () => {
   return (
     <Box
       sx={{
-        ml: { xs: '0', sm: '4.5rem', md: '10rem' },
+        pl: { xs: '0', sm: '4.4rem', md: '9.9rem' },
         display: 'flex',
         flexDirection: 'column',
         maxWidth: '1536px',
@@ -70,6 +70,8 @@ const CreateBlog = () => {
         overflow: 'scroll',
       }}
     >
+      <Box sx={{height:"100vh", overflow:"hidden"}}>
+
       <JoditEditor
         ref={editor}
         value={blogData.content}
@@ -77,20 +79,22 @@ const CreateBlog = () => {
         tabIndex={1}
         onChange={newContent => setBlogData({ content: newContent })}
       />
-      <Box sx={{ display: 'flex', gap: '1rem', width: '100%', justifyContent: 'center' }}>
+      </Box>
+      <Box sx={{position:"fixed", display: 'flex',flexDirection:"column" ,gap: '1rem', height:"rem", width: '100%', justifyContent: 'center', bottom:"0", backgroundColor:"white", pb:{xs:"4rem", md:"3rem"}}}>
+      <hr />
+       <Box sx={{display:"flex", justifyContent:"center", gap:"1rem", alignItems:"center"}}>
         <Button
           variant="contained"
           sx={{
-            mt: 4,
-            mb: 5,
+            height:"2rem",
             textAlign: 'center',
-            backgroundColor: '#000000',
+            backgroundColor: '#a5a5a5',
             color: 'white',
             borderRadius: '0.7rem',
             width: '5rem',
             transition: '0.2s',
             '&:hover': {
-              backgroundColor: '#37a629',
+              backgroundColor: 'black',
               color: 'white',
             },
           }}
@@ -98,51 +102,32 @@ const CreateBlog = () => {
         >
           Post
         </Button>
-        <Button
-          variant="contained"
-          onClick={() => {
-            setBlogData({ content: '' }); 
-          }}
-          sx={{
-            mt: 4,
-            mb: 5,
-            textAlign: 'center',
-            backgroundColor: '#000000',
-            color: 'white',
-            borderRadius: '0.7rem',
-            width: '5rem',
-            transition: '0.2s',
-            '&:hover': {
-              backgroundColor: '#bc3a3a',
-              color: 'white',
-            },
-          }}
-        >
-          Clear
-        </Button>
+     
         <Button
           variant="contained"
           onClick={openWidget}
           sx={{
-            mt: 4,
-            mb: 5,
+    
+            height:"2rem",
             textAlign: 'center',
-            backgroundColor: '#000000',
+            backgroundColor: '#a5a5a5',
             color: 'white',
             borderRadius: '0.7rem',
             width: '5rem',
             transition: '0.2s',
             '&:hover': {
-              backgroundColor: '#0078d4',
+              backgroundColor: 'black',
               color: 'white',
             },
           }}
         >
           Upload
         </Button>
+
+       </Box>
       </Box>
     </Box>
   );
 };
 
-export default CreateBlog;
+export default WorkoutPlan;

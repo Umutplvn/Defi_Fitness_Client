@@ -23,6 +23,7 @@ import CreateBlog from "../pages/CreateBlog";
 import CreatePaidPlan from "../pages/CreatePaidPlan";
 import ShareVideo from "../pages/ShareVideo";
 import Members from "../pages/Members";
+import WorkoutPlan from "../pages/WorkoutPlan";
 
 const AppRouter = () => {
   return (
@@ -57,6 +58,7 @@ const AppRouter = () => {
           <Route path="/adminpanel/createpaidplan" element={<CreatePaidPlan/>} />
           <Route path="/adminpanel/sharevideo" element={<ShareVideo/>} />
           <Route path="/adminpanel/members" element={<Members/>} />
+          <Route path="/adminpanel/workoutplan" element={<WorkoutPlan/>} />
         </Route>
         </Route>
       </Routes>

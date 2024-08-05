@@ -7,6 +7,7 @@ import members from "../assets/team.svg";
 import blog from "../assets/blog.svg";
 import video from "../assets/video.svg";
 import premium from "../assets/premium.svg";
+import plan from "../assets/plan.svg";
 import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/material";
 
@@ -18,7 +19,11 @@ const AdminPanel = () => {
       title: "Create Blog",
       link: "/adminpanel/createblog",
     },
-
+    {
+      image: plan,
+      title: "Workout Plan",
+      link: "/adminpanel/workoutplan",
+    },
     {
       image: premium,
       title: "Create Paid Plan",
@@ -36,6 +41,8 @@ const AdminPanel = () => {
       title: "Members",
       link: "/adminpanel/members",
     },
+
+
   ];
 
   return (

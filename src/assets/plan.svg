@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+	 viewBox="0 0 470 470" xml:space="preserve">
+<g>
+	<g id="XMLID_37_">
+		<g>
+			<polygon style="fill:#E7ECED;" points="435,15 460,75 410,75 			"/>
+			<rect x="410" y="415" style="fill:#6D6E71;" width="50" height="40"/>
+			<rect x="410" y="75" style="fill:#FFD248;" width="50" height="340"/>
+		</g>
+		<path style="fill:#231F20;" d="M469.988,75c0-1.302-0.242-2.609-0.757-3.846l-25-60C442.678,7.427,439.037,5,435,5
+			s-7.678,2.427-9.23,6.154l-25,60c-0.516,1.237-0.757,2.544-0.757,3.846H400v340v40c0,5.523,4.478,10,10,10h50
+			c5.522,0,10-4.477,10-10v-40V75H469.988z M420,85h30v320h-30V85z M435,41l10,24h-20L435,41z M450,445h-30v-20h30V445z"/>
+	</g>
+	<g>
+		<g>
+			<g id="XMLID_35_">
+				<g>
+					<polygon style="fill:#FFFFFF;" points="330,420 330,460 10,460 10,50 35,50 330,50 					"/>
+					<polygon style="fill:#D0D4D6;" points="370,10 370,420 330,420 330,50 35,50 35,10 					"/>
+				</g>
+				<path style="fill:#231F20;" d="M370,0H35c-5.523,0-10,4.477-10,10v30H10C4.477,40,0,44.477,0,50v410c0,5.523,4.477,10,10,10h320
+					c5.522,0,10-4.477,10-10v-30h30c5.522,0,10-4.477,10-10V10C380,4.477,375.522,0,370,0z M320,450H20V60h300V450z M360,410h-20V50
+					c0-5.523-4.478-10-10-10H45V20h315V410z"/>
+			</g>
+		</g>
+		<g>
+			<rect x="40" y="80" style="fill:#231F20;" width="65" height="20"/>
+		</g>
+		<g>
+			<rect x="40" y="120" style="fill:#231F20;" width="65" height="20"/>
+		</g>
+		<g>
+			<rect x="95" y="180" style="fill:#231F20;" width="205" height="20"/>
+		</g>
+		<g>
+			<rect x="40" y="220" style="fill:#231F20;" width="260" height="20"/>
+		</g>
+		<g>
+			<rect x="40" y="260" style="fill:#231F20;" width="260" height="20"/>
+		</g>
+		<g>
+			<rect x="40" y="300" style="fill:#231F20;" width="260" height="20"/>
+		</g>
+		<g>
+			<rect x="40" y="340" style="fill:#231F20;" width="260" height="20"/>
+		</g>
+		<g>
+			<rect x="40" y="380" style="fill:#231F20;" width="215" height="20"/>
+		</g>
+		<g>
+			<rect x="270" y="380" style="fill:#231F20;" width="30" height="20"/>
+		</g>
+	</g>
+</g>
+</svg>
