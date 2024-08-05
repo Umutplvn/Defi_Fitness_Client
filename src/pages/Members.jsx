@@ -17,6 +17,9 @@ import useAuthCall from "../hooks/useAuthCall";
 import ReactStars from 'react-stars';
 import EditModalUnstyled from "../components/EditUserModal";
 import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
+import PersonAddAlt1RoundedIcon from '@mui/icons-material/PersonAddAlt1Rounded';
+import CreateModalUnstyled from "../components/CreateUserModal";
+
 const Members = () => {
   const { users, userId } = useSelector((state) => state.auth);
   const { listUsers } = useAuthCall();
@@ -24,6 +27,7 @@ const Members = () => {
   const [open, setOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [editUser, setEditUser] = useState(null);
+  const [createOpen, setCreateOpen] = useState(false)
 
   useEffect(() => {
     listUsers();
@@ -32,6 +36,15 @@ const Members = () => {
   const handleOpen = (user) => {
     setSelectedUser(user);
     setOpen(true);
+  };
+
+  const handleCreateOpen = () => {
+    setCreateOpen(true)
+  };
+
+  const handleCreateClose = () => {
+    setCreateOpen(false)
+
   };
 
   const handleEditOpen = (user) => {
@@ -44,6 +57,10 @@ const Members = () => {
     setSelectedUser(null);
     setEditUser(null);
   };
+
+
+  console.log(createOpen);
+
 
   const formatName = (name) => {
     if (!name) return "";
@@ -183,7 +200,7 @@ const Members = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <Box sx={{width:"100%", display:"flex", justifyContent:"flex-end"}}>
+      <Box sx={{width:"100%", display:"flex", justifyContent:"flex-end", gap:"1rem"}}>
       <Button
             type="submit"
             variant="contained"
@@ -209,6 +226,31 @@ const Members = () => {
             EXPORT
           </Button>
 
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{
+              mt: 4,
+              mb: 5,
+              textAlign: "center",
+              backgroundColor: "#F2F2F2",
+              color: "#494b56",
+              borderRadius: "0.7rem",
+              width: "8rem",
+              transition: "0.4s",
+            
+              "&:hover": {
+                backgroundColor: "#000000",
+                color: "white",
+              },
+            }}
+            onClick={handleCreateOpen}
+
+          >
+            <PersonAddAlt1RoundedIcon sx={{mr:"0.5rem"}}/>
+            CREATE
+          </Button>
+
       </Box>
    </Box>
 
@@ -221,6 +263,8 @@ const Members = () => {
           name={selectedUser.name}
         />
       )}
+
+      <CreateModalUnstyled handleCreateOpen={handleCreateOpen} handleCreateClose={handleCreateClose} createOpen={createOpen}/>
 
       {editUser && (
         <EditModalUnstyled

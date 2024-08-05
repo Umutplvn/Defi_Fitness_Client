@@ -79,20 +79,20 @@ const useAuthCall = () => {
       toast(error?.response?.data?.message)
     }
   };
-  
 
-//! UPDATE PASSWORD
-  const passwordUpdate = async (password) => {
+  //! CREAT A NEW EUSER
+  const createNewUser = async (userData) => {
+    dispatch(fetchStart());
     try {
-      const res = await axiosWithToken.put(
-        `${process.env.REACT_APP_BASE_URL}/users/updatepass`,
-        password
+      const { data } = await axiosWithToken.post(
+        `${process.env.REACT_APP_BASE_URL}/users/createuser/`,
+        userData
       );
-      dispatch(passwordUpdateSuccess(res));
-      toast("Password Changed Successfully")
+      listUsers()
     } catch (error) {
+      console.log('Error during registration:', error?.response?.data?.message);
       dispatch(fetchFail());
-  toast("Failed to change password")
+      toast(error?.response?.data?.message)
     }
   };
 
@@ -170,6 +170,22 @@ toast("Profile updated successfully")
     }
   };
 
+  //! UPDATE PASSWORD
+  const passwordUpdate = async (password) => {
+    try {
+      const res = await axiosWithToken.put(
+        `${process.env.REACT_APP_BASE_URL}/users/updatepass`,
+        password
+      );
+      dispatch(passwordUpdateSuccess(res));
+      toast("Password Changed Successfully")
+    } catch (error) {
+      dispatch(fetchFail());
+  toast("Failed to change password")
+    }
+  };
+
+
   // const logout = async () => {
   //   dispatch(fetchStart());
   //   try {
@@ -216,6 +232,7 @@ toast("Profile updated successfully")
   return {
     login,
     register,
+    createNewUser,
     // logout,
     forgotPass,
     deleteUser,
