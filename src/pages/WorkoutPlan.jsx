@@ -5,13 +5,24 @@ import useDataCall from "../hooks/useDataCall";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import FormControl from "@mui/material/FormControl";
+import { useSelector } from "react-redux";
 
 const WorkoutPlan = () => {
-  const editor = useRef(null);
-  const [blogData, setBlogData] = useState({ content: "" });
   const { createBlog } = useDataCall();
-  const navigate = useNavigate();
+  const [workoutData, setWorkoutData] = useState({ content: "" });
+  const { users } = useSelector((state) => state.auth);
+  const userInfo = [
+    ...users,
+    { name: "Level 1", _id: 1 },
+    { name: "Level 2", _id: 2 },
+    { name: "Level 3", _id: 3 },
+    { name: "Level 4", _id: 4 },
+    { name: "Level 5", _id: 5 },
+  ];
+  const [to, setTo] = useState("");
   const [info, setInfo] = useState(null);
+  const navigate = useNavigate();
+  const editor = useRef(null);
 
   const openWidget = () => {
     if (window.cloudinary) {
@@ -23,7 +34,7 @@ const WorkoutPlan = () => {
         (error, result) => {
           if (!error && result && result.event === "success") {
             const imageUrl = result.info.secure_url;
-            setBlogData((prevBlogData) => ({
+            setWorkoutData((prevBlogData) => ({
               ...prevBlogData,
               content: `${prevBlogData.content}<img src="${imageUrl}" alt="Uploaded Image"/>`,
             }));
@@ -38,6 +49,8 @@ const WorkoutPlan = () => {
     }
   };
 
+  console.log("userInfo", workoutData);
+
   const config = useMemo(
     () => ({
       height: "100vh",
@@ -47,14 +60,14 @@ const WorkoutPlan = () => {
   );
 
   const handleSubmit = async () => {
-    if (blogData?.content?.trim() === "") {
+    if (workoutData?.content?.trim() === "") {
       toast("Blog content cannot be empty.");
       return;
     }
 
     try {
-      await createBlog(blogData);
-      setBlogData({ content: "" });
+      await createBlog(workoutData);
+      setWorkoutData({ content: "" });
       toast("Blog successfully created");
       navigate("/blogs");
     } catch (error) {
@@ -77,10 +90,10 @@ const WorkoutPlan = () => {
       <Box sx={{ height: "100vh", overflow: "hidden" }}>
         <JoditEditor
           ref={editor}
-          value={blogData.content}
+          value={workoutData.content}
           config={config}
           tabIndex={1}
-          onChange={(newContent) => setBlogData({ content: newContent })}
+          onChange={(newContent) => setWorkoutData({ content: newContent })}
         />
       </Box>
       <Box
@@ -105,9 +118,9 @@ const WorkoutPlan = () => {
             <option style={{ color: "red" }} value="" disabled hidden>
               To:
             </option>
-            <option value="Bronze">Bronze</option>
-            <option value="Silver">Silver</option>
-            <option value="Gold">Gold</option>
+            {userInfo.map((item) => (
+              <option value={item._id}>{item.name}</option>
+            ))}
           </NativeSelect>
         </FormControl>
 
