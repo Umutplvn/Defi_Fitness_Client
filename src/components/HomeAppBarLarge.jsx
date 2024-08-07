@@ -134,7 +134,7 @@ const HomeAppBarLarge = () => {
 
           <Typography
             sx={{
-              display: { xs: "none", md: "block" },
+              display: { xs: "none", md: "block",  fontFamily:"Montserrat"  },
               ml: 1,
             }}
           >
@@ -157,7 +157,7 @@ const HomeAppBarLarge = () => {
 
           <Typography
             sx={{
-              display: { xs: "none", md: "block" },
+              display: { xs: "none", md: "block",  fontFamily:"Montserrat"  },
               ml: 1,
             }}
           >
@@ -181,7 +181,7 @@ const HomeAppBarLarge = () => {
 
           <Typography
             sx={{
-              display: { xs: "none", md: "block" },
+              display: { xs: "none", md: "block",  fontFamily:"Montserrat"  },
               ml: 1,
             }}
           >
@@ -204,7 +204,7 @@ const HomeAppBarLarge = () => {
 
           <Typography
             sx={{
-              display: { xs: "none", md: "block" },
+              display: { xs: "none", md: "block", fontFamily:"Montserrat"  },
               ml: 1,
             }}
           >
@@ -226,7 +226,7 @@ const HomeAppBarLarge = () => {
 
           <Typography
             sx={{
-              display: { xs: "none", md: "block" },
+              display: { xs: "none", md: "block",  fontFamily:"Montserrat"  },
               ml: 1,
             }}
           >

@@ -132,7 +132,7 @@ const Chats = () => {
         pb: "7rem",
       }}
     >
-      <Typography sx={{ fontWeight: "800", fontSize: "1.4rem" }}>
+      <Typography sx={{ fontWeight: "700", fontSize: "1.4rem", fontFamily:"Montserrat", color:"black"  }}>
         Chats
       </Typography>
       <List
@@ -176,13 +176,14 @@ const Chats = () => {
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "end",
+                    fontFamily:"Montserrat" 
                   }}
                 >
                   <Box>
                     <Typography>{user.name}</Typography>
 
                     <Box sx={{ display: "flex", gap: "1rem" }}>
-                      <Typography variant="body2" color="textSecondary">
+                      <Typography variant="body2" color="textSecondary" sx={{fontFamily:"Montserrat" }}>
                         {getLastMessage(user._id)}
                       </Typography>
                     </Box>
@@ -209,13 +210,14 @@ const Chats = () => {
                           backgroundColor: "#FE5E00",
                           color: "white",
                           fontSize: "0.8rem",
+                          fontFamily:"Montserrat" 
                         }}
                       >
                         {getUnreadCount(user._id)}
                       </Typography>
                     )}
 
-                    <Typography variant="body2" color="textSecondary">
+                    <Typography variant="body2" color="textSecondary" sx={{ fontFamily:"Montserrat" }}>
                       {getLastMessageTime(user._id)}
                     </Typography>
                   </Box>

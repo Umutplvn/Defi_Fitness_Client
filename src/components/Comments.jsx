@@ -28,18 +28,17 @@ const Comments = ({ blog, setBlog }) => {
   };
 
   //! DELETE A COMMENT
-  const deleteComment = async ({commentId}) => {
+  const deleteComment = async ({ commentId }) => {
     try {
       const { data } = await axiosWithToken.delete(
         `${process.env.REACT_APP_BASE_URL}/comment/delete`,
-       { params: { blogId, commentId } }
+        { params: { blogId, commentId } }
       );
-        setBlog(data.result);
+      setBlog(data.result);
     } catch (error) {
       console.error("Error fetching blog data:", error);
     }
   };
-
 
   return (
     <Box sx={{ mb: "7rem", width: "100%" }}>
@@ -50,8 +49,8 @@ const Comments = ({ blog, setBlog }) => {
           color: "black",
           fontSize: "1.1rem",
           fontWeight: "600",
-          fontFamily: "sans-serif",
           mb: "1rem",
+          fontFamily: "Montserrat",
         }}
       >
         Comments
@@ -68,7 +67,7 @@ const Comments = ({ blog, setBlog }) => {
         <Avatar src={avatar} sx={{ mr: 1, my: 0.5 }} />
         <Box
           sx={{
-            type:"form",
+            type: "form",
 
             width: "100%",
             display: "flex",
@@ -88,14 +87,24 @@ const Comments = ({ blog, setBlog }) => {
           <Box sx={{ display: "flex", gap: "0.5rem" }}>
             <Button
               onClick={() => setText("")}
-              sx={{ fontSize: "0.8rem", color: "red", cursor: "pointer" }}
+              sx={{
+                fontSize: "0.8rem",
+                color: "red",
+                cursor: "pointer",
+                fontFamily: "Montserrat",
+              }}
             >
               Cancel
             </Button>
             <Button
               disabled={!text}
               onClick={createComment}
-              sx={{ fontSize: "0.8rem", color: "green", cursor: "pointer" }}
+              sx={{
+                fontSize: "0.8rem",
+                color: "green",
+                cursor: "pointer",
+                fontFamily: "Montserrat",
+              }}
             >
               Submit
             </Button>
@@ -104,7 +113,10 @@ const Comments = ({ blog, setBlog }) => {
       </Box>
 
       {/* MAP COMMENTS */}
-      {blog?.comments?.slice().reverse().map((item) => {
+      {blog?.comments
+        ?.slice()
+        .reverse()
+        .map((item) => {
           return (
             <Box
               key={item?._id}
@@ -123,20 +135,20 @@ const Comments = ({ blog, setBlog }) => {
                     sx={{
                       fontSize: "0.9rem",
                       fontWeight: "700",
-                      fontFamily: "sans-serif",
+                      fontFamily: "Montserrat",
                     }}
                   >
                     {item.comment.name}
                   </Typography>
                   <Typography
-                    sx={{ fontSize: "0.9rem", fontFamily: "sans-serif" }}
+                    sx={{ fontSize: "0.9rem", fontFamily: "Montserrat" }}
                   >
                     {item.comment.text}
                   </Typography>
                   <Typography
                     sx={{
                       fontSize: "0.7rem",
-                      fontFamily: "sans-serif",
+                      fontFamily: "Montserrat",
                       color: "#7a7a7a",
                     }}
                   >
@@ -146,7 +158,7 @@ const Comments = ({ blog, setBlog }) => {
 
                 {(item?.comment?.userId == userId || isAdmin) && (
                   <HighlightOffIcon
-                  onClick={()=>deleteComment({commentId:item?._id})}
+                    onClick={() => deleteComment({ commentId: item?._id })}
                     sx={{ fontSize: "0.9rem", cursor: "pointer" }}
                   />
                 )}

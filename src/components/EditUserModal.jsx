@@ -238,7 +238,7 @@ const StyledBackdrop = styled(Backdrop)`
 
 const ModalContent = styled("div")(
   ({ theme }) => css`
-    font-family: "IBM Plex Sans", sans-serif;
+    font-family: "Montserrat";
     font-weight: 500;
     text-align: start;
     position: relative;
@@ -272,7 +272,7 @@ const ModalContent = styled("div")(
 
 const TriggerButton = styled("button")(
   ({ theme }) => css`
-    font-family: "IBM Plex Sans", sans-serif;
+    font-family: "Montserrat";
     font-weight: 600;
     font-size: 0.875rem;
     line-height: 1;

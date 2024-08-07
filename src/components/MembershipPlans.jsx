@@ -1,105 +1,212 @@
-import { Box, Typography } from "@mui/material";
-import React from "react";
+import * as React from "react";
+import Box from "@mui/joy/Box";
+import Button from "@mui/joy/Button";
+import Card from "@mui/joy/Card";
+import CardActions from "@mui/joy/CardActions";
+import Chip from "@mui/joy/Chip";
+import Divider from "@mui/joy/Divider";
+import List from "@mui/joy/List";
+import ListItem from "@mui/joy/ListItem";
+import ListItemDecorator from "@mui/joy/ListItemDecorator";
+import Typography from "@mui/joy/Typography";
+import Check from "@mui/icons-material/Check";
+import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
+import { useNavigate } from "react-router-dom";
+import { useMediaQuery, createTheme } from '@mui/material';
+import MembershipSizeXs from "./MembershipsSizeXs";
 
-const MembershipPlans = () => {
+export default function MembershipPlans() {
+  const navigate = useNavigate();
+  const theme = createTheme();
+  const isXs = useMediaQuery(theme.breakpoints.down('lg'));
   return (
-    <Box 
-      id="membership" 
-      sx={{ 
-        width: "100wh", 
-        height: "100vh", 
-        padding: "1rem", 
-        display: "flex", 
-        flexDirection: "column", 
-        alignItems: "center", 
-        gap: "1rem"
-      }}
-    >
-      <Box
-         sx={{
-          display: "flex",
-          flexDirection: { xs: "column", sm: "row" },
-          alignItems: "center",
-          justifyContent: "center",
-          textAlign: { xs: "center", sm: "left" },
-          gap: "0.5rem",
-          width: "100%", 
-          maxWidth: "500px"
-        }}
-      >
-        <Typography sx={{ fontSize: { xs: "4rem", sm: "6rem", md: "8rem" }}}>🥇</Typography>
-        <Box sx={{ width: { xs: "100%", sm: "80%" }}}> 
-          <Typography sx={{ fontSize: { xs: "1.4rem", sm: "1.6rem" }, fontWeight: "600" }}>
-            GOLDEN MEMBERSHIP
-          </Typography>
-          <Typography sx={{ fontSize: { xs: "1rem", sm: "1.2rem" }}}>
-            • Unlimited coach messaging
-          </Typography>
-          <Typography sx={{ fontSize: { xs: "1rem", sm: "1.2rem" }}}>
-            • Full access to all videos and articles
-          </Typography>
-          <Typography sx={{ fontSize: { xs: "1rem", sm: "1.2rem" }}}>
-            • Exclusive content and updates
-          </Typography>
-        </Box>
-      </Box>
+<Box sx={{width:"100wh", height:"100vh"}}>
+{isXs? 
+  //! WINDOW SIZE SMALLER THAN LG 
+<MembershipSizeXs/> :
+  
 
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: { xs: "column", sm: "row" },
-          alignItems: "center",
-          justifyContent: "center",
-          textAlign: { xs: "center", sm: "left" },
-          gap: "0.5rem",
-          width: "100%", 
-          maxWidth: "500px"
-        }}
-      >
-        <Typography sx={{ fontSize: { xs: "4rem", sm: "6rem", md: "8rem" }}}>🥈</Typography>
-        <Box sx={{ width: { xs: "100%", sm: "80%" }}}> 
-          <Typography sx={{ fontSize: { xs: "1.4rem", sm: "1.6rem" }, fontWeight: "600" }}>
-            SILVER MEMBERSHIP
-          </Typography>
-          <Typography sx={{ fontSize: { xs: "1rem", sm: "1.2rem" }}}>
-            • Limited coach messaging
-          </Typography>
-          <Typography sx={{ fontSize: { xs: "1rem", sm: "1.2rem" }}}>
-            • Get training programs via email
-          </Typography>
-          <Typography sx={{ fontSize: { xs: "1rem", sm: "1.2rem" }}}>
-            • Access to selected videos and articles
-          </Typography>
-        </Box>
-      </Box>
+  //! WINDOW SIZE LARGER THAN LG 
+  <Box
+     id="membership"
+     sx={{
+       width: "100%",
+       height: "100vh",
+       display: "grid",
+       display: "flex",
+       alignItems: "center",
+       justifyContent: "center",
+       gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 300px), 1fr))",
+       padding: "2rem",
+       gap: { lg: "5rem" },
+     }}
+   >
+     <Card
+       size="lg"
+       variant="outlined"
+       sx={{ height: "30rem", width: "20rem" }}
+     >
+       <Chip size="sm" variant="outlined" color="neutral">
+         Basic
+       </Chip>
+       <Typography level="h2">Bronze</Typography>
+       <Divider inset="none" />
+       <List size="sm" sx={{ mx: "calc(-1 * var(--ListItem-paddingX))" }}>
+         <ListItem>
+           <ListItemDecorator>
+             <Check />
+           </ListItemDecorator>
+           Access to exclusive blogs{" "}
+         </ListItem>
+         <ListItem>
+           <ListItemDecorator>
+             <Check />
+           </ListItemDecorator>
+           Development monitoring in profiles{" "}
+         </ListItem>
+         <ListItem>
+           <ListItemDecorator>
+             <Check />
+           </ListItemDecorator>
+           Cancel anytime
+         </ListItem>
+       </List>
+       <Divider inset="none" />
+       <CardActions>
+         <Typography level="title-lg" sx={{ mr: "auto" }}>
+           5${" "}
+           <Typography fontSize="sm" textColor="text.tertiary">
+             / month
+           </Typography>
+         </Typography>
+         <Button
+           variant="soft"
+           color="neutral"
+           endDecorator={<KeyboardArrowRight />}
+           onClick={() => navigate("/register")}
+         >
+           Start now
+         </Button>
+       </CardActions>
+     </Card>
 
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: { xs: "column", sm: "row" },
-          alignItems: "center",
-          justifyContent: "center",
-          textAlign: { xs: "center", sm: "left" },
-          gap: "0.5rem",
-          width: "100%", 
-          maxWidth: "500px"
-        }}
-      >
-        <Typography sx={{ fontSize: { xs: "4rem", sm: "6rem", md: "8rem" }}}>🥉</Typography>
-        <Box sx={{ width: { xs: "100%", sm: "80%" }}}> 
-          <Typography sx={{ fontSize: { xs: "1.4rem", sm: "1.6rem" }, fontWeight: "600" }}>
-            BRONZE MEMBERSHIP
-          </Typography>
-          <Typography sx={{ fontSize: { xs: "1rem", sm: "1.2rem" }}}>
-            • Limited coach messaging
-          </Typography>
-          <Typography sx={{ fontSize: { xs: "1rem", sm: "1.2rem" }}}>
-            • Get training programs via email
-          </Typography>
-        </Box>
-      </Box>
-    </Box>
+     <Card
+       size="lg"
+       variant="solid"
+       color="neutral"
+       invertedColors
+       sx={{ bgcolor: "neutral.900", height: "30rem", width: "20rem" }}
+     >
+       <Chip size="sm" variant="outlined">
+         Unlimited
+       </Chip>
+       <Typography level="h2">Gold</Typography>
+       <Divider inset="none" />
+       <List size="sm" sx={{ mx: "calc(-1 * var(--ListItem-paddingX))" }}>
+         <ListItem>
+           <ListItemDecorator>
+             <Check />
+           </ListItemDecorator>
+           Unlimited messaging
+         </ListItem>
+         <ListItem>
+           <ListItemDecorator>
+             <Check />
+           </ListItemDecorator>
+           Lifetime access to exclusive workout plans
+         </ListItem>
+         <ListItem>
+           <ListItemDecorator>
+             <Check />
+           </ListItemDecorator>
+           Access to exclusive blogs{" "}
+         </ListItem>
+         <ListItem>
+           <ListItemDecorator>
+             <Check />
+           </ListItemDecorator>
+           Development monitoring in profiles{" "}
+         </ListItem>
+         <ListItem>
+           <ListItemDecorator>
+             <Check />
+           </ListItemDecorator>
+           Cancel anytime
+         </ListItem>
+       </List>
+       <Divider inset="none" />
+       <CardActions>
+         <Typography level="title-lg" sx={{ mr: "auto" }}>
+           200${" "}
+           <Typography fontSize="sm" textColor="text.tertiary">
+             / month
+           </Typography>
+         </Typography>
+         <Button
+           onClick={() => navigate("/register")}
+           endDecorator={<KeyboardArrowRight />}
+         >
+           Start now
+         </Button>
+       </CardActions>
+     </Card>
+
+     <Card
+       size="lg"
+       variant="outlined"
+       sx={{ height: "30rem", width: "20rem" }}
+     >
+       <Chip size="sm" variant="outlined" color="neutral">
+         Professional
+       </Chip>
+       <Typography level="h2">Silver</Typography>
+       <Divider inset="none" />
+       <List size="sm" sx={{ mx: "calc(-1 * var(--ListItem-paddingX))" }}>
+         <ListItem>
+           <ListItemDecorator>
+             <Check />
+           </ListItemDecorator>
+           Access to exclusive blogs{" "}
+         </ListItem>
+         <ListItem>
+           <ListItemDecorator>
+             <Check />
+           </ListItemDecorator>
+           Monthly workout plans{" "}
+         </ListItem>
+         <ListItem>
+           <ListItemDecorator>
+             <Check />
+           </ListItemDecorator>
+           Development monitoring in profiles{" "}
+         </ListItem>
+         <ListItem>
+           <ListItemDecorator>
+             <Check />
+           </ListItemDecorator>
+           Cancel anytime
+         </ListItem>
+       </List>
+       <Divider inset="none" />
+       <CardActions>
+         <Typography level="title-lg" sx={{ mr: "auto" }}>
+           20${" "}
+           <Typography fontSize="sm" textColor="text.tertiary">
+             / month
+           </Typography>
+         </Typography>
+         <Button
+           onClick={() => navigate("/register")}
+           variant="soft"
+           color="neutral"
+           endDecorator={<KeyboardArrowRight />}
+         >
+           Start now
+         </Button>
+       </CardActions>
+     </Card>
+   </Box>
+ }
+</Box>
   );
-};
-
-export default MembershipPlans;
+}

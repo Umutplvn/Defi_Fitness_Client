@@ -7,6 +7,9 @@
     width: 100vw;
     font-size: 2rem;
     color: white;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: bold;
   }
   
   .fade-enter {

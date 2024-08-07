@@ -1,5 +1,6 @@
 .shiny-text {
   padding: 64px;
+  font-family: "Montserrat", sans-serif;
   background: linear-gradient(to right, hsl(0, 0%, 30%) 0, hsl(0, 0%, 100%) 10%, hsl(0, 0%, 30%) 20%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -16,6 +17,7 @@
   font-weight: bolder;
   text-transform: uppercase;
   display: block;
+  font-family: "Montserrat", sans-serif;
 
 }
 

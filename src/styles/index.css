@@ -2,12 +2,16 @@
     margin:0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: bold;
 }
 
 /* index.css or App.css */
 .page-container {
     position: relative;
     overflow: hidden;
+    
   }
   
   .page-separator {

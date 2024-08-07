@@ -16,7 +16,7 @@ const AdminPanel = () => {
   const Data = [
     {
       image: blog,
-      title: "Create Blog",
+      title: "Blog",
       link: "/adminpanel/createblog",
     },
     {
@@ -26,13 +26,13 @@ const AdminPanel = () => {
     },
     {
       image: premium,
-      title: "Create Paid Plan",
+      title: "Paid Plan",
       link: "/adminpanel/createpaidplan",
     },
 
     {
       image: video,
-      title: "Share Video",
+      title: "Video",
       link: "/adminpanel/sharevideo",
     },
 
@@ -63,8 +63,8 @@ const AdminPanel = () => {
           key={index}
           onClick={() => navigate(item.link)}
           sx={{
-            width: "270px",
-            height: "240px",
+            width: "180px",
+            height: "220px",
             marginBottom: "1rem",
             display: "flex",
             justifyContent: "center",
@@ -80,13 +80,13 @@ const AdminPanel = () => {
           }}
         >
           <CardMedia
-            sx={{ height: "100px", width: "100px" }}
+            sx={{ height: "70px", width: "70px" }}
             image={item.image}
           />
           <CardContent>
             <Typography
               gutterBottom
-              sx={{ fontSize: "1.4rem", fontWeight: "600" }}
+              sx={{ fontSize: "1.2rem", fontWeight: "600", fontFamily:"Montserrat"  }}
             >
               {item.title}
             </Typography>

@@ -378,6 +378,7 @@ const Blogs = () => {
                     color: "#ff5100",
                     fontSize: "1rem",
                     cursor: "pointer",
+                    fontFamily:"Montserrat",
                     "&:hover": { color: "red" },
                   }}
                 >
@@ -387,7 +388,7 @@ const Blogs = () => {
                   component="button"
                   underline="none"
                   fontSize="10px"
-                  sx={{ color: "text.tertiary", my: 0.5 }}
+                  sx={{ color: "text.tertiary", my: 0.5,  fontFamily:"Montserrat"  }}
                 >
                   {formatDateTime(item.createdAt)}
                 </Link>
@@ -403,7 +404,7 @@ const Blogs = () => {
             fontSize: "1.3rem",
             fontWeight: "600",
             color: "#FE5E00",
-            pl: { xs: "0", sm: "4.5rem", md: "10rem" },
+            pl: { xs: "0", sm: "4.5rem", md: "10rem", fontFamily:"Montserrat"  },
           }}
         >
           There is no blog to show!

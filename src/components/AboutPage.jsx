@@ -3,7 +3,7 @@ import Carousel from 'react-bootstrap/Carousel';
 import { Box, Typography } from '@mui/material';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useTrail, a } from "@react-spring/web";
-import "../styles/aboutCarousel.css"; // Make sure to import the CSS file
+import "../styles/aboutCarousel.css"; 
 
 function AboutPage() {
   const items = [

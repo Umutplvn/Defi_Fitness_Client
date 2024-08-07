@@ -8,6 +8,9 @@
     margin: auto;
     border: 1px solid #ccc;
     border-radius: 8px;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: bold;
   }
   
   .chat-header {
@@ -15,6 +18,9 @@
     color: white;
     padding: 10px;
     text-align: center;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: bold;
   }
   
   .chat-body {
@@ -22,11 +28,17 @@
     overflow-y: auto;
     padding: 10px;
     background-color: #f1f1f1;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: bold;
   }
   
   .messages {
     display: flex;
     flex-direction: column;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: bold;
   }
   
   .message {
@@ -41,6 +53,9 @@
     align-self: flex-end;
     background-color: #007bff;
     color: white;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: bold;
   }
   
   .message.received {
@@ -52,6 +67,9 @@
     max-width: 100%;
     border-radius: 8px;
     margin-top: 5px;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: bold;
   }
   
   .chat-footer {
@@ -63,6 +81,9 @@
   .message-form {
     display: flex;
     align-items: center;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: bold;
   }
   
   .message-form input[type="text"] {
@@ -71,10 +92,16 @@
     border-radius: 20px;
     border: 1px solid #ccc;
     margin-right: 10px;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: bold;
   }
   
   .message-form input[type="file"] {
     margin-right: 10px;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: bold;
   }
   
   .message-form button {
@@ -84,5 +111,8 @@
     padding: 10px 20px;
     border-radius: 20px;
     cursor: pointer;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: bold;
   }
   

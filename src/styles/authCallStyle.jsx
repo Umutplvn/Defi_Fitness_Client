@@ -3,5 +3,6 @@ export const customToast= {
     color:" #333",
     fontWeight: "bold",
     textAlign: "center",
-    borderRadius: "8px"
+    borderRadius: "8px",
+    fontFamily: "Montserrat, sans-serif",
 }
