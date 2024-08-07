@@ -31,7 +31,22 @@ const Blogs = () => {
   const { blogs } = useSelector((state) => state?.appData);
   const { userId, savedBlog, isAdmin } = useSelector((state) => state?.auth);
   const [search, setSearch] = useState("");
+  const [filtBlog, setFiltBlog] = useState(blogs)
   const [loading, setLoading] = useState(false);
+
+  const formatTag = (tag) => {
+    if (!tag) return "";
+    return tag.charAt(0).toUpperCase() + tag.slice(1).toLowerCase();
+  };
+  
+  const filteredBlogs = blogs.filter((item) => {
+    if (!search.trim()) {
+      return true;
+    }
+    return item.tags.some((tag) => formatTag(tag).includes(formatTag(search)));
+  });
+
+console.log(filteredBlogs);
 
   useEffect(() => {
     setLoading(true);
@@ -66,7 +81,7 @@ const Blogs = () => {
       >
         <TextField
           onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search"
+          placeholder="Search in tags..."
           variant="outlined"
           sx={{
             width: { xs: "15rem", md: "20rem" },
@@ -125,7 +140,7 @@ const Blogs = () => {
             width: "100wh",
           }}
         >
-          {blogs
+          {filteredBlogs
             ?.slice()
             .reverse()
             .map((item) => (
@@ -232,12 +247,15 @@ const Blogs = () => {
                         />
                       </Box>
                     </CardContent>
+                    <hr
+                      style={{ marginBottom: "-0.3rem", marginTop: "0.7rem" }}
+                    />
                   </Box>
                 )}
 
                 <CardContent>
                   {!isAdmin && (
-                    <Box sx={{ height: "2rem" }}>
+                    <Box sx={{ height: "2.4rem" }}>
                       <Box
                         sx={{
                           position: "absolute",
@@ -266,6 +284,7 @@ const Blogs = () => {
                           }}
                         />
                       </Box>
+                      <hr style={{ marginTop: "2rem" }} />
                     </Box>
                   )}
 
@@ -286,6 +305,15 @@ const Blogs = () => {
                   >
                     {handleContent(item.content)}
                   </Box>
+                  <hr/>
+                  {
+                 <Typography sx={{fontSize:"0.7rem", color:"#565656", mb:"-0.5rem", mt:"-0.7rem"}}>
+                 {item.tags.slice(0, 3).map((tag, index) => (
+                   <span key={index}>#{tag} </span>
+                 ))}
+                 {item.tags.length > 3 ? <span>...</span> : <span style={{display:"inline-block"}}></span>}
+               </Typography>
+                  }
                 </CardContent>
 
                 <Box
