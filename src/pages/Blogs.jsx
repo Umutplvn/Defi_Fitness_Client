@@ -108,7 +108,6 @@ const Blogs = () => {
               mt: "4rem",
               display: "flex",
               justifyContent: "center",
-          
             }}
           >
             <img style={{ width: "6rem" }} src={spinner} alt="Loading" />
@@ -126,275 +125,287 @@ const Blogs = () => {
             width: "100wh",
           }}
         >
-          {blogs?.slice().reverse().map((item) => (
-            <Card
-              key={item._id}
-              variant="outlined"
-              sx={{
-                width: "300px",
-                "--Card-radius": (theme) => theme.vars.radius.xs,
-                position: "relative",
-                "&:hover": {
-                  boxShadow: "rgba(17, 17, 26, 0.1) 0px 0px 16px",
-                  scale: "1.001",
-                  transform: "ease in out",
-                  transition: "0.5s",
-                },
-              }}
-            >
-              {isAdmin && (
-                <Box>
-                  <Select
-                    IconComponent={(props) => (
-                      <MoreHorizIcon
-                        {...props}
-                        sx={{ width: "100%", backgroundColor: "white" }}
-                      />
-                    )}
-                    sx={{
-                      width: "2.5rem",
-                      height: "1.7rem",
-                      display: "flex",
-                      justifyContent: "flex-start",
-                      "& fieldset": {
-                        border: "none",
-                      },
-                    }}
-                  >
-                    <MenuItem
+          {blogs
+            ?.slice()
+            .reverse()
+            .map((item) => (
+              <Card
+                key={item._id}
+                variant="outlined"
+                sx={{
+                  width: "300px",
+                  "--Card-radius": (theme) => theme.vars.radius.xs,
+                  position: "relative",
+                  "&:hover": {
+                    boxShadow: "rgba(17, 17, 26, 0.1) 0px 0px 16px",
+                    scale: "1.001",
+                    transform: "ease in out",
+                    transition: "0.5s",
+                  },
+                }}
+              >
+                {isAdmin && (
+                  <Box>
+                    <Select
+                      IconComponent={(props) => (
+                        <MoreHorizIcon
+                          {...props}
+                          sx={{ width: "100%", backgroundColor: "white" }}
+                        />
+                      )}
                       sx={{
-                        cursor: "pointer",
-                        width: "130px",
-                        fontSize: "0.8rem",
-                        marginRight: "-3rem",
-                        pl: "0.4rem",
-                        minHeight: "1rem",
-                        backgroundColor: "#ffffff !important",
-                        "&:hover": {
-                          backgroundColor: "#f0f0f0 !important",
-                        },
-                      }}
-                      onClick={() => deleteBlog(item._id)}
-                    >
-                      Delete
-                    </MenuItem>
-                    <MenuItem
-                      sx={{
-                        cursor: "pointer",
-                        width: "130px",
-                        fontSize: "0.8rem",
-                        marginRight: "-3rem",
-                        pl: "0.4rem",
-                        minHeight: "1rem",
-                        marginBottom: "-0.3rem",
-                        backgroundColor: "#ffffff !important",
-                        "&:hover": {
-                          backgroundColor: "#f0f0f0 !important",
-                        },
-                      }}
-                      onClick={() => navigate(`/adminpanel/updateblog/${item._id}`)}
-                    >
-                      Update
-                    </MenuItem>
-                  </Select>
-
-                  <CardContent>
-                    <Box
-                      sx={{
-                        position: "absolute",
-                        right: "1rem",
-                        top: "1rem",
-                        "&::before": {
-                          content: '""',
-                          position: "absolute",
-                          top: 0,
-                          left: 0,
-                          bottom: 0,
-                          right: 0,
-                          m: "-2px",
-                          borderRadius: "50%",
-                          background:
-                            "linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)",
+                        width: "2.5rem",
+                        height: "1.7rem",
+                        display: "flex",
+                        justifyContent: "flex-start",
+                        "& fieldset": {
+                          border: "none",
                         },
                       }}
                     >
-                      <Avatar
-                        size="sm"
-                        src={defiIcon}
+                      <MenuItem
                         sx={{
-                          border: "2px solid",
-                          borderColor: "background.body",
+                          cursor: "pointer",
+                          width: "130px",
+                          fontSize: "0.8rem",
+                          marginRight: "-3rem",
+                          pl: "0.4rem",
+                          minHeight: "1rem",
+                          backgroundColor: "#ffffff !important",
+                          "&:hover": {
+                            backgroundColor: "#f0f0f0 !important",
+                          },
                         }}
-                      />
-                    </Box>
-                  </CardContent>
-                </Box>
-              )}
-
-              <CardContent>
-                {!isAdmin && (
-                  <Box sx={{ height: "2rem" }}>
-                    <Box
-                      sx={{
-                        position: "absolute",
-                        right: "1rem",
-                        top: "0.6rem",
-                        "&::before": {
-                          content: '""',
-                          position: "absolute",
-                          top: 0,
-                          left: 0,
-                          bottom: 0,
-                          right: 0,
-                          m: "-2px",
-                          borderRadius: "50%",
-                          background:
-                            "linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)",
-                        },
-                      }}
-                    >
-                      <Avatar
-                        size="sm"
-                        src={defiIcon}
+                        onClick={() => deleteBlog(item._id)}
+                      >
+                        Delete
+                      </MenuItem>
+                      <MenuItem
                         sx={{
-                          border: "2px solid",
-                          borderColor: "background.body",
+                          cursor: "pointer",
+                          width: "130px",
+                          fontSize: "0.8rem",
+                          marginRight: "-3rem",
+                          pl: "0.4rem",
+                          minHeight: "1rem",
+                          marginBottom: "-0.3rem",
+                          backgroundColor: "#ffffff !important",
+                          "&:hover": {
+                            backgroundColor: "#f0f0f0 !important",
+                          },
                         }}
-                      />
-                    </Box>
+                        onClick={() =>
+                          navigate(`/adminpanel/updateblog/${item._id}`)
+                        }
+                      >
+                        Update
+                      </MenuItem>
+                    </Select>
+
+                    <CardContent>
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          right: "1rem",
+                          top: "1rem",
+                          "&::before": {
+                            content: '""',
+                            position: "absolute",
+                            top: 0,
+                            left: 0,
+                            bottom: 0,
+                            right: 0,
+                            m: "-2px",
+                            borderRadius: "50%",
+                            background:
+                              "linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)",
+                          },
+                        }}
+                      >
+                        <Avatar
+                          size="sm"
+                          src={defiIcon}
+                          sx={{
+                            border: "2px solid",
+                            borderColor: "background.body",
+                          }}
+                        />
+                      </Box>
+                    </CardContent>
                   </Box>
                 )}
 
-                <Box
-                  sx={{
-                    maxWidth: "300px",
-                    height: "298px",
-                    overflow: "scroll",
-                    WebkitBoxOrient: "vertical",
-                    lineHeight: "1.2em",
-                    "&::-webkit-scrollbar": {
-                      width: "0px",
-                    },
-                    "&::-webkit-scrollbar-thumb": {
-                      background: "transparent",
-                    },
-                  }}
-                >
-                  {handleContent(item.content)}
-                </Box>
-              </CardContent>
-
-              <Box
-                sx={{
-                  width: "100%",
-                  display: "flex",
-                  justifyContent: "space-between",
-                }}
-              >
-                <Box>
-                  <IconButton
-                    variant="plain"
-                    color="neutral"
-                    size="sm"
-                    onClick={() => likeBlog({ blogId: item?._id })}
-                  >
-                    <Box
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        width: "2.4rem",
-                      }}
-                    >
-                      {item.likes.some((like) => like === userId) ? (
-                        <FavoriteIcon
-                          style={{
-                            fontSize: "1.5rem",
-                            marginRight: "0.1rem",
-                            color: "red",
+                <CardContent>
+                  {!isAdmin && (
+                    <Box sx={{ height: "2rem" }}>
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          right: "1rem",
+                          top: "0.6rem",
+                          "&::before": {
+                            content: '""',
+                            position: "absolute",
+                            top: 0,
+                            left: 0,
+                            bottom: 0,
+                            right: 0,
+                            m: "-2px",
+                            borderRadius: "50%",
+                            background:
+                              "linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)",
+                          },
+                        }}
+                      >
+                        <Avatar
+                          size="sm"
+                          src={defiIcon}
+                          sx={{
+                            border: "2px solid",
+                            borderColor: "background.body",
                           }}
                         />
-                      ) : (
-                        <FavoriteBorderIcon
-                          style={{ fontSize: "1.5rem", marginRight: "0.1rem" }}
-                        />
-                      )}
-                      <Typography sx={{ fontSize: "1rem", color: "#535353" }}>
-                        {item?.likes_n}
-                      </Typography>
+                      </Box>
                     </Box>
-                  </IconButton>
+                  )}
+
+                  <Box
+                    sx={{
+                      maxWidth: "300px",
+                      height: "298px",
+                      overflow: "scroll",
+                      WebkitBoxOrient: "vertical",
+                      lineHeight: "1.2em",
+                      "&::-webkit-scrollbar": {
+                        width: "0px",
+                      },
+                      "&::-webkit-scrollbar-thumb": {
+                        background: "transparent",
+                      },
+                    }}
+                  >
+                    {handleContent(item.content)}
+                  </Box>
+                </CardContent>
+
+                <Box
+                  sx={{
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Box>
+                    <IconButton
+                      variant="plain"
+                      color="neutral"
+                      size="sm"
+                      onClick={() => likeBlog({ blogId: item?._id })}
+                    >
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          width: "2.4rem",
+                        }}
+                      >
+                        {item.likes.some((like) => like === userId) ? (
+                          <FavoriteIcon
+                            style={{
+                              fontSize: "1.5rem",
+                              marginRight: "0.1rem",
+                              color: "red",
+                            }}
+                          />
+                        ) : (
+                          <FavoriteBorderIcon
+                            style={{
+                              fontSize: "1.5rem",
+                              marginRight: "0.1rem",
+                            }}
+                          />
+                        )}
+                        <Typography sx={{ fontSize: "1rem", color: "#535353" }}>
+                          {item?.likes_n}
+                        </Typography>
+                      </Box>
+                    </IconButton>
+                    <IconButton
+                      variant="plain"
+                      color="neutral"
+                      size="sm"
+                      sx={{ width: "2.6rem", textAlign: "start" }}
+                    >
+                      <MessageOutlinedIcon
+                        style={{ fontSize: "1.5rem", marginRight: "0.2rem" }}
+                        onClick={() => navigate(`/blogs/${item._id}`)}
+                      />
+                      <Typography sx={{ fontSize: "1rem", color: "#535353" }}>
+                        {item?.comments.length}
+                      </Typography>
+                    </IconButton>
+                    <IconButton variant="plain" color="neutral" size="sm">
+                      <VisibilityOutlinedIcon
+                        style={{ fontSize: "1.5rem", marginRight: "0.2rem" }}
+                      />
+                      <Typography sx={{ color: "black", fontSize: "0.9rem" }}>
+                        {item?.post_views?.length}
+                      </Typography>
+                    </IconButton>
+                  </Box>
                   <IconButton
                     variant="plain"
                     color="neutral"
                     size="sm"
-                    sx={{ width: "2.6rem", textAlign: "start" }}
+                    onClick={() => saveBlog({ blogId: item?._id })}
                   >
-                    <MessageOutlinedIcon
-                      style={{ fontSize: "1.5rem", marginRight: "0.2rem" }}
-                      onClick={() => navigate(`/blogs/${item._id}`)}
-                    />
-                    <Typography sx={{ fontSize: "1rem", color: "#535353" }}>
-                      {item?.comments.length}
-                    </Typography>
-                  </IconButton>
-                  <IconButton variant="plain" color="neutral" size="sm">
-                    <VisibilityOutlinedIcon
-                      style={{ fontSize: "1.5rem", marginRight: "0.2rem" }}
-                    />
-                    <Typography sx={{ color: "black", fontSize: "0.9rem" }}>
-                      {item?.post_views?.length}
-                    </Typography>
+                    {savedBlog.some((save) => save._id === item._id) ? (
+                      <BookmarkIcon style={{ fontSize: "1.5rem" }} />
+                    ) : (
+                      <BookmarkBorderIcon style={{ fontSize: "1.5rem" }} />
+                    )}
                   </IconButton>
                 </Box>
-                <IconButton
-                  variant="plain"
-                  color="neutral"
-                  size="sm"
-                  onClick={() => saveBlog({ blogId: item?._id })}
-                >
-                  {savedBlog.some((save) => save._id === item._id) ? (
-                    <BookmarkIcon style={{ fontSize: "1.5rem" }} />
-                  ) : (
-                    <BookmarkBorderIcon style={{ fontSize: "1.5rem" }} />
-                  )}
-                </IconButton>
-              </Box>
 
-              <CardContent
-                orientation="horizontal"
-                sx={{
-                  gap: 1,
-                  width: "100%",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <Typography
-                  type="submit"
-                  variant="contained"
-                  onClick={() => navigate(`/blogs/${item._id}`)}
+                <CardContent
+                  orientation="horizontal"
                   sx={{
-                    color: "#ff5100",
-                    fontSize: "1rem",
-                    cursor: "pointer",
-                    fontFamily:"Montserrat",
-                    "&:hover": { color: "red" },
+                    gap: 1,
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
                   }}
                 >
-                  Read More
-                </Typography>
-                <Link
-                  component="button"
-                  underline="none"
-                  fontSize="10px"
-                  sx={{ color: "text.tertiary", my: 0.5,  fontFamily:"Montserrat"  }}
-                >
-                  {formatDateTime(item.createdAt)}
-                </Link>
-              </CardContent>
-            </Card>
-          ))}
+                  <Typography
+                    type="submit"
+                    variant="contained"
+                    onClick={() => navigate(`/blogs/${item._id}`)}
+                    sx={{
+                      color: "#ff5100",
+                      fontSize: "1rem",
+                      cursor: "pointer",
+                      fontFamily: "Montserrat",
+                      "&:hover": { color: "red" },
+                    }}
+                  >
+                    Read More
+                  </Typography>
+                  <Link
+                    component="button"
+                    underline="none"
+                    fontSize="10px"
+                    sx={{
+                      color: "text.tertiary",
+                      my: 0.5,
+                      fontFamily: "Montserrat",
+                    }}
+                  >
+                    {formatDateTime(item.createdAt)}
+                  </Link>
+                </CardContent>
+              </Card>
+            ))}
         </Box>
       ) : (
         <Typography
@@ -404,7 +415,12 @@ const Blogs = () => {
             fontSize: "1.3rem",
             fontWeight: "600",
             color: "#FE5E00",
-            pl: { xs: "0", sm: "4.5rem", md: "10rem", fontFamily:"Montserrat"  },
+            pl: {
+              xs: "0",
+              sm: "4.5rem",
+              md: "10rem",
+              fontFamily: "Montserrat",
+            },
           }}
         >
           There is no blog to show!

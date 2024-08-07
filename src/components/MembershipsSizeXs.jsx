@@ -122,8 +122,6 @@ function MembbershipsSizeXs() {
                 }}
               >
                 <Card
-                  //   size="lg"
-
                   variant={card.variant}
                   invertedColors={card.invertedColors}
                   sx={{
