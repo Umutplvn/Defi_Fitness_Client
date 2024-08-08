@@ -130,7 +130,7 @@ const useAuthCall = () => {
   const updateUser = async (userId,updateData) => {
     dispatch(fetchStart());
     try {
-      const { data } = await axiosWithToken.put(
+      await axiosWithToken.put(
         `${process.env.REACT_APP_BASE_URL}/users/${userId}`,
         updateData
       );
@@ -142,6 +142,21 @@ toast("Profile updated successfully")
     }
   };
 
+    //! UPDATE A WORKOUT PLAN
+    const updateWorkoutPlan = async (info) => {
+      dispatch(fetchStart());
+      try {
+        await axiosWithToken.put(
+          `${process.env.REACT_APP_BASE_URL}/users/uploadworkoutplan`,
+          info
+        );
+          listUsers()
+          toast.success("Form submitted successfully!");
+      } catch (error) {
+        dispatch(fetchFail());
+        toast.error("Failed!")
+      }
+    };
   //! LIST USERS
   const listUsers = async () => {
     dispatch(fetchStart());
@@ -238,6 +253,7 @@ toast("Profile updated successfully")
     deleteUser,
     update,
     listUsers,
+    updateWorkoutPlan,
     // addContact,
     // removeContact,
     // getMyContacts,

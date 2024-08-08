@@ -230,7 +230,7 @@ const HomeAppBarLarge = () => {
               ml: 1,
             }}
           >
-            Premium
+            Exclusive
           </Typography>
         </Link>
              {/* PROFILE */}

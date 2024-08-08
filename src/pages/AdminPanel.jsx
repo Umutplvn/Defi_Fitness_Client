@@ -10,9 +10,16 @@ import premium from "../assets/premium.svg";
 import plan from "../assets/plan.svg";
 import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/material";
+import BasicModal from "./WorkoutPlan";
+import { useState } from "react";
 
 const AdminPanel = () => {
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+
   const Data = [
     {
       image: blog,
@@ -58,10 +65,14 @@ const AdminPanel = () => {
         mb: "10rem",
       }}
     >
+      <BasicModal open={open} handleClose={handleClose}/>
+
       {Data?.map((item, index) => (
         <Card
-          key={index}
-          onClick={() => navigate(item.link)}
+        key={index}
+          onClick={() =>
+            item.title === "Workout Plan" ? handleOpen() : navigate(item.link)
+          }
           sx={{
             width: {xs:"200px", md:"220px"},
             height: {xs:"240px", md:"280px"},

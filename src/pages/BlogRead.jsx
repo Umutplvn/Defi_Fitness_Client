@@ -129,7 +129,8 @@ const BlogRead = () => {
           <Box
             sx={{
               width: "100wh",
-              maxWidth: "1532px",
+              minHeight:"25rem"
+,              maxWidth: "1532px",
               pr: { xs: "1rem", md: "3rem" },
               pl: "1rem",
               height: "auto",
