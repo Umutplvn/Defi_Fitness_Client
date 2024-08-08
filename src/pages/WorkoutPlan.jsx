@@ -101,7 +101,7 @@ export default function BasicModal({ setOpen, open }) {
             >
               Click here
             </a>
-            to get started. <br />
+            {' '}to get started. <br />
             <br /> Remember, every workout counts. Let’s make this month your
             best one yet! <br />
             <br />

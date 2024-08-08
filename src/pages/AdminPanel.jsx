@@ -18,7 +18,6 @@ const AdminPanel = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
 
-
   const Data = [
     {
       image: blog,
@@ -47,9 +46,16 @@ const AdminPanel = () => {
       title: "Members",
       link: "/adminpanel/members",
     },
-
-
   ];
+
+  const navigateFunc = (item) => {
+    if (item.title === "Workout Plan") {
+      handleOpen();
+    } else if (item.title == "Video") {
+    } else {
+      navigate(item.link);
+    }
+  };
 
   return (
     <Box
@@ -64,23 +70,22 @@ const AdminPanel = () => {
         mb: "10rem",
       }}
     >
-      <BasicModal open={open} setOpen={setOpen}/>
+      <BasicModal open={open} setOpen={setOpen} />
 
       {Data?.map((item, index) => (
         <Card
-        key={index}
-          onClick={() =>
-            item.title === "Workout Plan" ? handleOpen() : navigate(item.link)
-          }
+          key={index}
+          onClick={() => navigateFunc(item)}
           sx={{
-            width: {xs:"200px", md:"220px"},
-            height: {xs:"240px", md:"280px"},
+            width: { xs: "200px", md: "220px" },
+            height: { xs: "240px", md: "280px" },
             marginBottom: "1rem",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             flexDirection: "column",
             borderRadius: "2rem",
+            cursor: "pointer",
             "&:hover": {
               boxShadow: "rgba(17, 17, 26, 0.1) 0px 0px 16px",
               scale: "1.001",
@@ -96,7 +101,11 @@ const AdminPanel = () => {
           <CardContent>
             <Typography
               gutterBottom
-              sx={{ fontSize: "1.2rem", fontWeight: "600", fontFamily:"Montserrat"  }}
+              sx={{
+                fontSize: "1.2rem",
+                fontWeight: "600",
+                fontFamily: "Montserrat",
+              }}
             >
               {item.title}
             </Typography>
