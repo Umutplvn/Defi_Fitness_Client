@@ -120,6 +120,7 @@ const CreateBlog = () => {
           }
         />
       </Box>
+      
       {loading && (
         <Box
           sx={{

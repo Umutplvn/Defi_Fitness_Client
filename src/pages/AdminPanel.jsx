@@ -63,8 +63,8 @@ const AdminPanel = () => {
           key={index}
           onClick={() => navigate(item.link)}
           sx={{
-            width: "180px",
-            height: "220px",
+            width: {xs:"200px", md:"220px"},
+            height: {xs:"240px", md:"280px"},
             marginBottom: "1rem",
             display: "flex",
             justifyContent: "center",
