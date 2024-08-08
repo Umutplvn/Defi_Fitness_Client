@@ -28,12 +28,18 @@ const style = {
   p: 4,
 };
 
-export default function BasicModal({ handleClose, open }) {
+export default function BasicModal({ setOpen, open }) {
   const [info, setInfo] = useState({ workoutplan: "", userId: "", level: "" });
   const { users } = useSelector((state) => state?.auth);
-const {updateWorkoutPlan}=useAuthCall()
+  const { updateWorkoutPlan } = useAuthCall();
+
+  const handleClose = () => {
+    setOpen(false);
+    setInfo({ workoutplan: "", userId: "", level: "" });
+  };
+
   const userInfo = [
-    { name: "Select User or Level", _id: "" }, // Placeholder option with an empty _id
+    { name: "Select User or Level", _id: "" },
     ...users,
     { name: "Level 1", _id: 1 },
     { name: "Level 2", _id: 2 },
@@ -73,9 +79,8 @@ const {updateWorkoutPlan}=useAuthCall()
       return;
     }
     updateWorkoutPlan(info);
-    handleClose()
+    handleClose();
   };
-
 
   return (
     <div>
@@ -86,7 +91,6 @@ const {updateWorkoutPlan}=useAuthCall()
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-   
           <Typography id="modal-modal-title" sx={{ fontFamily: "Montserrat" }}>
             Hey there, <br />
             <br /> Your new workout plan is ready! <br />
@@ -108,7 +112,7 @@ const {updateWorkoutPlan}=useAuthCall()
             Your Fitness Coach
           </Typography>
           <Box sx={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            <FormControl sx={{ width: "100%", marginTop: "1.5rem" }} >
+            <FormControl sx={{ width: "100%", marginTop: "1.5rem" }}>
               <TextField
                 placeholder="Pdf link..."
                 fullWidth
@@ -122,12 +126,21 @@ const {updateWorkoutPlan}=useAuthCall()
                   },
                 }}
               />
+              
               <Select
                 sx={{ height: "2rem", mt: "1rem" }}
                 value={info.userId || info.level || ""}
                 onChange={handleChange}
                 displayEmpty
                 inputProps={{ "aria-label": "Select User or Level" }}
+                MenuProps={{
+                  PaperProps: {
+                    style: {
+                      maxHeight: 10 * 16,
+                      width: 250,
+                    },
+                  },
+                }}
                 renderValue={(selected) => {
                   if (!selected) {
                     return (

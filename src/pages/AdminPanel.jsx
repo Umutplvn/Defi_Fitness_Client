@@ -17,7 +17,6 @@ const AdminPanel = () => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
 
   const Data = [
@@ -65,7 +64,7 @@ const AdminPanel = () => {
         mb: "10rem",
       }}
     >
-      <BasicModal open={open} handleClose={handleClose}/>
+      <BasicModal open={open} setOpen={setOpen}/>
 
       {Data?.map((item, index) => (
         <Card
