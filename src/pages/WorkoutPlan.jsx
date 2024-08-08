@@ -3,41 +3,38 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useState } from "react";
-import {
-  Select,
-  MenuItem,
-  TextField,
-  FormControl,
-  Button,
-} from "@mui/material";
+import {Select, MenuItem, TextField, FormControl, Button} from "@mui/material";
 import { useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
 import useAuthCall from "../hooks/useAuthCall";
+import { useMediaQuery, createTheme } from '@mui/material';
 
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "40rem",
-  height: "35rem",
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  borderRadius: "1rem",
-  p: 4,
-};
 
 export default function BasicModal({ setOpen, open }) {
   const [info, setInfo] = useState({ workoutplan: "", userId: "", level: "" });
   const { users } = useSelector((state) => state?.auth);
   const { updateWorkoutPlan } = useAuthCall();
+  const theme = createTheme();
+  const isXs = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleClose = () => {
     setOpen(false);
     setInfo({ workoutplan: "", userId: "", level: "" });
   };
 
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: isXs ? "23rem": "40rem",
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    borderRadius: "1rem",
+    p: 4,
+  };
+  
   const userInfo = [
     { name: "Select User or Level", _id: "" },
     ...users,
@@ -94,7 +91,7 @@ export default function BasicModal({ setOpen, open }) {
           <Typography id="modal-modal-title" sx={{ fontFamily: "Montserrat" }}>
             Hey there, <br />
             <br /> Your new workout plan is ready! <br />
-            This month, we’re stepping it up to help you reach your goals.{" "}
+            This month, we’re stepping it up to help you reach your goals.
             <br />
             <br />
             <a
@@ -103,7 +100,7 @@ export default function BasicModal({ setOpen, open }) {
               rel="noopener noreferrer"
             >
               Click here
-            </a>{" "}
+            </a>
             to get started. <br />
             <br /> Remember, every workout counts. Let’s make this month your
             best one yet! <br />
