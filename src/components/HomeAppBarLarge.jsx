@@ -141,28 +141,7 @@ const HomeAppBarLarge = () => {
             Admin
           </Typography>
         </Link>}
-{/* PROFILE */}
-<Link
-          to="/profile"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "0.5rem",
-            textDecoration: "none",
-            color: "white",
-          }}
-        >
-          <Avatar src={avatar} sx={{width:"2.2rem", height:"2.2rem"}} />
 
-          <Typography
-            sx={{
-              display: { xs: "none", md: "block",  fontFamily:"Montserrat"  },
-              ml: 1,
-            }}
-          >
-            Profile
-          </Typography>
-        </Link>
 
         {/* BLOGS */}
         <Link
@@ -184,30 +163,6 @@ const HomeAppBarLarge = () => {
             }}
           >
             Blogs
-          </Typography>
-        </Link>
-
-
-        {/* VIDEOS */}
-        <Link
-          to="/videos"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "0.5rem",
-            textDecoration: "none",
-            color: "white",
-          }}
-        >
-          <PlayCircleIcon style={{ fontSize: "2.2rem" }} />
-
-          <Typography
-            sx={{
-              display: { xs: "none", md: "block",  fontFamily:"Montserrat"  },
-              ml: 1,
-            }}
-          >
-            Videos
           </Typography>
         </Link>
    

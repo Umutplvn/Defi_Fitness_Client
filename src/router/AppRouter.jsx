@@ -12,7 +12,6 @@ import Contact from "../components/Contact";
 import Blogs from "../pages/Blogs";
 import PrivateRouter from "../pages/PrivateRouter";
 import Profile from "../pages/Profile";
-import Videos from "../pages/Videos";
 import PaidContent from "../pages/PaidContent";
 import AdminPanel from "../pages/AdminPanel";
 import BlogRead from "../pages/BlogRead";
@@ -47,7 +46,6 @@ const AppRouter = () => {
         <Route>
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/videos" element={<Videos/>} />
           <Route path="/chat/:id" element={<Chat/>} />
           <Route path="/chats" element={<Chats/>} />
           <Route path="/paidcontent" element={<PaidContent/>} />

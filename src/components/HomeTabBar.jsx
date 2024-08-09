@@ -38,15 +38,6 @@ const HomeTabBar = () => {
           />
         </Link>}
 
-        <Link to="/videos">
-          <PlayCircleIcon
-            sx={{
-              cursor: "pointer",
-              ":hover": { scale: "1.1" },
-              color: "black",
-            }}
-          />
-        </Link>
 
         <Link to="/blogs">
           <DescriptionIcon

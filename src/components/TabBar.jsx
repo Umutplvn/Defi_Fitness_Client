@@ -25,9 +25,7 @@ const TabBar = () => {
           padding: "10px"
         }}
       >
-        <Link to="video" spy={true} smooth={true} offset={0} duration={500}>
-          <HomeMaxRoundedIcon sx={{ cursor: "pointer", ":hover": { scale: "1.1" }, color: "black" }} />
-        </Link>
+      
         <Link to="about" spy={true} smooth={true} offset={0} duration={500}>
           <InfoIcon sx={{ cursor: "pointer", ":hover": { scale: "1.1" }, color: "black" }} />
         </Link>
