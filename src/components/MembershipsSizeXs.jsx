@@ -48,7 +48,7 @@ function MembbershipsSizeXs() {
     {
       title: "Basic",
       subtitle: "Bronze",
-      price: "5",
+      price: "Free",
       features: [
         "Access to exclusive blogs",
         "Development monitoring in profiles",
@@ -57,33 +57,20 @@ function MembbershipsSizeXs() {
       variant: "outlined",
       color: "neutral",
     },
-    {
-      title: "Unlimited",
-      subtitle: "Gold",
-      price: "200",
-      features: [
-        "Unlimited messaging",
-        "Lifetime access to exclusive workout plans",
-        "Access to exclusive blogs",
-        "Development monitoring in profiles",
-        "Cancel anytime",
-      ],
-      variant: "solid",
-      color: "black",
-      invertedColors: true,
-    },
+
     {
       title: "Professional",
       subtitle: "Silver",
-      price: "20",
+      price: "20$ / month",
       features: [
         "Access to exclusive blogs",
         "Monthly workout plans",
         "Development monitoring in profiles",
         "Cancel anytime",
       ],
-      variant: "outlined",
-      color: "neutral",
+      variant: "solid",
+      color: "black",
+      invertedColors: true,
     },
   ];
 
@@ -154,10 +141,8 @@ function MembbershipsSizeXs() {
                       level="title-lg"
                       sx={{ mr: "auto", display: "flex" }}
                     >
-                      {card.price}${" "}
-                      <Typography fontSize="sm" textColor="text.tertiary">
-                        / month
-                      </Typography>
+                      {card.price}
+                  
                     </Typography>
                     <Button
                       variant="soft"

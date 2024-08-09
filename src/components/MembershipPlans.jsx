@@ -74,10 +74,7 @@ export default function MembershipPlans() {
        <Divider inset="none" />
        <CardActions>
          <Typography level="title-lg" sx={{ mr: "auto" }}>
-           5${" "}
-           <Typography fontSize="sm" textColor="text.tertiary">
-             / month
-           </Typography>
+           Free
          </Typography>
          <Button
            variant="soft"
@@ -91,70 +88,10 @@ export default function MembershipPlans() {
      </Card>
 
      <Card
-       size="lg"
        variant="solid"
        color="neutral"
        invertedColors
        sx={{ bgcolor: "neutral.900", height: "30rem", width: "20rem" }}
-     >
-       <Chip size="sm" variant="outlined">
-         Unlimited
-       </Chip>
-       <Typography level="h2">Gold</Typography>
-       <Divider inset="none" />
-       <List size="sm" sx={{ mx: "calc(-1 * var(--ListItem-paddingX))" }}>
-         <ListItem>
-           <ListItemDecorator>
-             <Check />
-           </ListItemDecorator>
-           Unlimited messaging
-         </ListItem>
-         <ListItem>
-           <ListItemDecorator>
-             <Check />
-           </ListItemDecorator>
-           Lifetime access to exclusive workout plans
-         </ListItem>
-         <ListItem>
-           <ListItemDecorator>
-             <Check />
-           </ListItemDecorator>
-           Access to exclusive blogs{" "}
-         </ListItem>
-         <ListItem>
-           <ListItemDecorator>
-             <Check />
-           </ListItemDecorator>
-           Development monitoring in profiles{" "}
-         </ListItem>
-         <ListItem>
-           <ListItemDecorator>
-             <Check />
-           </ListItemDecorator>
-           Cancel anytime
-         </ListItem>
-       </List>
-       <Divider inset="none" />
-       <CardActions>
-         <Typography level="title-lg" sx={{ mr: "auto" }}>
-           200${" "}
-           <Typography fontSize="sm" textColor="text.tertiary">
-             / month
-           </Typography>
-         </Typography>
-         <Button
-           onClick={() => navigate("/register")}
-           endDecorator={<KeyboardArrowRight />}
-         >
-           Start now
-         </Button>
-       </CardActions>
-     </Card>
-
-     <Card
-       size="lg"
-       variant="outlined"
-       sx={{ height: "30rem", width: "20rem" }}
      >
        <Chip size="sm" variant="outlined" color="neutral">
          Professional
