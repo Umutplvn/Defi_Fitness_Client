@@ -3,7 +3,6 @@ import { Avatar, Box, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import Logo from "../assets/defi-icon.jpeg";
 import { useSelector } from "react-redux";
-import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 import DescriptionIcon from "@mui/icons-material/Description";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';

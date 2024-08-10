@@ -23,6 +23,12 @@ import CreatePaidPlan from "../pages/CreatePaidPlan";
 import ShareVideo from "../pages/ShareVideo";
 import Members from "../pages/Members";
 import WorkoutPlan from "../pages/WorkoutPlan";
+import WorkoutProgram from "../pages/WorkoutProgram";
+import SavedBlogs from "../pages/SavedBlogs";
+import WorkoutPR from "../pages/WorkoutPR";
+import Bodysize from "../pages/Bodysize";
+import { Settings } from "@mui/icons-material";
+import EditProfile from "../pages/EditProfile";
 
 const AppRouter = () => {
   return (
@@ -57,6 +63,12 @@ const AppRouter = () => {
           <Route path="/adminpanel/sharevideo" element={<ShareVideo/>} />
           <Route path="/adminpanel/members" element={<Members/>} />
           <Route path="/adminpanel/workoutplan" element={<WorkoutPlan/>} />
+          <Route path="/profile/workoutplan" element={<WorkoutProgram/>} />
+          <Route path="/profile/savedblogs" element={<SavedBlogs/>} />
+          <Route path="/profile/pr" element={<WorkoutPR/>} />
+          <Route path="/profile/bodysize" element={<Bodysize/>} />
+          <Route path="/profile/settings" element={<Settings/>} />
+          <Route path="/profile/editprofile" element={<EditProfile/>} />
         </Route>
         </Route>
       </Routes>

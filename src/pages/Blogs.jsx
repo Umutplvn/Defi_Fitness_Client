@@ -31,7 +31,6 @@ const Blogs = () => {
   const { blogs } = useSelector((state) => state?.appData);
   const { userId, savedBlog, isAdmin } = useSelector((state) => state?.auth);
   const [search, setSearch] = useState("");
-  const [filtBlog, setFiltBlog] = useState(blogs)
   const [loading, setLoading] = useState(false);
 
   const formatTag = (tag) => {
@@ -133,7 +132,7 @@ console.log(filteredBlogs);
           sx={{
             display: "flex",
             flexWrap: "wrap",
-            justifyContent: { xs: "center", lg: "flex-start" },
+            justifyContent: "center",
             pl: { xs: "0", sm: "4.5rem", md: "12rem" },
             pt: "3rem",
             gap: 4,
@@ -172,7 +171,7 @@ console.log(filteredBlogs);
                         width: "2.5rem",
                         height: "1.7rem",
                         display: "flex",
-                        justifyContent: "flex-start",
+                        justifyContent: "center",
                         "& fieldset": {
                           border: "none",
                         },
