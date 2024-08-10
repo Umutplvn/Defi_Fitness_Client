@@ -51,6 +51,9 @@ const AdminPanel = () => {
   };
 
   return (
+    <>
+          <BasicModal open={open} setOpen={setOpen} />
+
     <Box
       sx={{
         display: "flex",
@@ -63,7 +66,6 @@ const AdminPanel = () => {
         mb: "10rem",
       }}
     >
-      <BasicModal open={open} setOpen={setOpen} />
 
       {Data?.map((item, index) => (
         <Card
@@ -105,7 +107,9 @@ const AdminPanel = () => {
           </CardContent>
         </Card>
       ))}
+      
     </Box>
+    </>
   );
 };
 

@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Avatar, Box, Typography } from "@mui/material";
 import React from "react";
 import "../styles/aboutCarousel.css";
 import { useState } from "react";
@@ -12,20 +12,20 @@ import workoutpr from "../assets/weight.svg"
 import size from "../assets/measuring-tape.svg"
 import settingsvg from "../assets/settings.svg"
 import editsvg from "../assets/edit.svg"
+import ReactStars from "react-stars";
+import { useSelector } from "react-redux";
 
 
 const Profile = () => {
 
   const navigate = useNavigate();
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-
+const {level}=useSelector((state)=>state.auth)
   const Data = [
 
     {
       image: workoutplan,
       title: "Workout Plan",
-      link: "/profile/workoutplan",
+      link: "/profile/workoutprogram",
     },
     {
       image: blog,
@@ -67,16 +67,27 @@ const Profile = () => {
       display: "flex",
       flexWrap: "wrap",
       gap: "2rem",
-      // p: "2rem",
-      ml: { xs: "0", sm: "6rem", md: "12rem" },
+      pl: { xs: "0", sm: "4.5rem", md: "10rem" },
       justifyContent: "center",
       pt: "3rem",
       mb: "10rem",
     }}
   >
-    {/* <BasicModal open={open} setOpen={setOpen} /> */}
+    <Box sx={{width:"100%", display:"flex", justifyContent:"center", flexDirection:"column", alignItems:"center"}}>
+<Avatar src="" sx={{width:"3.5rem", height:"3.5rem"}} />
+<ReactStars
+              count={5}
+              value={level}
+              size={20}
+              color2={"#ffd700"}
+              edit={false}
+            />
+<hr style={{width:"90%"}}/>
+    </Box>
 
-    {Data?.map((item, index) => (
+<Box sx={{width:"100%", display:"flex",  flexWrap: "wrap",
+      gap: "2rem",  justifyContent: "center", padding:"1rem"}}>
+{Data?.map((item, index) => (
       <Card
         key={index}
         onClick={() => navigate(item.link)}
@@ -116,6 +127,7 @@ const Profile = () => {
         </CardContent>
       </Card>
     ))}
+</Box>
   </Box>
     );
 };

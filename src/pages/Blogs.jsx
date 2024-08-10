@@ -45,7 +45,6 @@ const Blogs = () => {
     return item.tags.some((tag) => formatTag(tag).includes(formatTag(search)));
   });
 
-console.log(filteredBlogs);
 
   useEffect(() => {
     setLoading(true);

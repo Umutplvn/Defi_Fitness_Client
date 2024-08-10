@@ -63,7 +63,7 @@ const AppRouter = () => {
           <Route path="/adminpanel/sharevideo" element={<ShareVideo/>} />
           <Route path="/adminpanel/members" element={<Members/>} />
           <Route path="/adminpanel/workoutplan" element={<WorkoutPlan/>} />
-          <Route path="/profile/workoutplan" element={<WorkoutProgram/>} />
+          <Route path="/profile/workoutprogram" element={<WorkoutProgram/>} />
           <Route path="/profile/savedblogs" element={<SavedBlogs/>} />
           <Route path="/profile/pr" element={<WorkoutPR/>} />
           <Route path="/profile/bodysize" element={<Bodysize/>} />

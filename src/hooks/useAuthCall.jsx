@@ -170,6 +170,19 @@ toast("Profile updated successfully")
     }
   };
 
+  const readUser = async (userId) => {
+    dispatch(fetchStart());
+    try {
+      const { data } = await axiosWithToken.get(
+        `${process.env.REACT_APP_BASE_URL}/users/${userId}`
+      );
+      console.log("read",data);
+    } catch (error) {
+      dispatch(fetchFail());
+    }
+  };
+
+
   //! SAVE BLOG
   const saveBlog = async (blogId) => {
     dispatch(fetchStart());
@@ -259,7 +272,8 @@ toast("Profile updated successfully")
     // getMyContacts,
     passwordUpdate,
     saveBlog,
-    updateUser
+    updateUser,
+    readUser
     // syncContacts,
   };
 };
