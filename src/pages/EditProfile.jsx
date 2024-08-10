@@ -6,13 +6,18 @@ import useAuthCall from '../hooks/useAuthCall';
 import formatDateTime from "../helper/formatDateTime";
 
 const EditProfile = () => {
-  const { name, surname, dateOfBirth, gender, sportBranch,userId } = useSelector((state) => state.auth);
+  const { name, surname, dateOfBirth, gender, sportBranch, userId } = useSelector((state) => state.auth);
+  const { update } = useAuthCall();
 
-const {update}=useAuthCall()
+  const formatName = (name) => {
+    if (typeof name !== 'string' || !name) return ""; // Eğer name bir string değilse veya boşsa, boş string döndür.
+    return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+  };
+
   const [info, setInfo] = useState({
-    name: name,
-    surname: surname,
-    sportBranch: sportBranch,
+    name: formatName(String(name)),
+    surname: formatName(String(surname)),
+    sportBranch: formatName(String(sportBranch)),
     dateOfBirth: dateOfBirth,
     gender: gender
   });
@@ -26,7 +31,7 @@ const {update}=useAuthCall()
   const handleChange = (e) => {
     setInfo({
       ...info,
-      [editingField]: e.target.value,
+      [editingField]: formatName(e.target.value), // Format Name uygulanıyor
     });
   };
 
@@ -41,6 +46,7 @@ const {update}=useAuthCall()
     update(userId, updateData); 
     setEditingField(''); 
   };
+
   return (
     <Box
       sx={{
@@ -58,28 +64,28 @@ const {update}=useAuthCall()
         sx={{
           width: "25rem",
           height: "22rem",
-          border: "2px solid black",
+          backgroundColor: "#fbfbfb",
           padding: "2rem",
           borderRadius: "1rem",
-          backgroundColor: "#121212",
+          border:"1px solid #f2f2f2"
         }}
       >
-        <Typography sx={{ color: "white", fontWeight: "600", fontFamily:"Montserrat", fontSize: "1.2rem", mb: "0.5rem" }}>
+        <Typography sx={{  fontWeight: "600", fontFamily:"Montserrat", fontSize: "1.2rem", mb: "0.5rem" }}>
           Edit Profile
         </Typography>
 
         {["name", "surname", "sportBranch"].map((field) => (
           <Box key={field} sx={{ display: "flex", gap: "0.3rem", alignItems: 'center', mt: "0.2rem" }}>
             <EditIcon
-              sx={{ fontSize: "1.2rem", cursor: 'pointer', color: "white" }}
+              sx={{ fontSize: "1.2rem", cursor: 'pointer' }}
               onClick={() => handleEditClick(field)}
             />
 
-            <Box sx={{ fontWeight: "500", fontFamily:"Montserrat", width: "8rem", display: "flex", justifyContent: "space-between" }}>
-              <Typography sx={{ color: "white", height: "1.8rem", fontWeight: "500",fontFamily:"Montserrat" }}>
+            <Box sx={{ fontWeight: "500", fontFamily:"Montserrat", width: "8.2rem", display: "flex", justifyContent: "space-between" }}>
+              <Typography sx={{  height: "1.8rem", fontWeight: "500",fontFamily:"Montserrat" }}>
                 {field.charAt(0).toUpperCase() + field.slice(1)}
               </Typography>
-              <Typography sx={{ color: "white" }}>:</Typography>
+              <Typography>:</Typography>
             </Box>
 
             {editingField === field ? (
@@ -89,19 +95,19 @@ const {update}=useAuthCall()
                 value={info[field]}
                 onChange={handleChange}
                 onBlur={() => setEditingField('')}
-                sx={{ height: "1.7rem", color: "white" }}
+                sx={{ height: "1.7rem", }}
                 InputProps={{
                   disableUnderline: false,
                   sx: {
-                    '&:before': { borderBottomColor: 'white' }, 
-                    '&:hover:not(.Mui-disabled):before': { borderBottomColor: 'white' },
-                    '&:after': { borderBottomColor: 'white' }, 
-                    input: { color: 'white' },
+                    '&:before': {  }, 
+                    '&:hover:not(.Mui-disabled):before': {  },
+                    '&:after': {  }, 
+                    input: {  },
                   },
                 }}
               />
             ) : (
-              <Typography sx={{ color: "white" }}>{info[field]}</Typography>
+              <Typography >{info[field]}</Typography>
             )}
           </Box>
         ))}
@@ -109,13 +115,13 @@ const {update}=useAuthCall()
         {/* Gender Field */}
         <Box sx={{ display: "flex", gap: "0.5rem", alignItems: 'center', mt: "0.2rem" }}>
           <EditIcon
-            sx={{ fontSize: "1.2rem", cursor: 'pointer', color: "white" }}
+            sx={{ fontSize: "1.2rem", cursor: 'pointer' }}
             onClick={() => handleEditClick("gender")}
           />
 
           <Box sx={{ display: "flex", width: "8rem", justifyContent: "space-between" }}>
-            <Typography sx={{ color: "white", fontWeight: "500",fontFamily:"Montserrat", height: "1.7rem" }}>Gender</Typography>
-            <Typography sx={{ color: "white" }}>:</Typography>
+            <Typography sx={{  fontWeight: "500",fontFamily:"Montserrat", height: "1.7rem" }}>Gender</Typography>
+            <Typography >:</Typography>
           </Box>
 
           {editingField === "gender" ? (
@@ -127,32 +133,27 @@ const {update}=useAuthCall()
               size="small"
               sx={{
                 width: "5rem",
-                height: "1.5rem",
-                color: "white",
-                '&:before': { borderBottomColor: 'white' }, // Normal durum
-                '&:hover:not(.Mui-disabled):before': { borderBottomColor: 'white' }, // Hover durum
-                '&:after': { borderBottomColor: 'white' }, // Seçili durum
+                height: "1.5rem"
               }}
-              inputProps={{ sx: { color: 'white' } }}
             >
               <MenuItem value="male">Male</MenuItem>
               <MenuItem value="female">Female</MenuItem>
             </Select>
           ) : (
-            <Typography sx={{ color: "white" }}>{info.gender}</Typography>
+            <Typography>{info.gender}</Typography>
           )}
         </Box>
 
         {/* Date of Birth Field */}
         <Box sx={{ display: "flex", gap: "0.5rem", alignItems: 'center', mt: "0.2rem" }}>
           <EditIcon
-            sx={{ fontSize: "1.2rem", cursor: 'pointer', color: "white" }}
+            sx={{ fontSize: "1.2rem", cursor: 'pointer'}}
             onClick={() => handleEditClick("dateOfBirth")}
           />
 
           <Box sx={{ display: "flex", width: "8rem", justifyContent: "space-between" }}>
-            <Typography sx={{ color: "white", fontWeight: "500",fontFamily:"Montserrat" }}>Date of Birth</Typography>
-            <Typography sx={{ color: "white" }}>:</Typography>
+            <Typography sx={{ fontWeight: "500",fontFamily:"Montserrat" }}>Date of Birth</Typography>
+            <Typography>:</Typography>
           </Box>
 
           {editingField === "dateOfBirth" ? (
@@ -163,19 +164,13 @@ const {update}=useAuthCall()
               value={info.dateOfBirth}
               onChange={handleChange}
               onBlur={() => setEditingField('')}
-              sx={{ height: "1.5rem", color: "white" }}
+              sx={{ height: "1.5rem" }}
               InputProps={{
                 disableUnderline: false,
-                sx: {
-                  '&:before': { borderBottomColor: 'white' }, 
-                  '&:hover:not(.Mui-disabled):before': { borderBottomColor: 'white' }, 
-                  '&:after': { borderBottomColor: 'white' }, 
-                  input: { color: 'white' },
-                },
               }}
             />
           ) : (
-            <Typography sx={{ color: "white" }}>{formatDateTime(info.dateOfBirth)}</Typography>
+            <Typography>{formatDateTime(info.dateOfBirth)}</Typography>
           )}
         </Box>
 
@@ -188,13 +183,12 @@ const {update}=useAuthCall()
               mb: 5,
               textAlign: "center",
               backgroundColor: "#F2F2F2",
-              color: "#494b56",
+              color: "#292929",
               borderRadius: "0.7rem",
               width: "8rem",
               transition: "0.4s",
               "&:hover": {
-                backgroundColor: "#909090",
-                color: "white",
+                backgroundColor: "#383838",
               },
             }}
             onClick={handleSubmit}

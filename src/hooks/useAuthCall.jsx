@@ -120,7 +120,8 @@ const useAuthCall = () => {
         `${process.env.REACT_APP_BASE_URL}/users/${userId}`,
         updateData
       );
-      dispatch(registerSuccess(data));
+      console.log(data);
+      dispatch(loginSuccess(data));
     } catch (error) {
       dispatch(fetchFail());
     }
