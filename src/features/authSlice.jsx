@@ -13,6 +13,7 @@ export const authSlice = createSlice({
     verified:null,
     avatar:"",
     name:"",
+    surname:"",
     password:"",
     passcode:"",
     sportBranch:[],
@@ -20,7 +21,9 @@ export const authSlice = createSlice({
     membership:"Basic",
     users:[],
     level:"",
-    workoutplan:""
+    workoutplan:"",
+    dateOfBirth:"",
+    gender:""
   },
 
   reducers: {
@@ -64,6 +67,9 @@ export const authSlice = createSlice({
       state.membership=payload?.result?.membership
       state.level=payload?.result?.level
       state.workoutplan=payload?.result?.workoutplan
+      state.surname=payload?.result?.surname
+      state.dateOfBirth=payload?.result?.dateOfBirth
+      state.gender=payload?.result?.gender
     },
 
     usersSuccess:(state, { payload }) => {

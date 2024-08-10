@@ -18,7 +18,7 @@ const formatName = (name) => {
   return (
     <Box sx={{ pt:"2rem", pl: { xs: "2rem", sm: "6.5rem", md: "12rem" },
   }} >
-    <Typography  sx={{ fontFamily: "Montserrat" }}>
+    <Typography  sx={{ fontFamily: "Montserrat", fontWeight:"500" }}>
       Hey {formatName(name)}, <br />
       <br /> Your new workout plan is ready! <br />
       This month, we’re stepping it up to help you reach your goals.
