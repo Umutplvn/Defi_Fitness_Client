@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import BasicModal from "../components/UpdateAvatar";
 import UpdateUserInfo from "../components/UpdateUserInfo";
 import ChangePass from "../components/ChangePass";
-import ContactMe from "../components/ContactMe";
+import AccountPage from "../components/AccountPage";
 
 const Settings = () => {
   const [openIndex, setOpenIndex] = useState(null);
@@ -50,7 +50,7 @@ const Settings = () => {
             onClick={handleOpen}
           >
             <Avatar
-              sx={{ width: "3.5rem", height: "3.5rem" }}
+              sx={{ width: "3.5rem", height: "3.5rem", cursor:"pointer" }}
               src={avatar}
             ></Avatar>
             <Typography
@@ -72,7 +72,7 @@ const Settings = () => {
         <Box sx={{ padding: "1rem" }}>
           <UpdateUserInfo handleToggle={handleToggle} openIndex={openIndex} />
           <ChangePass handleToggle={handleToggle} openIndex={openIndex} />
-         <ContactMe handleToggle={handleToggle} openIndex={openIndex} />
+         <AccountPage handleToggle={handleToggle} openIndex={openIndex}/> 
         </Box>
       </Box>
 

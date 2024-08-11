@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import HomeTabBar from "./HomeTabBar";
 
 const HomeAppBar = () => {
-  const { avatar } = useSelector((state) => state.auth);
+  const { avatar, isAdmin } = useSelector((state) => state.auth);
 
   const headerStyles = {
     container: {
@@ -81,13 +81,15 @@ const HomeAppBar = () => {
             </style>
           </Box>
         </Link>
-        <Link to="/profile">
+
+ {!isAdmin &&        <Link to="/profile">
           {avatar ? (
             <Avatar src={avatar} sx={{ width: "3rem", height: "3rem" }} />
           ) : (
             <Avatar sx={{ width: "3rem", height: "3rem" }} />
           )}
         </Link>
+}
       </Box>
       <HomeTabBar />
 

@@ -16,7 +16,6 @@ const handleSubmit=()=>{
   handleClose()
 }
 
-  console.log(avatarimg);
 
   const style = {
     position: "absolute",
@@ -48,6 +47,7 @@ const handleSubmit=()=>{
             width: "7rem",
             height: "7rem",
             position: "relative",
+          
           }}
         />
 

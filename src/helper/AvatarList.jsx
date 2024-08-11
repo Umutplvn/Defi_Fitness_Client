@@ -8,8 +8,7 @@ import hulk1 from "../assets/avatar/hulk.png"
 import hulk2 from "../assets/avatar/hulk2.png"
 import ironman1 from "../assets/avatar/ironman.jpg"
 import ironman2 from "../assets/avatar/ironman2.jpg"
-
-
+import defi from "../assets/defi-icon.jpeg"
 export const avatarList = [
 
     {
@@ -54,5 +53,5 @@ export const avatarList = [
     {
         name:"Iron Man",
         img:ironman2,
-    },
+    }
 ]

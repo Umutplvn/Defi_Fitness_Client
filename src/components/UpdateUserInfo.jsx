@@ -63,7 +63,7 @@ const UpdateUserInfo = ({ handleToggle, openIndex }) => {
       <CardHeader
         title={
           <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <AccountCircleIcon sx={{ fontSize: "1.9rem", color: "#2A76D2" }} />
+            <AccountCircleIcon sx={{ fontSize: "1.5rem", color: "#616161" }} />
             <Typography sx={{ fontSize: "1rem" }}>Profile</Typography>
           </Box>
         }

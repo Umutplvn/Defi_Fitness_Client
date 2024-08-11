@@ -8,7 +8,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import IconButton from "@mui/material/IconButton";
 import { Box, Typography, Button } from "@mui/material";
-import KeyRoundedIcon from "@mui/icons-material/KeyRounded";
+import LockIcon from '@mui/icons-material/Lock';
 import { TextField } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
@@ -68,7 +68,7 @@ const ChangePass = ({ handleToggle, openIndex }) => {
         title={
           <React.Fragment>
             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-              <KeyRoundedIcon sx={{ fontSize: "1.9rem", color: "black" }} />
+              <LockIcon sx={{ fontSize: "1.5rem", color: "black" }} />
               <Typography sx={{ fontSize: "1rem" }}>
                 Change Password
               </Typography>
@@ -243,7 +243,7 @@ const ChangePass = ({ handleToggle, openIndex }) => {
                       <TextField
                         variant="standard"
                         id="new_password1"
-                        label="Password"
+                        label="Confirm Password"
                         name="new_password1"
                         type="password"
                         sx={{ width: "100%" }}
@@ -284,7 +284,7 @@ const ChangePass = ({ handleToggle, openIndex }) => {
                       <TextField
                         variant="standard"
                         id="new_password1"
-                        label="Password"
+                        label="Confirm Password"
                         name="new_password1"
                         type="text"
                         sx={{ width: "100%" }}

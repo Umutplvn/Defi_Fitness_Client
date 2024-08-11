@@ -163,7 +163,6 @@ const Chats = () => {
             }}
           >
             <ListItem
-              button
               sx={{
                 width: "95%",
                 height: "2.5rem",
