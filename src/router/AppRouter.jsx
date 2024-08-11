@@ -20,7 +20,6 @@ import Chat from "../pages/Chat";
 import UpdateBlog from "../pages/UpdateBlog";
 import CreateBlog from "../pages/CreateBlog";
 import CreatePaidPlan from "../pages/CreatePaidPlan";
-import ShareVideo from "../pages/ShareVideo";
 import Members from "../pages/Members";
 import WorkoutPlan from "../pages/WorkoutPlan";
 import WorkoutProgram from "../pages/WorkoutProgram";
@@ -60,7 +59,6 @@ const AppRouter = () => {
           <Route path="/adminpanel/updateblog/:blogId" element={<UpdateBlog/>} />
           <Route path="/adminpanel/createblog" element={<CreateBlog/>} />
           <Route path="/adminpanel/createpaidplan" element={<CreatePaidPlan/>} />
-          <Route path="/adminpanel/sharevideo" element={<ShareVideo/>} />
           <Route path="/adminpanel/members" element={<Members/>} />
           <Route path="/adminpanel/workoutplan" element={<WorkoutPlan/>} />
           <Route path="/profile/workoutprogram" element={<WorkoutProgram/>} />

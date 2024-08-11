@@ -46,7 +46,7 @@ const UpdateUserInfo = ({ handleToggle, openIndex }) => {
   };
 
   const formatName = (name) => {
-    if (!name) return "";
+    if (!name) return '';
     return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
   };
 
@@ -171,12 +171,12 @@ const UpdateUserInfo = ({ handleToggle, openIndex }) => {
                 </Typography>
                 {editingField !== "dateOfBirth" ? (
                   <DisplayField
-                    value={formatDateTime(dateOfBirth)}
+                    value={newDateOfBirth ? formatDateTime(newDateOfBirth) : "Select Date"}
                     onClick={() => setEditingField("dateOfBirth")}
                   />
                 ) : (
-                  <EditField
-                    value={formatDateTime(newDateOfBirth)}
+                  <EditDateField
+                    value={newDateOfBirth}
                     setValue={setNewDateOfBirth}
                     onSave={() => handleSubmit("dateOfBirth")}
                     onCancel={() => setEditingField("")}
@@ -305,6 +305,35 @@ const EditField = ({ value, setValue, onSave, onCancel }) => (
   </Box>
 );
 
+const EditDateField = ({ value, setValue, onSave, onCancel }) => (
+  <Box
+    sx={{
+      width: "100%",
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+    }}
+  >
+    <Input
+      type="date"
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+      onBlur={onSave}
+      sx={{ width: "10rem" }}
+    />
+    <Box sx={{ display: "flex", gap: "0.5rem" }}>
+      <ThumbUpAltRoundedIcon
+        sx={{ fontSize: "1.2rem", color: "#29a544" }}
+        onClick={onSave}
+      />
+      <ThumbDownAltRoundedIcon
+        sx={{ fontSize: "1.2rem", color: "#9b2525" }}
+        onClick={onCancel}
+      />
+    </Box>
+  </Box>
+);
+
 const EditGenderField = ({ value, setValue, onSave, onCancel }) => (
   <Box
     sx={{
@@ -318,7 +347,7 @@ const EditGenderField = ({ value, setValue, onSave, onCancel }) => (
       value={value}
       onChange={(e) => setValue(e.target.value)}
       style={{
-        width: "100%",
+        width: "10rem",
         height: "2rem",
         fontSize: "1rem",
         border: "none",

@@ -108,6 +108,7 @@ export default function BasicModal({ setOpen, open }) {
             Best regards, <br />
             Your Fitness Coach
           </Typography>
+          
           <Box sx={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
             <FormControl sx={{ width: "100%", marginTop: "1.5rem" }}>
               <TextField

@@ -82,7 +82,16 @@ const HomeAppBar = () => {
           </Box>
         </Link>
 
- {!isAdmin &&        <Link to="/profile">
+ {isAdmin ?      <Link to="/profile/settings">
+          {avatar ? (
+            <Avatar src={avatar} sx={{ width: "3rem", height: "3rem" }} />
+          ) : (
+            <Avatar sx={{ width: "3rem", height: "3rem" }} />
+          )}
+        </Link> 
+ 
+ 
+ :       <Link to="/profile">
           {avatar ? (
             <Avatar src={avatar} sx={{ width: "3rem", height: "3rem" }} />
           ) : (

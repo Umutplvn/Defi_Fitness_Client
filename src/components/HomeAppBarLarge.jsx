@@ -210,7 +210,31 @@ const HomeAppBarLarge = () => {
           </Typography>
         </Link>
              {/* PROFILE */}
-       {!isAdmin &&       <Link
+       {isAdmin ?   <Link
+          to="/profile/settings"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "0.5rem",
+            textDecoration: "none",
+            color: "white",
+          }}
+        >
+          {avatar ? (
+            <Avatar src={avatar} sx={{ width: "2.2rem", height: "2.2rem" }} />
+          ) : (
+            <Avatar sx={{ width: "2.2rem", height: "2.2rem" }} />
+          )}
+          
+          <Typography
+            sx={{
+              display: { xs: "none", md: "block" },
+              ml: 1,
+            }}
+          >
+            Profile
+          </Typography>
+        </Link>   :  <Link
           to="/profile"
           style={{
             display: "flex",

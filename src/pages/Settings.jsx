@@ -12,7 +12,7 @@ import AccountPage from "../components/AccountPage";
 const Settings = () => {
   const [openIndex, setOpenIndex] = useState(null);
   const { logout } = useAuthCall();
-  const { avatar } = useSelector((state) => state?.auth);
+  const { avatar, isAdmin } = useSelector((state) => state?.auth);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
 
@@ -72,8 +72,8 @@ const Settings = () => {
         <Box sx={{ padding: "1rem" }}>
           <UpdateUserInfo handleToggle={handleToggle} openIndex={openIndex} />
           <ChangePass handleToggle={handleToggle} openIndex={openIndex} />
-         <AccountPage handleToggle={handleToggle} openIndex={openIndex}/> 
-        </Box>
+{ !isAdmin  &&      <AccountPage handleToggle={handleToggle} openIndex={openIndex}/> 
+}        </Box>
       </Box>
 
       <Box sx={logStyle}>

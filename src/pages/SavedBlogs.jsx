@@ -6,9 +6,6 @@ import CardContent from "@mui/joy/CardContent";
 import Link from "@mui/material/Link";
 import IconButton from "@mui/joy/IconButton";
 import Typography from "@mui/joy/Typography";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import MessageOutlinedIcon from "@mui/icons-material/MessageOutlined";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import useDataCall from "../hooks/useDataCall";
@@ -17,7 +14,6 @@ import { MenuItem, Select, TextField } from "@mui/material";
 import defiIcon from "../assets/defi-icon.jpeg";
 import { useEffect, useState } from "react";
 import formatDateTime from "../helper/formatDateTime";
-import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import useAuthCall from "../hooks/useAuthCall";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { useNavigate } from "react-router-dom";
@@ -28,7 +24,7 @@ const SavedBlogs = () => {
   const { getBlogs, likeBlog, deleteBlog } = useDataCall();
   const { saveBlog,readUser } = useAuthCall();
   const navigate = useNavigate();
-  const { userId, savedBlog, isAdmin } = useSelector((state) => state?.auth);
+  const {  savedBlog, isAdmin } = useSelector((state) => state?.auth);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
 

@@ -44,7 +44,7 @@ const AccountPage = ({ handleToggle, openIndex }) => {
             aria-label="expand"
             size="small"
           >
-            {openIndex === 3 ? (
+            {openIndex === 4 ? (
               <Box
                 sx={{
                   borderRadius: "50%",
