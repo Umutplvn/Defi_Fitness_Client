@@ -305,7 +305,9 @@ const Blogs = () => {
                   </Box>
                   <hr/>
                   {
-                 <Typography sx={{fontSize:"0.7rem", color:"#565656", mb:"-0.5rem", mt:"-0.7rem"}}>
+                 <Typography sx={{fontSize:"0.7rem", color:"#565656", mb:"-0.5rem", mt:"-0.7rem", whiteSpace: "nowrap", 
+                 overflow: "hidden",   
+                 textOverflow: "ellipsis",}}>
                  {item.tags.slice(0, 3).map((tag, index) => (
                    <span key={index}>#{tag} </span>
                  ))}

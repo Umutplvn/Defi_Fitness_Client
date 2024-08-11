@@ -132,8 +132,18 @@ const Chats = () => {
         pb: "7rem",
       }}
     >
-      <Typography sx={{ fontWeight: "700", fontSize: "1.4rem", fontFamily:"Montserrat", color:"black"  }}>
-        Chats
+           <Typography
+        sx={{
+          padding: "1rem 0.5rem",
+          fontSize: "1.2rem",
+          fontWeight: "700",
+          boxShadow: " rgba(17, 17, 26, 0.1) 0px 1px 0px ",
+          backgroundColor: "#fdffff",
+          mb: "1rem",
+          fontFamily: "Montserrat",
+        }}
+      >
+        {isAdmin ? "Chats": "Chat"}
       </Typography>
       <List
         sx={{
@@ -166,7 +176,7 @@ const Chats = () => {
               <ListItemAvatar sx={{ width: "5%" }}>
                 <Avatar
                   src={user?.avatar}
-                  sx={{ width: "3rem", height: "3rem" }}
+                  sx={{ width: "2.7rem", height: "2.7rem" }}
                 />
               </ListItemAvatar>
 

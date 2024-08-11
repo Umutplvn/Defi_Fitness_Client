@@ -67,7 +67,7 @@ const CreateBlog = () => {
     try {
       await createBlog(blogData);
       setBlogData({ content: "", tags: [] });
-      toast.error("Blog successfully created");
+      toast.success("Blog successfully created");
       navigate("/blogs");
     } catch (error) {
       console.error("Error posting content:", error);

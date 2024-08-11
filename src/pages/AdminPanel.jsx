@@ -72,8 +72,8 @@ const AdminPanel = () => {
           key={index}
           onClick={() => navigateFunc(item)}
           sx={{
-            width: { xs: "200px", md: "220px" },
-            height: { xs: "240px", md: "280px" },
+            width: { xs: "130px", md: "150px" },
+              height: { xs: "140px", md: "160px" },
             marginBottom: "1rem",
             display: "flex",
             justifyContent: "center",
@@ -90,16 +90,16 @@ const AdminPanel = () => {
           }}
         >
           <CardMedia
-            sx={{ height: "70px", width: "70px" }}
-            image={item.image}
+              sx={{ height: "60px", width: "60px" }}
+              image={item.image}
           />
           <CardContent>
             <Typography
               gutterBottom
               sx={{
-                fontSize: "1.2rem",
-                fontWeight: "600",
-                fontFamily: "Montserrat",
+                fontSize: "0.8rem",
+                  fontWeight: "600",
+                  fontFamily: "Montserrat",
               }}
             >
               {item.title}
