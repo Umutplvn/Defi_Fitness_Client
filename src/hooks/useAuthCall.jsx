@@ -97,7 +97,7 @@ const useAuthCall = () => {
   };
 
 
-//! DELETE USER
+//! DELETE A USER
   const deleteUser = async (userId) => {
     dispatch(fetchStart());
     try {
@@ -105,6 +105,23 @@ const useAuthCall = () => {
         `${process.env.REACT_APP_BASE_URL}/users/${userId}`
       );
       listUsers()
+      toast.success("User successfully deleted.")
+    } catch (error) {
+      dispatch(fetchFail());
+      toast.error("User delete failed!")
+    }
+    
+  };
+
+  //! DELETE ACCOUNT
+  const deleteAccount = async (userId) => {
+    dispatch(fetchStart());
+    try {
+      await axiosWithToken.delete(
+        `${process.env.REACT_APP_BASE_URL}/users/${userId}`
+      );
+        logoutSuccess()
+      toast.success("User successfully deleted.")
     } catch (error) {
       dispatch(fetchFail());
       toast.error("User delete failed!")
@@ -172,6 +189,7 @@ toast.success("Profile updated successfully")
     }
   };
 
+  //! LIST A USER
   const readUser = async (userId) => {
     dispatch(fetchStart());
     try {
@@ -247,7 +265,8 @@ toast.success("Profile updated successfully")
     passwordUpdate,
     saveBlog,
     updateUser,
-    readUser
+    readUser,
+    deleteAccount
   };
 };
 

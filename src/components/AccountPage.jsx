@@ -13,9 +13,14 @@ import { useSelector } from "react-redux";
 import EditIcon from "@mui/icons-material/Edit";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import { useNavigate } from "react-router-dom";
+import BasicModal from "./DelAccModal";
+import { useState } from "react";
 
 const AccountPage = ({ handleToggle, openIndex }) => {
   const { membership } = useSelector((state) => state.auth);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+
   const navigate=useNavigate()
   return (
     <Card
@@ -145,6 +150,8 @@ const AccountPage = ({ handleToggle, openIndex }) => {
                     </Box>
                   </Box>
                   <hr style={{ width: "28rem" }} />
+<>
+<BasicModal handleOpen={handleOpen} open={open}  setOpen={setOpen}/>
 
                   <Box
                     sx={{
@@ -165,6 +172,7 @@ const AccountPage = ({ handleToggle, openIndex }) => {
                     </Typography>
 
                     <Button
+                    onClick={handleOpen}
                       type="submit"
                       sx={{
                         textAlign: "center",
@@ -185,9 +193,10 @@ const AccountPage = ({ handleToggle, openIndex }) => {
                       <HighlightOffIcon
                         sx={{ fontSize: "1rem", mr: "0.2rem" }}
                       />
-                      yes
+                      YES
                     </Button>
                   </Box>
+</>
                 </Box>
               </Box>
             </Container>
