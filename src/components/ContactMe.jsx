@@ -23,7 +23,7 @@ const ContactMe = ({ handleToggle, openIndex }) => {
         title={
           <React.Fragment>
             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-              <EmailRoundedIcon sx={{ fontSize: "1.9rem", color: "#2F8197" }} />
+              <EmailRoundedIcon sx={{ fontSize: "1.9rem", color: "#979797" }} />
               <Typography sx={{ fontSize: "1rem" }}>Contact Me </Typography>
             </Box>
           </React.Fragment>

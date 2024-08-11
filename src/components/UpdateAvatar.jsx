@@ -1,34 +1,22 @@
 import React, { useState } from "react";
 import Modal from "@mui/material/Modal";
-import { InputLabel, Avatar } from "@mui/material";
+import { Avatar, Box, Select, MenuItem, Typography, Button } from "@mui/material";
+import { avatarList } from "../helper/AvatarList";
+import { useSelector } from "react-redux";
+import useAuthCall from "../hooks/useAuthCall";
 
-
-export default function BasicModal({ setOpen, open, avatar }) {
+export default function BasicModal({ setOpen, open }) {
   const handleClose = () => setOpen(false);
+  const {update}=useAuthCall()
+  const { avatar, userId } = useSelector((state) => state.auth);
+  const [avatarimg, setAvatarimg] = useState(avatar);
 
-//   const { update } = useAuthCall();
+const handleSubmit=()=>{
+  update(userId, {avatar:avatarimg})
+  handleClose()
+}
 
-
-
-  const handleYes = async () => {
-    handleClose();
-  };
-
-  const handleNo = () => {
-  };
-
-  const convertToBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
-    });
-  };
+  console.log(avatarimg);
 
   const style = {
     position: "absolute",
@@ -36,69 +24,87 @@ export default function BasicModal({ setOpen, open, avatar }) {
     left: "50%",
     transform: "translate(-50%, -50%)",
     display: "flex",
-    justifyContent: "center",
+    flexDirection: "column",
     alignItems: "center",
-    width: "14rem",
-    height: "14rem",
-  };
-
-  const styleSecondModal = {
-    position: "absolute",
-    top: "70%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    display: "flex",
-    flexDirection:"column",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "20rem",
-    height: "8.5rem",
-    backgroundColor:"#f4fffe",
-    padding:"1rem",
-    borderRadius:"1rem"
-  };
-
-
-  const iconStyle = {
-    color: "#449eb7",
-    position: "absolute",
-    bottom: "-1.2rem",
-    right: "3rem",
-    transform: "translate(50%, -50%)",
-    zIndex: 3,
-    backgroundColor: "white",
-    width: "4rem",
-    height: "4rem",
-    padding: "0.6rem",
-    borderRadius: "50%",
+    gap: "2rem",
+    padding: "2rem",
+    width: "22rem",
+    height: "20rem",
+    bgcolor: "background.paper",
+    borderRadius: "1rem",
   };
 
   return (
-    <>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <form flexDirection={"column"}>
-          <InputLabel htmlFor="file-upload" sx={style}>
-            <Avatar
-              style={{
-                backgroundColor: "#fff",
-                width: "80%",
-                height: "80%",
-                position: "relative",
-                borderRadius: "50%",
-              }}
-            />
-          </InputLabel>
+    <Modal
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <Box sx={style}>
+        <Avatar
+          src={avatarimg}
+          style={{
+            width: "7rem",
+            height: "7rem",
+            position: "relative",
+          }}
+        />
 
+        <Select
+          sx={{ height: "2rem", width: "20rem" }}
+          value={avatarimg}
+          onChange={(e)=> setAvatarimg(e.target.value)}
+          displayEmpty
+          inputProps={{ "aria-label": "Select Avatar" }}
+          MenuProps={{
+            PaperProps: {
+              style: {
+                maxHeight: 10 * 16,
+                width: 250,
+              },
+            },
+          }}
+          renderValue={(selected) => {
+            if (!selected) {
+              return <Typography style={{ color: "gray" }}>Select Avatar</Typography>;
+            }
+            return avatarList.find((item) => item.img === selected)?.name || selected;
+          }}
+        >
+          {avatarList.map((item) => (
+            <MenuItem
+              key={item.img}
+              sx={{ height: "2rem", minHeight: "2rem", padding: "0.5rem 1rem" }}
+              value={item.img}
+            >
+              {item.name}
+            </MenuItem>
+          ))}
+        </Select>
 
-        </form>
-      </Modal>
-
-
-    </>
+        <Button
+          type="submit"
+          variant="contained"
+          onClick={handleSubmit}
+          sx={{
+            mt: 2,
+            mb: 5,
+            textAlign: "center",
+            backgroundColor: "#F2F2F2",
+            color: "#494b56",
+            borderRadius: "0.7rem",
+            width: "6rem",
+            transition: "0.4s",
+            "&:hover": {
+              backgroundColor: "#000000",
+              color: "white",
+            },
+          }}
+        >
+          SUBMIT
+        </Button>
+      </Box>
+    </Modal>
   );
 }

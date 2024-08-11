@@ -13,11 +13,12 @@ import settingsvg from "../assets/settings.svg"
 import ReactStars from "react-stars";
 import { useSelector } from "react-redux";
 import premiumsvg from "../assets/premium.svg"
+import useAuthCall from "../hooks/useAuthCall";
 
 const Profile = () => {
 
   const navigate = useNavigate();
-const {level}=useSelector((state)=>state.auth)
+const {level, avatar}=useSelector((state)=>state.auth)
   const Data = [
 
     {
@@ -70,7 +71,7 @@ const {level}=useSelector((state)=>state.auth)
     }}
   >
     <Box sx={{width:"100%", display:"flex", justifyContent:"center", flexDirection:"column", alignItems:"center"}}>
-<Avatar src="" sx={{width:"3.5rem", height:"3.5rem"}} />
+<Avatar src={avatar} sx={{width:"3.5rem", height:"3.5rem"}} />
 <ReactStars
               count={5}
               value={level}

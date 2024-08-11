@@ -89,19 +89,27 @@ export const authSlice = createSlice({
 
 
     logoutSuccess: (state) => {
-      state.loading= false;
-      state.error= false;
-      state.currentUser= null;
-      state.username= null;
-      state.token= null;
-      state.userId= null;
-      state.email=null;
-      state.verified=null;
-      state.contacts=[];
-      state.user=[];
-      state.avatar="";
-      state.name="";
-      state.password= "";
+    state.isAdmin=false;
+    state.isPremium=false;
+    state.loading= false;
+    state.error= false;
+    state.token= null;
+    state.userId= null;
+    state.email=null;
+    state.verified=null;
+    state.avatar="";
+    state.name="";
+    state.surname="";
+    state.password="";
+    state.passcode="";
+    state.sportBranch=[];
+    state.savedBlog=[];
+    state.membership="Basic";
+    state.users=[];
+    state.level="";
+    state.workoutplan="";
+    state.dateOfBirth="";
+    state.gender=""
     },
 
   
@@ -119,7 +127,7 @@ export const {
   fetchStart,
   fetchFail,
   loginSuccess,
-  // logoutSuccess,
+  logoutSuccess,
   registerSuccess,
   passwordUpdateSuccess,
   saveBlogSuccess,

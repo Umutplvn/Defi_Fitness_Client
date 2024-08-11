@@ -29,9 +29,15 @@ export const dataSlice = createSlice({
       state.error = false;
       state.blogs=payload.result
     },
+
+    logoutDataSuccess: (state, { payload }) => {
+      state.loading = false;
+      state.error = false;
+      state.blogs=[]
+    },
   },
 });
 
-export const { fetchStart, fetchFail, getBlogsSuccess } = dataSlice.actions;
+export const { fetchStart, fetchFail, getBlogsSuccess, logoutDataSuccess } = dataSlice.actions;
 
 export default dataSlice.reducer;

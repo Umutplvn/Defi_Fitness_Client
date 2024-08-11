@@ -8,14 +8,14 @@ import {
   fetchFail,
   loginSuccess,
   registerSuccess,
-  // logoutSuccess,
+  logoutSuccess,
   passwordUpdateSuccess,
   saveBlogSuccess,
   usersSuccess
   // updateContactSuccess,
   // getMyContactsSuccess,
 } from "../features/authSlice";
-
+import {logoutDataSuccess} from "../features/dataSlice"
 const useAuthCall = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -216,22 +216,22 @@ toast.success("Profile updated successfully")
   };
 
 
-  // const logout = async () => {
-  //   dispatch(fetchStart());
-  //   try {
-  //     localStorage.clear();
-  //     const { data } = await axios.post(
-  //       `${process.env.REACT_APP_BASE_URL}/auth/logout/`
-  //     );
-  //     dispatch(logoutSuccess());
-  //     dispatch(logoutDataSuccess());
-  //     toast("Logout successfull");
-  //     navigate("/login");
-  //   } catch (error) {
-  //     dispatch(fetchFail());
-  //     toast(error);
-  //   }
-  // };
+  const logout = async () => {
+    dispatch(fetchStart());
+    try {
+      localStorage.clear();
+      await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/auth/logout/`
+      );
+      dispatch(logoutSuccess());
+      dispatch(logoutDataSuccess());
+      toast.success("Logout successfull");
+      navigate("/index");
+    } catch (error) {
+      dispatch(fetchFail());
+      toast.error(error);
+    }
+  };
 
   // const getMyContacts = async () => {
   //   dispatch(fetchStart());
@@ -263,7 +263,7 @@ toast.success("Profile updated successfully")
     login,
     register,
     createNewUser,
-    // logout,
+    logout,
     forgotPass,
     deleteUser,
     update,
