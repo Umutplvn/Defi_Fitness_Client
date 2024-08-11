@@ -23,7 +23,7 @@ export default function CreateModalUnstyled({ handleCreateClose, createOpen }) {
     surname: "",
     level: "",
     email: "",
-    membership: "Bronze",
+    membership: "Basic",
     gender: "Male",
     password: ""
   });
@@ -57,7 +57,7 @@ export default function CreateModalUnstyled({ handleCreateClose, createOpen }) {
       surname: "",
       level: "",
       email: "",
-      membership: "Bronze",
+      membership: "Basic",
       gender: "Male",
       password: ""
     });
@@ -259,9 +259,8 @@ export default function CreateModalUnstyled({ handleCreateClose, createOpen }) {
                   setInfo({ ...info, membership: e.target.value })
                 }
               >
-                <option value={"Bronze"}>Bronze</option>
-                <option value={"Silver"}>Silver</option>
-                <option value={"Gold"}>Gold</option>
+                <option value={"Basic"}>Basic</option>
+                <option value={"Premium"}>Premium</option>
               </NativeSelect>
             </FormControl>
           </Box>

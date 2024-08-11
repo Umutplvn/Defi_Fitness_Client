@@ -12,7 +12,7 @@ import size from "../assets/measuring-tape.svg"
 import settingsvg from "../assets/settings.svg"
 import ReactStars from "react-stars";
 import { useSelector } from "react-redux";
-
+import premiumsvg from "../assets/premium.svg"
 
 const Profile = () => {
 
@@ -46,6 +46,11 @@ const {level}=useSelector((state)=>state.auth)
       image: settingsvg,
       title: "Settings",
       link: "/profile/settings",
+    },
+    {
+      image: premiumsvg,
+      title: "Change Plan",
+      link: "/profile/changeplan",
     }
 
   ];

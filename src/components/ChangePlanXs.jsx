@@ -17,7 +17,8 @@ import { useNavigate } from "react-router-dom";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { styled } from "@mui/material/styles";
-import { useMediaQuery, createTheme } from "@mui/material";
+import { createTheme } from "@mui/material";
+import { useSelector } from "react-redux";
 
 const CustomCarouselPrev = styled("button")({
   position: "relative",
@@ -39,11 +40,11 @@ const CustomCarouselNext = styled("button")({
   cursor: "pointer",
 });
 
-function MembbershipsSizeXs() {
+function ChangePlanXs() {
   const navigate = useNavigate();
   const carouselRef = useRef(null);
   const theme = createTheme();
-  const isXs = useMediaQuery(theme.breakpoints.down("lg"));
+  const { membership } = useSelector((state) => state.auth);
   const cards = [
     {
       title: "Standard",
@@ -81,9 +82,17 @@ function MembbershipsSizeXs() {
   });
 
   return (
-    <Box id="membership" sx={{ width: "100wh", height: "100vh" }}>
+    <Box
+      id="membership"
+      sx={{
+        width: "100wh",
+        height: "100vh",
+        pl: { xs: "0", sm: "4.5rem", md: "10rem" },
+      }}
+    >
       <Carousel
         ref={carouselRef}
+        interval={null}
         style={{
           display: "flex",
           justifyContent: "center",
@@ -142,16 +151,20 @@ function MembbershipsSizeXs() {
                       sx={{ mr: "auto", display: "flex" }}
                     >
                       {card.price}
-                  
                     </Typography>
-                    <Button
-                      variant="soft"
-                      color="neutral"
-                      endDecorator={<KeyboardArrowRight />}
-                      onClick={() => navigate("/register")}
-                    >
-                      Start now
-                    </Button>
+
+{card.subtitle=="Premium" ? 
+<>
+{membership == "Premium" ?
+  <Button   variant="soft"
+  color="neutral">Cancel</Button>:<Button   variant="soft"
+  color="neutral">Upgrade</Button>
+ }
+</>
+ :<Typography></Typography>
+
+}
+                  
                   </CardActions>
                 </Card>
               </Box>
@@ -164,7 +177,6 @@ function MembbershipsSizeXs() {
           display: "flex",
           justifyContent: "space-between",
           width: "100wh",
-          height: "100vh",
         }}
       >
         <CustomCarouselPrev
@@ -189,4 +201,4 @@ function MembbershipsSizeXs() {
   );
 }
 
-export default MembbershipsSizeXs;
+export default ChangePlanXs;

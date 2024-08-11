@@ -28,6 +28,7 @@ import SavedBlogs from "../pages/SavedBlogs";
 import WorkoutPR from "../pages/WorkoutPR";
 import Bodysize from "../pages/Bodysize";
 import Settings from "../pages/Settings";
+import ChangePlan from "../components/ChangePlan";
 
 const AppRouter = () => {
   return (
@@ -67,6 +68,7 @@ const AppRouter = () => {
           <Route path="/profile/pr" element={<WorkoutPR/>} />
           <Route path="/profile/bodysize" element={<Bodysize/>} />
           <Route path="/profile/settings" element={<Settings/>} />
+          <Route path="/profile/changeplan" element={<ChangePlan/>} />
         </Route>
         </Route>
       </Routes>

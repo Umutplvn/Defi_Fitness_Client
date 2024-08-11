@@ -118,9 +118,8 @@ export default function EditModalUnstyled({
     }}
     onChange={(e)=>setInfo({...info, membership:e.target.value})}
   >
-    <option value={"Bronze"}>Bronze</option>
-    <option value={"Silver"}>Silver</option>
-    <option value={"Gold"}>Gold</option>
+    <option value={"Basic"}>Basic</option>
+    <option value={"Premium"}>Premium</option>
   </NativeSelect>
 </FormControl>
 </Box>

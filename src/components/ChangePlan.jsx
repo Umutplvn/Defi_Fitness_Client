@@ -13,17 +13,19 @@ import Check from "@mui/icons-material/Check";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import { useNavigate } from "react-router-dom";
 import { useMediaQuery, createTheme } from '@mui/material';
-import MembershipSizeXs from "./MembershipsSizeXs";
+import ChangePlanXs from "./ChangePlanXs";
+import { useSelector } from "react-redux";
 
-export default function MembershipPlans() {
+export default function ChangePlan() {
   const navigate = useNavigate();
   const theme = createTheme();
   const isXs = useMediaQuery(theme.breakpoints.down('lg'));
+  const {membership}=useSelector((state)=>state.auth)
   return (
 <Box sx={{width:"100wh", height:"100vh"}}>
 {isXs? 
   //! WINDOW SIZE SMALLER THAN LG 
-<MembershipSizeXs/> :
+<ChangePlanXs/> :
   
 
   //! WINDOW SIZE LARGER THAN LG 
@@ -38,6 +40,8 @@ export default function MembershipPlans() {
        justifyContent: "center",
        gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 300px), 1fr))",
        padding: "2rem",
+       pl: { xs: "0", sm: "4.5rem", md: "10rem" },
+
        gap: { lg: "5rem" },
      }}
    >
@@ -76,14 +80,7 @@ export default function MembershipPlans() {
          <Typography level="title-lg" sx={{ mr: "auto" }}>
            Free
          </Typography>
-         <Button
-           variant="soft"
-           color="neutral"
-           endDecorator={<KeyboardArrowRight />}
-           onClick={() => navigate("/register")}
-         >
-           Start now
-         </Button>
+   
        </CardActions>
      </Card>
 
@@ -132,14 +129,11 @@ export default function MembershipPlans() {
              / month
            </Typography>
          </Typography>
-         <Button
-           onClick={() => navigate("/register")}
-           variant="soft"
-           color="neutral"
-           endDecorator={<KeyboardArrowRight />}
-         >
-           Start now
-         </Button>
+         {membership == "Premium" ?
+  <Button   variant="soft"
+  color="neutral">Cancel</Button>:<Button   variant="soft"
+  color="neutral">Upgrade</Button>
+ }
        </CardActions>
      </Card>
    </Box>

@@ -81,7 +81,6 @@ const Settings = () => {
           type="submit"
           variant="contained"
           sx={{
-            // mt: 18,
             mb: 2,
             pl: 4,
             pr: 4,
