@@ -60,14 +60,14 @@ const CreateBlog = () => {
   const handleSubmit = async () => {
     setLoading(true);
     if (blogData?.content?.trim() === "") {
-      toast("Blog content cannot be empty.");
+      toast.error("Blog content cannot be empty.");
       return;
     }
 
     try {
       await createBlog(blogData);
       setBlogData({ content: "", tags: [] });
-      toast("Blog successfully created");
+      toast.error("Blog successfully created");
       navigate("/blogs");
     } catch (error) {
       console.error("Error posting content:", error);

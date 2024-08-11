@@ -47,7 +47,7 @@ export default function CreateModalUnstyled({ handleCreateClose, createOpen }) {
   const createUserFunc = () => {
     if (!validateEmail(info.email)) {
       setEmailError(true);
-      toast("Invalid e-mail address!")
+      toast.error("Invalid e-mail address!")
       return;
     }
     createNewUser(info);

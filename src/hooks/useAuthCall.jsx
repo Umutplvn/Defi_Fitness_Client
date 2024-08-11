@@ -35,7 +35,7 @@ const useAuthCall = () => {
     } catch (error) {
       console.log('Error during registration:', error?.response?.data?.message);
       dispatch(fetchFail());
-      toast(error?.response?.data?.message)
+      toast.error(error?.response?.data?.message)
     }
   };
   
@@ -50,15 +50,15 @@ const useAuthCall = () => {
       );
       if (!data?.result?.verified) {
         deleteUser(data?.result?._id);
-        toast("No such account found!")
+        toast.error("No such account found!")
       } else {
         dispatch(loginSuccess(data));
-        toast("Welcome to the DEFI")
+        toast.success("Welcome to the DEFI")
         navigate("/blogs");
       }
     } catch (error) {
       dispatch(fetchFail());
-      toast("Invalid login. Please check your details and try again.")
+      toast.error("Invalid login. Please check your details and try again.")
         }
   };
 
@@ -76,7 +76,7 @@ const useAuthCall = () => {
     } catch (error) {
       console.log('Error during registration:', error?.response?.data?.message);
       dispatch(fetchFail());
-      toast(error?.response?.data?.message)
+      toast.error(error?.response?.data?.message)
     }
   };
 
@@ -92,7 +92,7 @@ const useAuthCall = () => {
     } catch (error) {
       console.log('Error during registration:', error?.response?.data?.message);
       dispatch(fetchFail());
-      toast(error?.response?.data?.message)
+      toast.error(error?.response?.data?.message)
     }
   };
 
@@ -107,7 +107,7 @@ const useAuthCall = () => {
       listUsers()
     } catch (error) {
       dispatch(fetchFail());
-      toast("User delete failed!")
+      toast.error("User delete failed!")
     }
     
   };
@@ -140,7 +140,7 @@ const useAuthCall = () => {
 toast.success("Profile updated successfully")
     } catch (error) {
       dispatch(fetchFail());
-      toast("This email is already taken")
+      toast.error("This email is already taken")
     }
   };
 
@@ -195,7 +195,7 @@ toast.success("Profile updated successfully")
       );
       dispatch(saveBlogSuccess(data))
     } catch (error) {
-      toast("Error!");
+      toast.error("Error!");
       dispatch(fetchFail());
     }
   };
@@ -215,7 +215,7 @@ toast.success("Profile updated successfully")
     }
   };
 
-
+//! LOGOUT FUNCTION
   const logout = async () => {
     dispatch(fetchStart());
     try {
@@ -226,38 +226,13 @@ toast.success("Profile updated successfully")
       dispatch(logoutSuccess());
       dispatch(logoutDataSuccess());
       toast.success("Logout successfull");
-      navigate("/index");
     } catch (error) {
       dispatch(fetchFail());
       toast.error(error);
     }
   };
 
-  // const getMyContacts = async () => {
-  //   dispatch(fetchStart());
-  //   try {
-  //     const { data } = await axiosWithToken.get(`auth/users/getmycontacts`);
-  //     dispatch(getMyContactsSuccess({ data }));
-  //   } catch (error) {
-  //     dispatch(fetchFail());
-  //     console.log(error);
-  //   }
-  // };
 
-  // const passwordUpdate = async (data) => {
-  //   try {
-  //     const res = await axiosWithToken.put(
-  //       `${process.env.REACT_APP_BASE_URL}/auth/changepassword`,
-  //       data
-  //     );
-  //     dispatch(passwordUpdateSuccess(res));
-  //     toast("Password Changed Successfully");
-  //   } catch (error) {
-  //     dispatch(fetchFail());
-  //     toast("Failed to change password");
-  //     toast(error);
-  //   }
-  // };
 
   return {
     login,
@@ -269,14 +244,10 @@ toast.success("Profile updated successfully")
     update,
     listUsers,
     updateWorkoutPlan,
-    // addContact,
-    // removeContact,
-    // getMyContacts,
     passwordUpdate,
     saveBlog,
     updateUser,
     readUser
-    // syncContacts,
   };
 };
 

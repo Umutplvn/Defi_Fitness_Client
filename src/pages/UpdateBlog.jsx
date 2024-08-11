@@ -80,7 +80,7 @@ const UpdateBlog = () => {
     setLoading(true);
 
     if (blogData.content.trim() === "") {
-      toast("Blog content cannot be empty.");
+      toast.error("Blog content cannot be empty.");
       setLoading(false);
       return;
     }
@@ -89,7 +89,7 @@ const UpdateBlog = () => {
       await updateBlog(blogId, { ...blogData, tags });
       setBlogData({ content: "" });
       setTags([]);
-      toast("Blog successfully updated");
+      toast.success("Blog successfully updated");
       navigate("/blogs");
     } catch (error) {
       console.error("Error updating content:", error);

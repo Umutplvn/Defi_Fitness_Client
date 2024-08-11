@@ -1,13 +1,8 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
-import { useState } from "react";
-import {Select, MenuItem, TextField, FormControl, Button} from "@mui/material";
 import { useSelector } from "react-redux";
-import { toast } from "react-hot-toast";
-import useAuthCall from "../hooks/useAuthCall";
-import { useMediaQuery, createTheme } from '@mui/material';
+
 
 const WorkoutProgram = () => {
 const {name,workoutplan}=useSelector((state)=>state.auth)

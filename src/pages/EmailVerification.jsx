@@ -23,7 +23,7 @@ const EmailVerification = () => {
         deleteUser(userId);
         setExpired(true);
         navigate("/register");
-        toast("Time is up!")
+        toast.error("Time is up!")
       }, 60000);
     }
 
@@ -40,9 +40,9 @@ const EmailVerification = () => {
       update(userId, { verified: true });
       navigate("/blogs");
 
-      toast("Welcome to DEFI")
+      toast.success("Welcome to DEFI")
     } else {
-      toast("Passcode is wrong!")
+      toast.error("Passcode is wrong!")
       setPass("");
     }
   };

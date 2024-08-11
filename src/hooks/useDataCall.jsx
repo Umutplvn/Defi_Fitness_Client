@@ -7,7 +7,6 @@ import { fetchStart, fetchFail, getBlogsSuccess } from "../features/dataSlice";
 
 const useDataCall = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { axiosWithToken } = useAxios();
 
   //CREATE BLOG
@@ -21,7 +20,7 @@ const useDataCall = () => {
         );
         getBlogs()
       } catch (error) {
-      toast("Error!");
+      toast.error("Error!");
       dispatch(fetchFail());
     }
   };
@@ -51,7 +50,7 @@ const useDataCall = () => {
       );
       dispatch(getBlogsSuccess(data));
     } catch (error) {
-      toast("Error!");
+      toast.error("Error!");
       dispatch(fetchFail());
     }
   };
@@ -66,7 +65,7 @@ const useDataCall = () => {
       );
       getBlogs();
     } catch (error) {
-      toast("Error!");
+      toast.error("Error!");
       dispatch(fetchFail());
     }
   };
@@ -80,7 +79,7 @@ const deleteBlog = async (blogId) => {
     );
     getBlogs();
   } catch (error) {
-    toast("Error!");
+    toast.error("Error!");
     dispatch(fetchFail());
   }
 };   

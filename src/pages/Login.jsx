@@ -34,7 +34,7 @@ const Login = () => {
     try {
       await login(info);
     } catch (error) {
-      toast("Login failed. Please try again.");
+      toast.error("Login failed. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -54,7 +54,7 @@ const Login = () => {
     e.preventDefault();
     {
       info.password.length < 8
-        ? toast("Password must be at least 8 character.")
+        ? toast.error("Password must be at least 8 character.")
         : submitFunc();
     }
   };

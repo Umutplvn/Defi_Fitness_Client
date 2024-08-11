@@ -57,7 +57,7 @@ const ResetForgottenPass = () => {
       await passwordUpdate({password:info.password});
       navigate('/')
     } catch (error) {
-      toast("Registration failed. Please try again.", {
+      toast.error("Registration failed. Please try again.", {
         style: customErrorStyle, 
       })
     } finally {
@@ -76,7 +76,7 @@ const ResetForgottenPass = () => {
     e.preventDefault();
     {
       info.password.length < 8
-        ? toast("Password must be at least 8 character.", {
+        ? toast.error("Password must be at least 8 character.", {
           style: customErrorStyle, 
         })
         : submitFunc();

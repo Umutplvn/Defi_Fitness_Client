@@ -108,10 +108,10 @@ const Chat = () => {
         setImage(null);
         setVideo(null);
         setFile(null)
-        toast("File uploaded successfully");
+        toast.success("File uploaded successfully");
       } catch (err) {
         console.error("File upload failed", err);
-        toast("File upload failed");
+        toast.error("File upload failed");
       }finally {
         setLoading(false);
       }
@@ -154,7 +154,7 @@ const Chat = () => {
       setVideo(null);
     } catch (error) {
       console.error("Failed to send message", error);
-      toast("Failed to send message.");
+      toast.error("Failed to send message.");
     } finally {
       setLoading(false);
     }
@@ -168,10 +168,10 @@ const Chat = () => {
       setMessages((prevMessages) =>
         prevMessages.filter((msg) => msg._id !== messageId)
       );
-      toast("Message deleted successfully.");
+      toast.success("Message deleted successfully.");
     } catch (error) {
       console.error("Failed to delete message", error);
-      toast("Failed to delete message.");
+      toast.error("Failed to delete message.");
     }
   };
 
