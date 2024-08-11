@@ -1,7 +1,6 @@
 import { Avatar, Box, Typography } from "@mui/material";
 import React from "react";
 import "../styles/aboutCarousel.css";
-import { useState } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -11,7 +10,6 @@ import blog from "../assets/blog.svg";
 import workoutpr from "../assets/weight.svg"
 import size from "../assets/measuring-tape.svg"
 import settingsvg from "../assets/settings.svg"
-import editsvg from "../assets/edit.svg"
 import ReactStars from "react-stars";
 import { useSelector } from "react-redux";
 
@@ -48,14 +46,7 @@ const {level}=useSelector((state)=>state.auth)
       image: settingsvg,
       title: "Settings",
       link: "/profile/settings",
-    },
-    {
-      image: editsvg,
-      title: "Edit Profile",
-      link: "/profile/editprofile",
-    },
-
-
+    }
 
   ];
 

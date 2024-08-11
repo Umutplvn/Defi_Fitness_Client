@@ -120,10 +120,11 @@ const useAuthCall = () => {
         `${process.env.REACT_APP_BASE_URL}/users/${userId}`,
         updateData
       );
-      console.log(data);
       dispatch(loginSuccess(data));
+      toast.success("Profile updated successfully")
     } catch (error) {
       dispatch(fetchFail());
+      toast.error(error)
     }
   };
 
@@ -136,7 +137,7 @@ const useAuthCall = () => {
         updateData
       );
         listUsers()
-toast("Profile updated successfully")
+toast.success("Profile updated successfully")
     } catch (error) {
       dispatch(fetchFail());
       toast("This email is already taken")
@@ -207,10 +208,10 @@ toast("Profile updated successfully")
         password
       );
       dispatch(passwordUpdateSuccess(res));
-      toast("Password Changed Successfully")
+      toast.success("Password Changed Successfully")
     } catch (error) {
       dispatch(fetchFail());
-  toast("Failed to change password")
+  toast.error("Failed to change password")
     }
   };
 

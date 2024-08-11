@@ -27,8 +27,7 @@ import WorkoutProgram from "../pages/WorkoutProgram";
 import SavedBlogs from "../pages/SavedBlogs";
 import WorkoutPR from "../pages/WorkoutPR";
 import Bodysize from "../pages/Bodysize";
-import { Settings } from "@mui/icons-material";
-import EditProfile from "../pages/EditProfile";
+import Settings from "../pages/Settings";
 
 const AppRouter = () => {
   return (
@@ -68,7 +67,6 @@ const AppRouter = () => {
           <Route path="/profile/pr" element={<WorkoutPR/>} />
           <Route path="/profile/bodysize" element={<Bodysize/>} />
           <Route path="/profile/settings" element={<Settings/>} />
-          <Route path="/profile/editprofile" element={<EditProfile/>} />
         </Route>
         </Route>
       </Routes>
