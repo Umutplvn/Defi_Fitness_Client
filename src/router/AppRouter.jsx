@@ -28,6 +28,7 @@ import WorkoutPR from "../pages/WorkoutPR";
 import Bodysize from "../pages/Bodysize";
 import Settings from "../pages/Settings";
 import ChangePlan from "../components/ChangePlan";
+import BMITracker from "../pages/BMITracker";
 
 const AppRouter = () => {
   return (
@@ -67,6 +68,7 @@ const AppRouter = () => {
           <Route path="/profile/bodysize" element={<Bodysize/>} />
           <Route path="/profile/settings" element={<Settings/>} />
           <Route path="/profile/changeplan" element={<ChangePlan/>} />
+          <Route path="/profile/bmi" element={<BMITracker/>} />
         </Route>
         </Route>
       </Routes>

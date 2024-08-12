@@ -11,9 +11,8 @@ import {
   logoutSuccess,
   passwordUpdateSuccess,
   saveBlogSuccess,
-  usersSuccess
-  // updateContactSuccess,
-  // getMyContactsSuccess,
+  usersSuccess,
+  profileSuccess  // getMyContactsSuccess,
 } from "../features/authSlice";
 import {logoutDataSuccess} from "../features/dataSlice"
 const useAuthCall = () => {
@@ -201,14 +200,14 @@ toast.success("Profile updated successfully")
     }
   };
 
-  //! READ A PROFILE
+  //! READ A PROFILE INFP
   const readProfile = async (userId) => {
     dispatch(fetchStart());
     try {
       const { data } = await axiosWithToken.get(
         `${process.env.REACT_APP_BASE_URL}/profile/${userId}`
       );
-      console.log("profile",data);
+      dispatch(profileSuccess(data))
     } catch (error) {
       dispatch(fetchFail());
     }
@@ -223,8 +222,10 @@ toast.success("Profile updated successfully")
         `${process.env.REACT_APP_BASE_URL}/profile/`, info
 
       );
-      console.log("profile",data);
-    } catch (error) {
+
+      readProfile()
+      toast.success("Data added successfully")
+        } catch (error) {
       dispatch(fetchFail());
     }
   };

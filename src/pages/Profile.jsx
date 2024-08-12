@@ -12,9 +12,7 @@ import size from "../assets/measuring-tape.svg"
 import settingsvg from "../assets/settings.svg"
 import ReactStars from "react-stars";
 import { useSelector } from "react-redux";
-import premiumsvg from "../assets/premium.svg"
-import useAuthCall from "../hooks/useAuthCall";
-
+import bmiSvg from "../assets/line-chart-data-svgrepo-com (1).svg"
 const Profile = () => {
 
   const navigate = useNavigate();
@@ -42,16 +40,15 @@ const {level, avatar}=useSelector((state)=>state.auth)
       title: "Body Size",
       link: "/profile/bodysize",
     },
-
+    {
+      image: bmiSvg,
+      title: "BMI Tracker",
+      link: "/profile/bmi",
+    },
     {
       image: settingsvg,
       title: "Settings",
       link: "/profile/settings",
-    },
-    {
-      image: premiumsvg,
-      title: "Change Plan",
-      link: "/profile/changeplan",
     }
 
   ];

@@ -23,7 +23,8 @@ export const authSlice = createSlice({
     level:"",
     workoutplan:"",
     dateOfBirth:"",
-    gender:""
+    gender:"",
+    profile:[]
   },
 
   reducers: {
@@ -78,6 +79,13 @@ export const authSlice = createSlice({
       state.users=payload.result
     },
 
+    profileSuccess:(state, { payload }) => {
+      state.loading = false;
+      state.error = false;
+      state.profile=payload.Profile
+    },
+
+
     passwordUpdateSuccess:(state, { payload }) => {
       state.password=payload?.data?.result?.password
     },
@@ -131,7 +139,8 @@ export const {
   registerSuccess,
   passwordUpdateSuccess,
   saveBlogSuccess,
-  usersSuccess
+  usersSuccess,
+  profileSuccess
 
 } = authSlice.actions;
 
