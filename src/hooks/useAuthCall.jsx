@@ -12,14 +12,15 @@ import {
   passwordUpdateSuccess,
   saveBlogSuccess,
   usersSuccess,
-  profileSuccess  // getMyContactsSuccess,
+  BMISuccess,
+  sizeSuccess,
+  PRSuccess
 } from "../features/authSlice";
-import {logoutDataSuccess} from "../features/dataSlice"
+import { logoutDataSuccess } from "../features/dataSlice";
 const useAuthCall = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { axiosWithToken } = useAxios();
-
 
   //! REGISTER FUNCTION
   const register = async (userData) => {
@@ -32,15 +33,14 @@ const useAuthCall = () => {
       dispatch(registerSuccess(data));
       navigate("/verification");
     } catch (error) {
-      console.log('Error during registration:', error?.response?.data?.message);
+      console.log("Error during registration:", error?.response?.data?.message);
       dispatch(fetchFail());
-      toast.error(error?.response?.data?.message)
+      toast.error(error?.response?.data?.message);
     }
   };
-  
 
   //! LOGIN FUNCTION
-    const login = async (userData) => {
+  const login = async (userData) => {
     dispatch(fetchStart());
     try {
       const { data } = await axios.post(
@@ -49,20 +49,19 @@ const useAuthCall = () => {
       );
       if (!data?.result?.verified) {
         deleteUser(data?.result?._id);
-        toast.error("No such account found!")
+        toast.error("No such account found!");
       } else {
         dispatch(loginSuccess(data));
-        toast.success("Welcome to the DEFI")
+        toast.success("Welcome to the DEFI");
         navigate("/blogs");
       }
     } catch (error) {
       dispatch(fetchFail());
-      toast.error("Invalid login. Please check your details and try again.")
-        }
+      toast.error("Invalid login. Please check your details and try again.");
+    }
   };
 
-
-//! FORGOT PASSWORD (TO GET EMAIL)
+  //! FORGOT PASSWORD (TO GET EMAIL)
   const forgotPass = async (email) => {
     dispatch(fetchStart());
     try {
@@ -73,9 +72,9 @@ const useAuthCall = () => {
       dispatch(loginSuccess(data));
       navigate("/blogs");
     } catch (error) {
-      console.log('Error during registration:', error?.response?.data?.message);
+      console.log("Error during registration:", error?.response?.data?.message);
       dispatch(fetchFail());
-      toast.error(error?.response?.data?.message)
+      toast.error(error?.response?.data?.message);
     }
   };
 
@@ -87,29 +86,27 @@ const useAuthCall = () => {
         `${process.env.REACT_APP_BASE_URL}/users/createuser/`,
         userData
       );
-      listUsers()
+      listUsers();
     } catch (error) {
-      console.log('Error during registration:', error?.response?.data?.message);
+      console.log("Error during registration:", error?.response?.data?.message);
       dispatch(fetchFail());
-      toast.error(error?.response?.data?.message)
+      toast.error(error?.response?.data?.message);
     }
   };
 
-
-//! DELETE A USER
+  //! DELETE A USER
   const deleteUser = async (userId) => {
     dispatch(fetchStart());
     try {
       const { data } = await axios.delete(
         `${process.env.REACT_APP_BASE_URL}/users/${userId}`
       );
-      listUsers()
-      toast.success("User successfully deleted.")
+      listUsers();
+      toast.success("User successfully deleted.");
     } catch (error) {
       dispatch(fetchFail());
-      toast.error("User delete failed!")
+      toast.error("User delete failed!");
     }
-    
   };
 
   //! DELETE ACCOUNT
@@ -119,17 +116,16 @@ const useAuthCall = () => {
       await axiosWithToken.delete(
         `${process.env.REACT_APP_BASE_URL}/users/${userId}`
       );
-        logoutSuccess()
-      toast.success("User successfully deleted.")
+      logoutSuccess();
+      toast.success("User successfully deleted.");
     } catch (error) {
       dispatch(fetchFail());
-      toast.error("User delete failed!")
+      toast.error("User delete failed!");
     }
-    
   };
 
-//! UPDATE PROFILE
-  const update = async (userId,updateData) => {
+  //! UPDATE PROFILE
+  const update = async (userId, updateData) => {
     dispatch(fetchStart());
     try {
       const { data } = await axiosWithToken.put(
@@ -137,44 +133,44 @@ const useAuthCall = () => {
         updateData
       );
       dispatch(loginSuccess(data));
-      toast.success("Profile updated successfully")
+      toast.success("Profile updated successfully");
     } catch (error) {
       dispatch(fetchFail());
-      toast.error(error)
+      toast.error(error);
     }
   };
 
   //! UPDATE A MEMBER
-  const updateUser = async (userId,updateData) => {
+  const updateUser = async (userId, updateData) => {
     dispatch(fetchStart());
     try {
       await axiosWithToken.put(
         `${process.env.REACT_APP_BASE_URL}/users/${userId}`,
         updateData
       );
-        listUsers()
-toast.success("Profile updated successfully")
+      listUsers();
+      toast.success("Profile updated successfully");
     } catch (error) {
       dispatch(fetchFail());
-      toast.error("This email is already taken")
+      toast.error("This email is already taken");
     }
   };
 
-    //! UPDATE A WORKOUT PLAN
-    const updateWorkoutPlan = async (info) => {
-      dispatch(fetchStart());
-      try {
-        await axiosWithToken.put(
-          `${process.env.REACT_APP_BASE_URL}/users/uploadworkoutplan`,
-          info
-        );
-          listUsers()
-          toast.success("Form submitted successfully!");
-      } catch (error) {
-        dispatch(fetchFail());
-        toast.error("Failed!")
-      }
-    };
+  //! UPDATE A WORKOUT PLAN
+  const updateWorkoutPlan = async (info) => {
+    dispatch(fetchStart());
+    try {
+      await axiosWithToken.put(
+        `${process.env.REACT_APP_BASE_URL}/users/uploadworkoutplan`,
+        info
+      );
+      listUsers();
+      toast.success("Form submitted successfully!");
+    } catch (error) {
+      dispatch(fetchFail());
+      toast.error("Failed!");
+    }
+  };
   //! LIST USERS
   const listUsers = async () => {
     dispatch(fetchStart());
@@ -200,35 +196,91 @@ toast.success("Profile updated successfully")
     }
   };
 
-  //! READ A PROFILE INFP
-  const readProfile = async (userId) => {
+
+  //! LIST BMI
+  const listBMI = async () => {
     dispatch(fetchStart());
     try {
       const { data } = await axiosWithToken.get(
-        `${process.env.REACT_APP_BASE_URL}/profile/${userId}`
+        `${process.env.REACT_APP_BASE_URL}/bmi/list`
       );
-      dispatch(profileSuccess(data))
+      dispatch(BMISuccess(data));
+    } catch (error) {
+      dispatch(fetchFail());
+    }
+  };
+
+  //! CREATE BMI
+  const createBMI = async (info) => {
+    dispatch(fetchStart());
+    try {
+      const { data } = await axiosWithToken.post(
+        `${process.env.REACT_APP_BASE_URL}/bmi/`,
+        info
+      );
+      listBMI();
+      toast.success("Data added successfully");
     } catch (error) {
       dispatch(fetchFail());
     }
   };
 
 
-  //! CREATE PROFILE INFO
-  const createProfileInfo = async (info) => {
-    dispatch(fetchStart());
-    try {
-      const { data } = await axiosWithToken.post(
-        `${process.env.REACT_APP_BASE_URL}/profile/`, info
+    //! LIST SIZE
+    const listSize = async () => {
+      dispatch(fetchStart());
+      try {
+        const { data } = await axiosWithToken.get(
+          `${process.env.REACT_APP_BASE_URL}/size/list`
+        );
+        dispatch(sizeSuccess(data));
+      } catch (error) {
+        dispatch(fetchFail());
+      }
+    };
+  
+    //! CREATE SIZE
+    const createSize = async (info) => {
+      dispatch(fetchStart());
+      try {
+        const { data } = await axiosWithToken.post(
+          `${process.env.REACT_APP_BASE_URL}/size/`,
+          info
+        );
+        listSize();
+        toast.success("Data added successfully");
+      } catch (error) {
+        dispatch(fetchFail());
+      }
+    };
 
-      );
-
-      readProfile()
-      toast.success("Data added successfully")
-        } catch (error) {
-      dispatch(fetchFail());
-    }
-  };
+        //! LIST PR
+        const listPR = async () => {
+          dispatch(fetchStart());
+          try {
+            const { data } = await axiosWithToken.get(
+              `${process.env.REACT_APP_BASE_URL}/pr/list`
+            );
+            dispatch(PRSuccess(data));
+          } catch (error) {
+            dispatch(fetchFail());
+          }
+        };
+      
+        //! CREATE PR
+        const createPR = async (info) => {
+          dispatch(fetchStart());
+          try {
+            const { data } = await axiosWithToken.post(
+              `${process.env.REACT_APP_BASE_URL}/pr/`,
+              info
+            );
+            listPR();
+            toast.success("Data added successfully");
+          } catch (error) {
+            dispatch(fetchFail());
+          }
+        };
 
   //! SAVE BLOG
   const saveBlog = async (blogId) => {
@@ -238,7 +290,7 @@ toast.success("Profile updated successfully")
         `${process.env.REACT_APP_BASE_URL}/users/savedblog`,
         blogId
       );
-      dispatch(saveBlogSuccess(data))
+      dispatch(saveBlogSuccess(data));
     } catch (error) {
       toast.error("Error!");
       dispatch(fetchFail());
@@ -253,21 +305,19 @@ toast.success("Profile updated successfully")
         password
       );
       dispatch(passwordUpdateSuccess(res));
-      toast.success("Password Changed Successfully")
+      toast.success("Password Changed Successfully");
     } catch (error) {
       dispatch(fetchFail());
-  toast.error("Failed to change password")
+      toast.error("Failed to change password");
     }
   };
 
-//! LOGOUT FUNCTION
+  //! LOGOUT FUNCTION
   const logout = async () => {
     dispatch(fetchStart());
     try {
       localStorage.clear();
-      await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/auth/logout/`
-      );
+      await axios.post(`${process.env.REACT_APP_BASE_URL}/auth/logout/`);
       dispatch(logoutSuccess());
       dispatch(logoutDataSuccess());
       toast.success("Logout successfull");
@@ -276,8 +326,6 @@ toast.success("Profile updated successfully")
       toast.error(error);
     }
   };
-
-
 
   return {
     login,
@@ -294,8 +342,12 @@ toast.success("Profile updated successfully")
     updateUser,
     readUser,
     deleteAccount,
-    readProfile,
-    createProfileInfo
+    listBMI,
+    createBMI,
+    listSize,
+    createSize,
+    listPR,
+    createPR
   };
 };
 

@@ -14,74 +14,57 @@ import useAuthCall from "../hooks/useAuthCall";
 import { useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
 
-const Bodysize = () => {
-  const { readProfile, createProfileInfo } = useAuthCall();
+const SizeTracker = () => {
+  const { createSize, listSize } = useAuthCall();
   const [info, setInfo] = useState({
     chest: "",
     waist: "",
-    arms: "",
-    thighs: "",
+    arm: "",
+    thigh: "",
   });
-
-  const { userId, profile } = useSelector((state) => state.auth);
+  const { userId, size } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (userId) {
-      readProfile(userId);
+      listSize();
     }
-  }, [userId, readProfile]);
+  }, []);
 
-  const addBodyMeasurements = () => {
-    if (!info.chest || !info.waist || !info.arms || !info.thighs) {
-      return toast.error("Please enter all required measurements!");
+  const addSize = () => {
+    if (!info.chest || !info.waist || !info.arm || !info.thigh) {
+      return toast.error("Please enter all required data!");
     } else {
-      createProfileInfo({ size: info });
-      setInfo({ chest: "", waist: "", arms: "", thighs: "" });
+      createSize({
+        chest: info.chest,
+        waist: info.waist,
+        arm: info.arm,
+        thigh: info.thigh,
+      });
+      setInfo({ chest: "", waist: "", arm: "", thigh: "" });
     }
   };
 
-  const sizeData =
-    profile?.flatMap((item) => {
-      if (item.size) {
-        return {
-          date: new Date(item.createdAt).toLocaleDateString(),
-          chest: item.size.chest,
-          waist: item.size.waist,
-          arms: item.size.arms,
-          thighs: item.size.thighs,
-        };
-      }
-      return [];
-    }) || [];
-
-  const data = sizeData?.map((entry) => ({
-    date: entry.date,
-    chest: parseFloat(entry.chest) || 0,
-    waist: parseFloat(entry.waist) || 0,
-    arms: parseFloat(entry.arms) || 0,
-    thighs: parseFloat(entry.thighs) || 0,
+  const chartData = size?.map((item) => ({
+    date: new Date(item.createdAt).toLocaleDateString(),
+    chest: item.chest,
+    waist: item.waist,
+    arm: item.arm,
+    thigh: item.thigh,
   }));
 
   return (
-    <Box
-      sx={{
-        pl: { xs: "0", sm: "4.5rem", md: "10rem" },
-        pt: "1rem",
-        mb: "7rem",
-      }}
-    >
+    <Box sx={{ pl: { xs: "0", sm: "4.5rem", md: "10rem" }, pt: "1rem" }}>
       <Box>
         <Typography
           sx={{
-            fontSize: "1.1rem",
+            fontSize: "1.2rem",
             textAlign: "center",
-            fontWeight: "600",
+            fontWeight: "700",
             fontFamily: "Montserrat",
             mt: "1rem",
-            mb: "1rem",
           }}
         >
-          Body Measurements Tracker
+          BODY SIZE TRACKER{" "}
         </Typography>
 
         <Box
@@ -91,9 +74,10 @@ const Bodysize = () => {
             justifyContent: "center",
             p: "2rem",
             gap: "2rem",
+            mt: { xs: "0", lg: "1rem" },
           }}
         >
-          {/* Input Form */}
+          {/* Calculator */}
           <Box
             sx={{
               display: "flex",
@@ -104,12 +88,12 @@ const Bodysize = () => {
                 border: "2px solid #FE5E00",
                 color: "white",
               },
-              minHeight: "18rem",
-              height: "14rem",
+              minHeight: "16rem",
+              height: "18rem",
               minWidth: "16rem",
               alignItems: "center",
               borderRadius: "1rem",
-              mb:"1rem"
+              mr: { xs: "0", lg: "2rem" },
             }}
           >
             <Input
@@ -117,7 +101,7 @@ const Bodysize = () => {
               value={info.chest}
               sx={{
                 width: "8rem",
-                pt: "1rem",
+                pt: "2.5rem",
                 "& input[type=number]": {
                   MozAppearance: "textfield",
                 },
@@ -127,7 +111,7 @@ const Bodysize = () => {
                     margin: 0,
                   },
               }}
-              placeholder="Chest"
+              placeholder="Chest (cm)"
               type="number"
               required
             />
@@ -146,13 +130,13 @@ const Bodysize = () => {
                     margin: 0,
                   },
               }}
-              placeholder="Waist"
+              placeholder="Waist (cm)"
               type="number"
               required
             />
             <Input
-              onChange={(e) => setInfo({ ...info, arms: e.target.value })}
-              value={info.arms}
+              onChange={(e) => setInfo({ ...info, arm: e.target.value })}
+              value={info.arm}
               sx={{
                 width: "8rem",
                 pt: "1rem",
@@ -165,13 +149,13 @@ const Bodysize = () => {
                     margin: 0,
                   },
               }}
-              placeholder="Arms"
+              placeholder="Arm (cm)"
               type="number"
               required
             />
             <Input
-              onChange={(e) => setInfo({ ...info, thighs: e.target.value })}
-              value={info.thighs}
+              onChange={(e) => setInfo({ ...info, thigh: e.target.value })}
+              value={info.thigh}
               sx={{
                 width: "8rem",
                 pt: "1rem",
@@ -184,17 +168,17 @@ const Bodysize = () => {
                     margin: 0,
                   },
               }}
-              placeholder="Thighs"
+              placeholder="Thigh (cm)"
               type="number"
               required
             />
 
             <Button
-              onClick={addBodyMeasurements}
+              onClick={addSize}
               type="submit"
               variant="contained"
               sx={{
-                mt: 5,
+                mt: 2,
                 textAlign: "center",
                 backgroundColor: "#F2F2F2",
                 color: "#494b56",
@@ -209,16 +193,11 @@ const Bodysize = () => {
             >
               ADD
             </Button>
-            <Box sx={{ minWidth: "100%", mt: "0.2rem" }}>
+            <Box sx={{ minWidth: "100%", mt: "1.2rem" }}>
               <Typography
-                sx={{
-                  color: "red",
-                  fontSize: "0.7rem",
-                  p: "1rem",
-                  textAlign: "center",
-                }}
+                sx={{ color: "red", fontSize: "0.7rem", textAlign: "center" }}
               >
-                Please enter all body measurements.*
+                Please enter all required measurements.*
               </Typography>
             </Box>
           </Box>
@@ -230,38 +209,52 @@ const Bodysize = () => {
               width: "50rem",
               minHeight: "20rem",
               height: "16rem",
+              overflow: "scroll",
             }}
           >
             <ResponsiveContainer width="100%" height={300}>
-              <LineChart data={data}>
+              <LineChart data={chartData}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="date" />
-                <YAxis />
+                <YAxis
+                  domain={[0, "auto"]} 
+                  tickCount={6}
+                  tickFormatter={(value) => value.toFixed(0)}
+                  label={{
+                    value: "Size (cm)",
+                    angle: -90,
+                    position: "insideLeft",
+                  }}
+                />
                 <Tooltip />
                 <Legend />
                 <Line
                   type="monotone"
                   dataKey="chest"
                   stroke="#8884d8"
+                  strokeWidth={2}
                   name="Chest"
                 />
                 <Line
                   type="monotone"
                   dataKey="waist"
                   stroke="#82ca9d"
+                  strokeWidth={2}
                   name="Waist"
                 />
                 <Line
                   type="monotone"
-                  dataKey="arms"
+                  dataKey="arm"
                   stroke="#ffc658"
-                  name="Arms"
+                  strokeWidth={2}
+                  name="Arm"
                 />
                 <Line
                   type="monotone"
-                  dataKey="thighs"
+                  dataKey="thigh"
                   stroke="#ff7300"
-                  name="Thighs"
+                  strokeWidth={2}
+                  name="Thigh"
                 />
               </LineChart>
             </ResponsiveContainer>
@@ -272,4 +265,4 @@ const Bodysize = () => {
   );
 };
 
-export default Bodysize;
+export default SizeTracker;

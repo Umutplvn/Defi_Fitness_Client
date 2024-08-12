@@ -6,71 +6,46 @@ import { useSelector } from 'react-redux';
 import { toast } from 'react-hot-toast';
 
 const BMITracker = () => {
-  const { readProfile, createProfileInfo } = useAuthCall();
+  const { createBMI, listBMI } = useAuthCall();
   const [info, setInfo] = useState({ weight: "", height: "" });
-  const { userId, profile } = useSelector((state) => state.auth);
+  const { userId, BMI } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (userId) {
-      readProfile(userId);
+      listBMI();
     }
-  }, [userId]);
+  }, [userId, listBMI]);
 
-  const getFormattedData = (profileData) => {
-    return (profileData && Array.isArray(profileData)
-      ? profileData
-        .filter((item) => 
-          item.FMI && 
-          item.FMI.weight && 
-          item.FMI.height && 
-          item.createdAt
-        )
-        .map((item) => {
-          const weight = parseFloat(item.FMI.weight);
-          const height = parseFloat(item.FMI.height) / 100; 
-          const bmi = (weight / (height * height)).toFixed(2); 
-          return {
-            date: new Date(item.createdAt).toLocaleDateString(),
-            bmi: parseFloat(bmi),
-          };
-        })
-      : []
-    );
-  };
-
-  const [chartData, setChartData] = useState(getFormattedData(profile));
-
-  useEffect(() => {
-    setChartData(getFormattedData(profile));
-  }, [profile]);
-
-  const addFMIFunc = () => {
+  const addBMI = () => {
     if (!info.weight || !info.height) {
       return toast.error("Please enter required data!");
     } else {
-      createProfileInfo({ FMI: info })
-        .then(() => readProfile(userId)) 
-        .catch(error => toast.error("Failed to update profile"));
-      setInfo({ weight: "", height: "" });
+      createBMI({ weight: info.weight, height: info.height });
+      setInfo({ weight: "", height: "" })
     }
   };
+
+  const chartData = BMI?.map(item => ({
+    date: new Date(item.createdAt).toLocaleDateString(),
+    bmi: item.BMI,
+  }));
 
   return (
     <Box sx={{ pl: { xs: "0", sm: "4.5rem", md: "10rem" }, pt: "1rem" }}>
       <Box>
         <Typography
           sx={{
-            fontSize: "1.1rem",
+            fontSize: "1.2rem",
             textAlign: "center",
-            fontWeight: "600",
+            fontWeight: "700",
             fontFamily: "Montserrat",
-            mt:"1rem"
+            mt: "1rem"
           }}
         >
-          BMI Tracker
+          BMI TRACKER
         </Typography>
 
-        <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: 'center', p: "2rem", gap: "2rem" , mt:{xs:"0", lg:"1rem"}}}>
+        <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: 'center', p: "2rem", gap: "2rem", mt: { xs: "0", lg: "1rem" } }}>
           {/* Calculator */}
           <Box
             sx={{
@@ -87,7 +62,7 @@ const BMITracker = () => {
               minWidth: "16rem",
               alignItems: "center",
               borderRadius: "1rem",
-              mr:{xs:"0", lg:"2rem"}
+              mr: { xs: "0", lg: "2rem" }
             }}
           >
             <Input
@@ -128,7 +103,7 @@ const BMITracker = () => {
             />
 
             <Button
-              onClick={addFMIFunc}
+              onClick={addBMI}
               type="submit"
               variant="contained"
               sx={{
@@ -148,18 +123,24 @@ const BMITracker = () => {
               ADD
             </Button>
             <Box sx={{ minWidth: "100%", mt: "2.5rem" }}>
-              <Typography sx={{ color: "red", fontSize: "0.7rem", textAlign:"center" }}>
+              <Typography sx={{ color: "red", fontSize: "0.7rem", textAlign: "center" }}>
                 Please enter your height and weight.*
               </Typography>
             </Box>
           </Box>
+
           {/* Chart */}
-          <Box sx={{ minWidth: "22rem", width: "50rem", minHeight: "20rem", height: "16rem", overflow:"scroll" }}>
+          <Box sx={{ minWidth: "22rem", width: "50rem", minHeight: "20rem", height: "16rem", overflow: "scroll" }}>
             <ResponsiveContainer width="100%" height={300}>
               <LineChart data={chartData}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="date" />
-                <YAxis label={{ value: 'BMI', angle: -90, position: 'insideLeft' }} />
+                <YAxis
+                  domain={[20, 'auto']} 
+                  tickCount={6} 
+                  tickFormatter={(value) => value.toFixed(0)} 
+                  label={{ value: 'BMI', angle: -90, position: 'insideLeft' }}
+                />
                 <Tooltip />
                 <Legend />
                 <Line type="monotone" dataKey="bmi" stroke="#82ca9d" />

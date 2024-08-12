@@ -5,44 +5,31 @@ import useAuthCall from '../hooks/useAuthCall';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-hot-toast';
 
-const WorkoutPR = () => {
-  const { readProfile, createProfileInfo } = useAuthCall();
-  const [info, setInfo] = useState({ benchPress: "", deadLift: "", squat: "" });
-
-  const { userId, profile } = useSelector((state) => state.auth);
+const PRTracker = () => {
+  const { createPR, listPR } = useAuthCall();
+  const [info, setInfo] = useState({ bench: "", deadlift: "", squat: "" });
+  const { userId, PR } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (userId) {
-      readProfile(userId);
+      listPR();
     }
-  }, [userId, readProfile]);
+  }, []);
 
-  const addWorkoutPR = () => {
-    if (!info.benchPress || !info.deadLift || !info.squat) {
-      return toast.error("Please enter all required workout PRs!");
+  const addPR = () => {
+    if (!info.bench || !info.deadlift || !info.squat) {
+      return toast.error("Please enter all required data!");
     } else {
-      createProfileInfo({ PR: info });
-      setInfo({ benchPress: "", deadLift: "", squat: "" });
+      createPR({ bench: info.bench, deadlift: info.deadlift, squat: info.squat });
+      setInfo({ bench: "", deadlift: "", squat: "" });
     }
   };
 
-  const prData = profile?.flatMap((item) => {
-    if (item.PR) {
-      return {
-        date: new Date(item.createdAt).toLocaleDateString(),
-        benchPress: item.PR.benchPress,
-        deadLift: item.PR.deadLift,
-        squat: item.PR.squat,
-      };
-    }
-    return [];
-  }) || [];
-
-  const data = prData.map((entry) => ({
-    date: entry.date,
-    benchPress: parseFloat(entry.benchPress) || 0,
-    deadLift: parseFloat(entry.deadLift) || 0,
-    squat: parseFloat(entry.squat) || 0,
+  const chartData = PR?.map(item => ({
+    date: new Date(item.createdAt).toLocaleDateString(),
+    bench: item.bench,
+    deadlift: item.deadlift,
+    squat: item.squat,
   }));
 
   return (
@@ -50,17 +37,18 @@ const WorkoutPR = () => {
       <Box>
         <Typography
           sx={{
-            fontSize: "1.1rem",
+            fontSize: "1.2rem",
             textAlign: "center",
-            fontWeight: "600",
+            fontWeight: "700",
             fontFamily: "Montserrat",
+            mt: "1rem"
           }}
         >
-          Workout PR Tracker
+          PR TRACKER
         </Typography>
 
-        <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: 'center', p: "2rem", gap: "2rem" }}>
-          {/* Input Form */}
+        <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: 'center', p: {xs:"2rem", xl:"4rem"}, gap: "2rem", mt: { xs: "0", lg: "1rem" } }}>
+          {/* Calculator */}
           <Box
             sx={{
               display: "flex",
@@ -76,14 +64,15 @@ const WorkoutPR = () => {
               minWidth: "16rem",
               alignItems: "center",
               borderRadius: "1rem",
+              mr: { xs: "0", lg: "2rem" }
             }}
           >
             <Input
-              onChange={(e) => setInfo({ ...info, benchPress: e.target.value })}
-              value={info.benchPress}
+              onChange={(e) => setInfo({ ...info, bench: e.target.value })}
+              value={info.bench}
               sx={{
                 width: "8rem",
-                pt: "2rem",
+                pt: "2.5rem",
                 "& input[type=number]": {
                   MozAppearance: "textfield",
                 },
@@ -92,13 +81,13 @@ const WorkoutPR = () => {
                   margin: 0,
                 },
               }}
-              placeholder="Bench Press"
+              placeholder="Bench (kg)"
               type="number"
               required
             />
             <Input
-              onChange={(e) => setInfo({ ...info, deadLift: e.target.value })}
-              value={info.deadLift}
+              onChange={(e) => setInfo({ ...info, deadlift: e.target.value })}
+              value={info.deadlift}
               sx={{
                 width: "8rem",
                 pt: "1rem",
@@ -110,7 +99,7 @@ const WorkoutPR = () => {
                   margin: 0,
                 },
               }}
-              placeholder="Dead Lift"
+              placeholder="Deadlift (kg)"
               type="number"
               required
             />
@@ -128,13 +117,13 @@ const WorkoutPR = () => {
                   margin: 0,
                 },
               }}
-              placeholder="Squat"
+              placeholder="Squat (kg)"
               type="number"
               required
             />
 
             <Button
-              onClick={addWorkoutPR}
+              onClick={addPR}
               type="submit"
               variant="contained"
               sx={{
@@ -153,25 +142,30 @@ const WorkoutPR = () => {
             >
               ADD
             </Button>
-            <Box sx={{ minWidth: "100%", mt: "1rem" }}>
-              <Typography sx={{ color: "red", fontSize: "0.7rem", p: "1rem", textAlign:"center" }}>
-                Please enter all workout PRs.*
+            <Box sx={{ minWidth: "100%", mt: "1.5rem" }}>
+              <Typography sx={{ color: "red", fontSize: "0.7rem", textAlign: "center" }}>
+                Please enter all required lifts.*
               </Typography>
             </Box>
           </Box>
 
           {/* Chart */}
-          <Box sx={{ minWidth: "22rem", width: "50rem", minHeight: "20rem", height: "16rem" }}>
+          <Box sx={{ minWidth: "22rem", width: "50rem", minHeight: "20rem", height: "16rem", overflow: "scroll" }}>
             <ResponsiveContainer width="100%" height={300}>
-              <LineChart data={data}>
+              <LineChart data={chartData}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="date" />
-                <YAxis />
+                <YAxis
+                  domain={[0, 'auto']}
+                  tickCount={6}
+                  tickFormatter={(value) => value.toFixed(0)}
+                  label={{ value: 'Weight (kg)', angle: -90, position: 'insideLeft' }}
+                />
                 <Tooltip />
                 <Legend />
-                <Line type="monotone" dataKey="benchPress" stroke="#8884d8" name="Bench Press" />
-                <Line type="monotone" dataKey="deadLift" stroke="#82ca9d" name="Dead Lift" />
-                <Line type="monotone" dataKey="squat" stroke="#ffc658" name="Squat" />
+                <Line type="monotone" dataKey="bench" stroke="#8884d8" strokeWidth={2} name="Bench" />
+                <Line type="monotone" dataKey="deadlift" stroke="#82ca9d" strokeWidth={2} name="Deadlift" />
+                <Line type="monotone" dataKey="squat" stroke="#ff7300" strokeWidth={2} name="Squat" />
               </LineChart>
             </ResponsiveContainer>
           </Box>
@@ -181,4 +175,4 @@ const WorkoutPR = () => {
   );
 };
 
-export default WorkoutPR;
+export default PRTracker;

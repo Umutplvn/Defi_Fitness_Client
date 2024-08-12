@@ -24,7 +24,9 @@ export const authSlice = createSlice({
     workoutplan:"",
     dateOfBirth:"",
     gender:"",
-    profile:[]
+    size:[],
+    BMI:[],
+    PR:[]
   },
 
   reducers: {
@@ -79,10 +81,21 @@ export const authSlice = createSlice({
       state.users=payload.result
     },
 
-    profileSuccess:(state, { payload }) => {
+    sizeSuccess:(state, { payload }) => {
       state.loading = false;
       state.error = false;
-      state.profile=payload.Profile
+      state.size=payload.result
+    },
+
+    PRSuccess:(state, { payload }) => {
+      state.loading = false;
+      state.error = false;
+      state.PR=payload.result
+    },
+    BMISuccess:(state, { payload }) => {
+      state.loading = false;
+      state.error = false;
+      state.BMI=payload.result
     },
 
 
@@ -117,7 +130,10 @@ export const authSlice = createSlice({
     state.level="";
     state.workoutplan="";
     state.dateOfBirth="";
-    state.gender=""
+    state.gender="";
+    state.size=[];
+    state.BMI=[];
+    state.PR=[]
     },
 
   
@@ -140,7 +156,9 @@ export const {
   passwordUpdateSuccess,
   saveBlogSuccess,
   usersSuccess,
-  profileSuccess
+  BMISuccess,
+  sizeSuccess,
+  PRSuccess,
 
 } = authSlice.actions;
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Avatar, Box, Button, Typography } from "@mui/material";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
-import { ProfileBox, logStyle } from "../styles/globalStyle";
+import { ProfileBox } from "../styles/globalStyle";
 import useAuthCall from "../hooks/useAuthCall";
 import { useSelector } from "react-redux";
 import BasicModal from "../components/UpdateAvatar";
@@ -21,7 +21,7 @@ const Settings = () => {
   };
 
   return (
-    <Box sx={{ pl: { xs: "0", sm: "5.5rem", md: "11rem", height: "100vh" } }}>
+    <Box sx={{ pl: { xs: "0", sm: "5.5rem", md: "11rem"}, height: "100vh" }}>
       {/* Title */}
       <Typography
         sx={{
@@ -76,16 +76,12 @@ const Settings = () => {
             <AccountPage handleToggle={handleToggle} openIndex={openIndex} />
           )}{" "}
         </Box>
-      </Box>
 
-      <Box sx={logStyle}>
+      <Box sx={{  p:"1rem", display:"flex", justifyContent:"center"}}>
         <Button
           type="submit"
           variant="contained"
           sx={{
-            mb: 2,
-            pl: 4,
-            pr: 4,
             backgroundColor: "#F2F2F2",
             color: "#242424",
             borderRadius: "1rem",
@@ -102,6 +98,7 @@ const Settings = () => {
           <LogoutRoundedIcon sx={{ fontSize: "1rem" }} />
           LOGOUT
         </Button>
+      </Box>
       </Box>
     </Box>
   );
