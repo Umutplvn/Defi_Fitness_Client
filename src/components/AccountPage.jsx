@@ -21,7 +21,7 @@ const AccountPage = ({ handleToggle, openIndex }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
 
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   return (
     <Card
       sx={{
@@ -95,12 +95,11 @@ const AccountPage = ({ handleToggle, openIndex }) => {
                   gap: "1.5rem",
                 }}
               >
-                <Box>
+                <Box sx={{width:"100%", m:"auto"}}>
                   <Box
                     sx={{
                       display: "flex",
                       alignItems: "center",
-                      width: "28rem",
                       mt: "-1.5rem",
                       justifyContent: "space-between",
                     }}
@@ -127,7 +126,7 @@ const AccountPage = ({ handleToggle, openIndex }) => {
                     <Box>
                       <Button
                         type="submit"
-                        onClick={()=>navigate('/profile/changeplan')}
+                        onClick={() => navigate("/profile/changeplan")}
                         sx={{
                           textAlign: "center",
                           transition: "0.2s",
@@ -149,54 +148,58 @@ const AccountPage = ({ handleToggle, openIndex }) => {
                       </Button>
                     </Box>
                   </Box>
-                  <hr style={{ width: "28rem" }} />
-<>
-<BasicModal handleOpen={handleOpen} open={open}  setOpen={setOpen}/>
+                  <hr  />
+                  <Box >
+                    <BasicModal
+                      handleOpen={handleOpen}
+                      open={open}
+                      setOpen={setOpen}
+                    />
 
-                  <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      width: "28rem",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <Typography
+                    <Box
                       sx={{
-                        fontFamily: "Montserrat",
-                        fontWeight: "600",
-                        fontSize: "0.9rem",
-                      }}
-                    >
-                      Delete your account?
-                    </Typography>
-
-                    <Button
-                    onClick={handleOpen}
-                      type="submit"
-                      sx={{
-                        textAlign: "center",
-                        transition: "0.2s",
-                        color: "black",
-                        fontWeight: "600",
-                        fontSize: "0.9rem",
+                        width:'100%',
                         display: "flex",
-                        width: "4rem",
                         alignItems: "center",
-                        justifyContent: "center",
-                        "&:hover": {
-                          color: "red",
-                          backgroundColor: "transparent",
-                        },
+                        justifyContent: "space-between",
                       }}
                     >
-                      <HighlightOffIcon
-                        sx={{ fontSize: "1rem", mr: "0.2rem" }}
-                      />
-                      YES
-                    </Button>
+                      <Typography
+                        sx={{
+                          fontFamily: "Montserrat",
+                          fontWeight: "600",
+                          fontSize: "0.9rem",
+                        }}
+                      >
+                        Delete your account?
+                      </Typography>
+
+                      <Button
+                        onClick={handleOpen}
+                        type="submit"
+                        sx={{
+                          textAlign: "center",
+                          transition: "0.2s",
+                          color: "black",
+                          fontWeight: "600",
+                          fontSize: "0.9rem",
+                          display: "flex",
+                          width: "4rem",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          "&:hover": {
+                            color: "red",
+                            backgroundColor: "transparent",
+                          },
+                        }}
+                      >
+                        <HighlightOffIcon
+                          sx={{ fontSize: "1rem", mr: "0.2rem" }}
+                        />
+                        YES
+                      </Button>
+                    </Box>
                   </Box>
-</>
                 </Box>
               </Box>
             </Container>

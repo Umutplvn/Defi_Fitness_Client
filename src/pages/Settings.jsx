@@ -21,7 +21,7 @@ const Settings = () => {
   };
 
   return (
-    <Box sx={{ pl: { xs: "0", sm: "5.5rem", md: "11rem", height:"100vh" } }}>
+    <Box sx={{ pl: { xs: "0", sm: "5.5rem", md: "11rem", height: "100vh" } }}>
       {/* Title */}
       <Typography
         sx={{
@@ -36,7 +36,7 @@ const Settings = () => {
       >
         Settings
       </Typography>
-      <Box>
+      <Box sx={{maxWidth:"1400px", m:"auto"}}>
         <BasicModal setOpen={setOpen} open={open} avatar={avatar} />
 
         <Box sx={ProfileBox}>
@@ -50,7 +50,7 @@ const Settings = () => {
             onClick={handleOpen}
           >
             <Avatar
-              sx={{ width: "3.5rem", height: "3.5rem", cursor:"pointer" }}
+              sx={{ width: "3.5rem", height: "3.5rem", cursor: "pointer" }}
               src={avatar}
             ></Avatar>
             <Typography
@@ -72,8 +72,10 @@ const Settings = () => {
         <Box sx={{ padding: "1rem" }}>
           <UpdateUserInfo handleToggle={handleToggle} openIndex={openIndex} />
           <ChangePass handleToggle={handleToggle} openIndex={openIndex} />
-{ !isAdmin  &&      <AccountPage handleToggle={handleToggle} openIndex={openIndex}/> 
-}        </Box>
+          {!isAdmin && (
+            <AccountPage handleToggle={handleToggle} openIndex={openIndex} />
+          )}{" "}
+        </Box>
       </Box>
 
       <Box sx={logStyle}>
@@ -89,7 +91,7 @@ const Settings = () => {
             borderRadius: "1rem",
             width: "8rem",
             transition: "0.4s",
-            cursor:"pointer",
+            cursor: "pointer",
             "&:hover": {
               backgroundColor: "black",
               color: "white",

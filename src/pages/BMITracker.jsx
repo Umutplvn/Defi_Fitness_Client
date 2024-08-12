@@ -95,7 +95,7 @@ const BMITracker = () => {
               value={info.weight}
               sx={{
                 width: "8rem",
-                pt: "2rem",
+                pt: "2.5rem",
                 "& input[type=number]": {
                   MozAppearance: "textfield",
                 },
@@ -132,7 +132,7 @@ const BMITracker = () => {
               type="submit"
               variant="contained"
               sx={{
-                mt: 4,
+                mt: 8,
                 textAlign: "center",
                 backgroundColor: "#F2F2F2",
                 color: "#494b56",
@@ -147,8 +147,8 @@ const BMITracker = () => {
             >
               ADD
             </Button>
-            <Box sx={{ minWidth: "100%", mt: "1rem" }}>
-              <Typography sx={{ color: "red", fontSize: "0.7rem", p: "1rem" }}>
+            <Box sx={{ minWidth: "100%", mt: "2.5rem" }}>
+              <Typography sx={{ color: "red", fontSize: "0.7rem", textAlign:"center" }}>
                 Please enter your height and weight.*
               </Typography>
             </Box>
