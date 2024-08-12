@@ -201,6 +201,33 @@ toast.success("Profile updated successfully")
     }
   };
 
+  //! READ A PROFILE
+  const readProfile = async (userId) => {
+    dispatch(fetchStart());
+    try {
+      const { data } = await axiosWithToken.get(
+        `${process.env.REACT_APP_BASE_URL}/profile/${userId}`
+      );
+      console.log("profile",data);
+    } catch (error) {
+      dispatch(fetchFail());
+    }
+  };
+
+
+  //! CREATE PROFILE INFO
+  const createProfileInfo = async (info) => {
+    dispatch(fetchStart());
+    try {
+      const { data } = await axiosWithToken.post(
+        `${process.env.REACT_APP_BASE_URL}/profile/`, info
+
+      );
+      console.log("profile",data);
+    } catch (error) {
+      dispatch(fetchFail());
+    }
+  };
 
   //! SAVE BLOG
   const saveBlog = async (blogId) => {
@@ -265,7 +292,9 @@ toast.success("Profile updated successfully")
     saveBlog,
     updateUser,
     readUser,
-    deleteAccount
+    deleteAccount,
+    readProfile,
+    createProfileInfo
   };
 };
 
