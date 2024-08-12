@@ -107,19 +107,19 @@ const Chat = () => {
         setMessage("");
         setImage(null);
         setVideo(null);
-        setFile(null)
+        setFile(null);
         toast.success("File uploaded successfully");
       } catch (err) {
         console.error("File upload failed", err);
         toast.error("File upload failed");
-      }finally {
+      } finally {
         setLoading(false);
       }
       return;
     }
     //! DOCUMENT END
 
-    // ! MESSAGE || IMAGE || VIDEO
+    // ! MESSAGE || !IMAGE || !VIDEO
     if (!message.trim() && !image && !video) {
       return;
     }
@@ -190,21 +190,19 @@ const Chat = () => {
     setFile(e.target.files[0]);
   };
 
-
   const ShortenedText = ({ text }) => {
     if (text.length <= 9) {
       return <Typography>{text}</Typography>;
     }
-      const firstFive = text.substring(0, 5);
+    const firstFive = text.substring(0, 5);
     const lastFour = text.substring(text.length - 4);
-  
+
     return (
       <Typography>
         {firstFive}...{lastFour}
       </Typography>
     );
   };
-
 
   return (
     <Box
@@ -406,6 +404,8 @@ const Chat = () => {
                         alignItems: "center",
                         overflow: "scroll",
                         backgroundColor: "#efefef",
+                        marginRight: "1.1rem",
+                        marginLeft:"1.1rem",
                         boxShadow:
                           "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
                         backdropFilter: "blur(10px)",
@@ -489,6 +489,8 @@ const Chat = () => {
                         alignItems: "center",
                         overflow: "scroll",
                         backgroundColor: "#efefef",
+                        marginRight: "1.1rem",
+                        marginLeft:"1.1rem",
                         boxShadow:
                           "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
                         backdropFilter: "blur(10px)",
@@ -567,6 +569,8 @@ const Chat = () => {
                         flexDirection: "column",
                         overflow: "scroll",
                         backgroundColor: "white",
+                        marginRight: "1.1rem",
+                        marginLeft:"1.1rem",
                         boxShadow:
                           "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
                         backdropFilter: "blur(10px)",
@@ -631,7 +635,7 @@ const Chat = () => {
                         <img style={{ width: "100px" }} src={documentSvg} />
                       </IconButton>
                       <ShortenedText text={msg.file} />
-                 </Box>
+                    </Box>
                   </Box>
                 )}
               </ListItem>
@@ -696,11 +700,26 @@ const Chat = () => {
               "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
           }}
         >
-                  {(image||video) && (
-        <Typography sx={{position:"fixed", marginTop: "-1.7rem", left:"2.5rem",color: "white", backgroundColor:"#94cf70", borderRadius:"50%", fontSize:"0.7rem", width:"0.9rem", height:"0.9rem", display:"flex", justifyContent:'center', alignItems:"center"}}>
-         1
-        </Typography>
-      )}
+          {(image || video) && (
+            <Typography
+              sx={{
+                position: "fixed",
+                marginTop: "-1.7rem",
+                left: "2.5rem",
+                color: "white",
+                backgroundColor: "#94cf70",
+                borderRadius: "50%",
+                fontSize: "0.7rem",
+                width: "0.9rem",
+                height: "0.9rem",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              1
+            </Typography>
+          )}
           <input
             type="file"
             id="file-upload"
@@ -712,14 +731,28 @@ const Chat = () => {
             <IconButton component="span">
               <LocalSeeIcon sx={{ color: "black" }} />
             </IconButton>
-  
           </label>
           {file && (
-        <Typography sx={{position:"fixed", marginTop: "-1.7rem", left:"5.5rem",color: "white", backgroundColor:"#94cf70", borderRadius:"50%", fontSize:"0.7rem", width:"0.9rem", height:"0.9rem", display:"flex", justifyContent:'center', alignItems:"center"}}>
-         1
-        </Typography>
-      )}
-          <form onSubmit={handleSubmit} >
+            <Typography
+              sx={{
+                position: "fixed",
+                marginTop: "-1.7rem",
+                left: "5.5rem",
+                color: "white",
+                backgroundColor: "#94cf70",
+                borderRadius: "50%",
+                fontSize: "0.7rem",
+                width: "0.9rem",
+                height: "0.9rem",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              1
+            </Typography>
+          )}
+          <form onSubmit={handleSubmit}>
             <IconButton component="label">
               <AttachFileIcon />
               <input
