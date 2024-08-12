@@ -8,19 +8,28 @@ import { useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
 import useAuthCall from "../hooks/useAuthCall";
 import { useMediaQuery, createTheme } from '@mui/material';
+import { useEffect } from "react";
 
 
 export default function BasicModal({ setOpen, open }) {
   const [info, setInfo] = useState({ workoutplan: "", userId: "", level: "" });
   const { users } = useSelector((state) => state?.auth);
-  const { updateWorkoutPlan } = useAuthCall();
+  const { updateWorkoutPlan, listUsers } = useAuthCall();
   const theme = createTheme();
   const isXs = useMediaQuery(theme.breakpoints.down('sm'));
+
+  useEffect(() => {
+    listUsers()
+  }, [])
+  
+
 
   const handleClose = () => {
     setOpen(false);
     setInfo({ workoutplan: "", userId: "", level: "" });
   };
+
+  console.log(users);
 
   const style = {
     position: "absolute",

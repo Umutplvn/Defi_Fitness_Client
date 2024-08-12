@@ -2,16 +2,18 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { useSelector } from "react-redux";
+import { Link } from "@mui/material";
 
 const WorkoutProgram = () => {
-  const { name, workoutplan } = useSelector((state) => state.auth);
+  const { name, workoutplan, membership } = useSelector((state) => state.auth);
   const formatName = (name) => {
     if (!name) return "";
     return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
   };
   return (
     <Box sx={{width:"100%", display:"flex", justifyContent:"center",  pt: "3rem", pr:"2rem", pl: { xs: "2rem", sm: "6.5rem", md: "12rem" } }}>
-      {workoutplan ? (
+   {membership=="Premium" ? <Box sx={{width:"100%"}}>
+   {workoutplan ? (
         <Typography sx={{maxWidth:"40rem", fontFamily: "Montserrat", fontWeight: "500" }}>
           Hey {formatName(name)}, <br />
           <br /> Your new workout plan is ready! <br />
@@ -50,6 +52,22 @@ const WorkoutProgram = () => {
         
         </Typography>
       )}
+   </Box>:
+   <Typography sx={{ maxWidth: "40rem", fontFamily: "Montserrat", fontWeight: "500" }}>
+  Dear {formatName(name)}, <br />
+  <br />
+  We regret to inform you that your current membership plan is Basic, which does not include access to the workout program. <br />
+  <br />
+  To benefit from our workout programs, please consider upgrading your membership to a plan that includes these features. You can view and update your plan by visiting our <Link href="/profile/changeplan" sx={{ color: "#2A75D1", textDecoration: "underline" }}>plans page</Link>. <br />
+  <br />
+  Thank you for your understanding. <br />
+  <br />
+  <Typography sx={{ fontWeight: "600", fontFamily: "Montserrat" }}>
+    Best regards, <br />
+    Your Fitness Coach
+  </Typography>
+</Typography>
+   }
     </Box>
   );
 };
