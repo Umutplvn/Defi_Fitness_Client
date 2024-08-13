@@ -1,28 +1,33 @@
 // src/components/CheckoutButton.js
 import React from 'react';
 import { Button } from '@mui/material';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
 
-const CheckoutButton = ({ priceId }) => {
+const CheckoutButton = () => {
+  const {userId} =useSelector((state)=>state.auth) 
+  const priceId = "price_1PnABkP3dSOC4uCmWjEsUf3p";
+  const publicKey = "pk_test_51Pn9FyP3dSOC4uCmkRJQFsEvnDJQSLarGeZzKIjjYh488gsvLNNUyHjToy1o6BlQ3aHw8GfAnnVzHYx3AP1dBHiv00GG187Rwo";
+
   const handleClick = async () => {
+    try {
+      const response = await axios.post(`https://defi-fitness-api.onrender.com/api/create-checkout-session`, { priceId, userId });
 
-    const response = await fetch('/api/create-checkout-session', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ priceId }),
-    });
+      const { sessionId } = response.data;
 
-    if (!response.ok) {
-      console.error('Failed to create checkout session');
-      return;
+      const stripe = window.Stripe(publicKey);
+      if (stripe) {
+        await stripe.redirectToCheckout({ sessionId });
+      } else {
+        console.error('Stripe not loaded');
+      }
+    } catch (error) {
+      console.error('Failed to create checkout session', error);
     }
-
-    const { sessionId } = await response.json();
-    const stripe = window.Stripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY); 
-    await stripe.redirectToCheckout({ sessionId });
   };
 
   return (
-    <Button variant="contained" color="primary" onClick={handleClick}>
+    <Button variant="contained" sx={{backgroundColor:"#9e9e9e"}}  onClick={handleClick}>
       Upgrade
     </Button>
   );

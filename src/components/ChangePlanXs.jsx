@@ -41,12 +41,11 @@ const CustomCarouselNext = styled("button")({
 });
 
 function ChangePlanXs() {
-
   const navigate = useNavigate();
   const carouselRef = useRef(null);
   const theme = createTheme();
   const { membership } = useSelector((state) => state.auth);
-  const PREMIUM_PRICE_ID = "price_1PnABkP3dSOC4uCmWjEsUf3p";  
+  const PREMIUM_PRICE_ID = "price_1PnABkP3dSOC4uCmWjEsUf3p";
 
   const cards = [
     {
@@ -156,18 +155,19 @@ function ChangePlanXs() {
                       {card.price}
                     </Typography>
 
-{card.subtitle=="Premium" ? 
-<>
-{membership == "Premium" ?
-  <Button   variant="soft"
-  color="neutral">Cancel</Button>:                <CheckoutButton priceId={PREMIUM_PRICE_ID} />
-
- }
-</>
- :<Typography></Typography>
-
-}
-                  
+                    {card.subtitle == "Premium" ? (
+                      <>
+                        {membership == "Premium" ? (
+                          <Button variant="soft" color="neutral">
+                            Cancel
+                          </Button>
+                        ) : (
+                          <CheckoutButton priceId={PREMIUM_PRICE_ID} />
+                        )}
+                      </>
+                    ) : (
+                      <Typography></Typography>
+                    )}
                   </CardActions>
                 </Card>
               </Box>
