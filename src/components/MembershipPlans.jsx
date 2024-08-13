@@ -127,7 +127,7 @@ export default function MembershipPlans() {
        <Divider inset="none" />
        <CardActions>
          <Typography level="title-lg" sx={{ mr: "auto" }}>
-           20${" "}
+           19.99${" "}
            <Typography fontSize="sm" textColor="text.tertiary">
              / month
            </Typography>

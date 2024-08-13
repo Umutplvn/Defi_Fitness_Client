@@ -27,7 +27,11 @@ const CheckoutButton = () => {
   };
 
   return (
-    <Button variant="contained" sx={{backgroundColor:"#9e9e9e"}}  onClick={handleClick}>
+    <Button  variant="soft"
+    color="neutral"
+
+    sx={{"&:hover":{backgroundColor:"#5b5b5b"}, backgroundColor:"#9a9a9a"}}
+  onClick={handleClick}>
       Upgrade
     </Button>
   );

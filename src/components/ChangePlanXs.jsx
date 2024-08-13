@@ -64,7 +64,7 @@ function ChangePlanXs() {
     {
       title: "PRO",
       subtitle: "Premium",
-      price: "20$ / month",
+      price: "19.99$ / month",
       features: [
         "Access to exclusive blogs",
         "Monthly workout plans",
