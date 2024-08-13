@@ -1,33 +1,51 @@
-import { Box, Button, Input, Typography } from '@mui/material';
+import { Box, Button, Input, Typography, Menu, MenuItem, IconButton } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import useAuthCall from '../hooks/useAuthCall';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-hot-toast';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 const BMITracker = () => {
-  const { createBMI, listBMI } = useAuthCall();
+  const { createBMI, listBMI, deleteBMI } = useAuthCall();
   const [info, setInfo] = useState({ weight: "", height: "" });
   const { userId, BMI } = useSelector((state) => state.auth);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [selectedItem, setSelectedItem] = useState(null);
 
   useEffect(() => {
     if (userId) {
       listBMI();
     }
-  }, [userId, listBMI]);
+  }, []);
 
   const addBMI = () => {
     if (!info.weight || !info.height) {
       return toast.error("Please enter required data!");
     } else {
       createBMI({ weight: info.weight, height: info.height });
-      setInfo({ weight: "", height: "" })
+      setInfo({ weight: "", height: "" });
     }
+  };
+
+  const handleMenuClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleDelete = () => {
+      deleteBMI();
+      setSelectedItem(null);
+      handleClose();
   };
 
   const chartData = BMI?.map(item => ({
     date: new Date(item.createdAt).toLocaleDateString(),
     bmi: item.BMI,
+    id: item._id,
   }));
 
   return (
@@ -130,15 +148,48 @@ const BMITracker = () => {
           </Box>
 
           {/* Chart */}
-          <Box sx={{ minWidth: "22rem", width: "50rem", minHeight: "20rem", height: "16rem", overflow: "scroll" }}>
+          <Box sx={{ minWidth: "22rem", width: "50rem", minHeight: "22rem", height: "16rem", overflow: "scroll" }}>
+            <IconButton onClick={handleMenuClick} >
+              <MoreHorizIcon />
+            </IconButton>
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+              PaperProps={{
+                sx: {
+                  borderRadius: '12px',
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                },
+              }}
+            >
+              <MenuItem
+                onClick={handleDelete}
+                sx={{
+                  fontSize: "0.85rem",
+                  fontFamily: "Montserrat",
+                  padding: '-12px -20px',
+                  borderBottom: '1px solid #f0f0f0',
+                  '&:last-child': {
+                    borderBottom: 'none',
+                  },
+                  '&:hover': {
+                    backgroundColor: '#f7f7f7',
+                  },
+                }}
+              >
+                Delete Data
+              </MenuItem>
+            </Menu>
+
             <ResponsiveContainer width="100%" height={300}>
-              <LineChart data={chartData}>
+              <LineChart data={chartData} onClick={(data) => setSelectedItem(data.activePayload[0].payload)}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="date" />
                 <YAxis
-                  domain={[20, 'auto']} 
-                  tickCount={6} 
-                  tickFormatter={(value) => value.toFixed(0)} 
+                  domain={[20, 'auto']}
+                  tickCount={6}
+                  tickFormatter={(value) => value.toFixed(0)}
                   label={{ value: 'BMI', angle: -90, position: 'insideLeft' }}
                 />
                 <Tooltip />

@@ -13,6 +13,7 @@ import settingsvg from "../assets/settings.svg"
 import ReactStars from "react-stars";
 import { useSelector } from "react-redux";
 import bmiSvg from "../assets/line-chart-data-svgrepo-com (1).svg"
+
 const Profile = () => {
 
   const navigate = useNavigate();
@@ -103,6 +104,7 @@ const {level, avatar}=useSelector((state)=>state.auth)
           },
         }}
       >
+
         <CardMedia
           sx={{ height: "60px", width: "60px" }}
           image={item.image}

@@ -1,4 +1,4 @@
-import { Box, Button, Input, Typography } from "@mui/material";
+import { Box, Button, Input, Typography, Menu, MenuItem, IconButton  } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import {
   LineChart,
@@ -13,9 +13,12 @@ import {
 import useAuthCall from "../hooks/useAuthCall";
 import { useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 const SizeTracker = () => {
-  const { createSize, listSize } = useAuthCall();
+  const { createSize, listSize, deleteSize } = useAuthCall();
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [selectedItem, setSelectedItem] = useState(null);
   const [info, setInfo] = useState({
     chest: "",
     waist: "",
@@ -42,6 +45,19 @@ const SizeTracker = () => {
       });
       setInfo({ chest: "", waist: "", arm: "", thigh: "" });
     }
+  };
+  const handleMenuClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleDelete = () => {
+    deleteSize()
+      setSelectedItem(null);
+      handleClose();
   };
 
   const chartData = size?.map((item) => ({
@@ -207,11 +223,44 @@ const SizeTracker = () => {
             sx={{
               minWidth: "22rem",
               width: "50rem",
-              minHeight: "20rem",
+              minHeight: "22rem",
               height: "16rem",
               overflow: "scroll",
             }}
           >
+             <IconButton onClick={handleMenuClick} >
+              <MoreHorizIcon />
+            </IconButton>
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+              PaperProps={{
+                sx: {
+                  borderRadius: '12px',
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                },
+              }}
+            >
+              <MenuItem
+                onClick={handleDelete}
+                sx={{
+                  fontSize: "0.85rem",
+                  fontFamily: "Montserrat",
+                  padding: '-12px -20px',
+                  borderBottom: '1px solid #f0f0f0',
+                  '&:last-child': {
+                    borderBottom: 'none',
+                  },
+                  '&:hover': {
+                    backgroundColor: '#f7f7f7',
+                  },
+                }}
+              >
+                Delete Data
+              </MenuItem>
+            </Menu>
+
             <ResponsiveContainer width="100%" height={300}>
               <LineChart data={chartData}>
                 <CartesianGrid strokeDasharray="3 3" />
