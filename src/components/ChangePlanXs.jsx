@@ -18,6 +18,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { styled } from "@mui/material/styles";
 import { createTheme } from "@mui/material";
 import { useSelector } from "react-redux";
+import CheckoutButton from "./CheckoutButton";
 
 const CustomCarouselPrev = styled("button")({
   position: "relative",
@@ -40,10 +41,13 @@ const CustomCarouselNext = styled("button")({
 });
 
 function ChangePlanXs() {
+
   const navigate = useNavigate();
   const carouselRef = useRef(null);
   const theme = createTheme();
   const { membership } = useSelector((state) => state.auth);
+  const PREMIUM_PRICE_ID = "price_1PnABkP3dSOC4uCmWjEsUf3p";  
+
   const cards = [
     {
       title: "Standard",
@@ -156,8 +160,8 @@ function ChangePlanXs() {
 <>
 {membership == "Premium" ?
   <Button   variant="soft"
-  color="neutral">Cancel</Button>:<Button   variant="soft"
-  color="neutral">Upgrade</Button>
+  color="neutral">Cancel</Button>:                <CheckoutButton priceId={PREMIUM_PRICE_ID} />
+
  }
 </>
  :<Typography></Typography>
