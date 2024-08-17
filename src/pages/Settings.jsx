@@ -11,7 +11,7 @@ import AccountPage from "../components/AccountPage";
 
 const Settings = () => {
   const [openIndex, setOpenIndex] = useState(null);
-  const { logout,readUser } = useAuthCall();
+  const { logout } = useAuthCall();
   const { avatar, isAdmin,userId } = useSelector((state) => state?.auth);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -19,10 +19,6 @@ const Settings = () => {
   const handleToggle = (index) => {
     setOpenIndex((prevIndex) => (prevIndex === index ? null : index));
   };
-
-  useEffect(() => {
-    readUser(userId);
-  }, []);
 
 
   return (

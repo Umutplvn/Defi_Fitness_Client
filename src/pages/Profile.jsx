@@ -17,8 +17,15 @@ import useAuthCall from "../hooks/useAuthCall";
 
 const Profile = () => {
   const navigate = useNavigate();
-  const {level, avatar}=useSelector((state)=>state.auth)
- 
+  const {level, avatar,userId}=useSelector((state)=>state.auth)
+
+  const {readUser}=useAuthCall()
+  
+  useEffect(() => {
+    readUser(userId);
+  }, []);
+
+
 
   const Data = [
 

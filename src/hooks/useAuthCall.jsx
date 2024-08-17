@@ -192,7 +192,7 @@ const useAuthCall = () => {
       const { data } = await axiosWithToken.get(
         `${process.env.REACT_APP_BASE_URL}/users/${userId}`
       );
-      readMembershipSuccess(data);
+      dispatch(readMembershipSuccess(data))
       console.log("Data", data);
     } catch (error) {
       dispatch(fetchFail());

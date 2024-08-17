@@ -15,14 +15,13 @@ import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import { useNavigate } from "react-router-dom";
 import BasicModal from "./DelAccModal";
 import { useState } from "react";
+import useAuthCall from "../hooks/useAuthCall";
 
 const AccountPage = ({ handleToggle, openIndex }) => {
   const { membership } = useSelector((state) => state?.auth);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
-  
-
-
+ 
   const navigate = useNavigate();
   return (
     <Card
