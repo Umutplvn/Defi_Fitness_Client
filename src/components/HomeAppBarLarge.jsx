@@ -188,7 +188,7 @@ const HomeAppBarLarge = () => {
           </Typography>
         </Link>}
         {/* PAID CONTENT */}
-        <Link
+        {/* <Link
           to="/paidcontent"
           style={{
             display: "flex",
@@ -208,7 +208,7 @@ const HomeAppBarLarge = () => {
           >
             Exclusive
           </Typography>
-        </Link>
+        </Link> */}
              {/* PROFILE */}
        {isAdmin ?   <Link
           to="/profile/settings"
