@@ -28,11 +28,11 @@ const AdminPanel = () => {
       title: "Workout Plan",
       link: "/adminpanel/workoutplan",
     },
-    {
-      image: premium,
-      title: "Paid Plan",
-      link: "/adminpanel/createpaidplan",
-    },
+    // {
+    //   image: premium,
+    //   title: "Paid Plan",
+    //   link: "/adminpanel/createpaidplan",
+    // },
 
     {
       image: members,
