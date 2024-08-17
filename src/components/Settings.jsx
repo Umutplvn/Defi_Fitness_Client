@@ -1,18 +1,15 @@
 import { Box, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import "../styles/aboutCarousel.css";
 import { GiArmorUpgrade } from "react-icons/gi";
 import EditIcon from "@mui/icons-material/Edit";
 import DiamondIcon from "@mui/icons-material/Diamond";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import HttpsRoundedIcon from '@mui/icons-material/HttpsRounded';
+import HttpsRoundedIcon from "@mui/icons-material/HttpsRounded";
 
 const Settings = () => {
-  const { membership } = useSelector(
-    (state) => state?.auth
-  );
-
+  const { membership } = useSelector((state) => state?.auth);
 
   return (
     <Box
@@ -24,7 +21,7 @@ const Settings = () => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: "1rem"
+        gap: "1rem",
       }}
     >
       <Box
@@ -74,7 +71,7 @@ const Settings = () => {
           </Typography>
         </Box>
       </Box>
-{/* Account */}
+      {/* Account */}
       <Box
         sx={{
           width: "80%",
@@ -119,8 +116,8 @@ const Settings = () => {
           Edit Profile
         </Typography>
       </Box>
-      
-{/*  Subscription */}
+
+      {/*  Subscription */}
 
       <Box
         sx={{
@@ -186,7 +183,7 @@ const Settings = () => {
           Cancel subscription
         </Typography>
       </Box>
-{/*  Security and Privacy */}
+      {/*  Security and Privacy */}
       <Box
         sx={{
           width: "80%",

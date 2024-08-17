@@ -14,7 +14,8 @@ import {
   usersSuccess,
   BMISuccess,
   sizeSuccess,
-  PRSuccess
+  PRSuccess,
+  readMembershipSuccess,
 } from "../features/authSlice";
 import { logoutDataSuccess } from "../features/dataSlice";
 const useAuthCall = () => {
@@ -191,11 +192,12 @@ const useAuthCall = () => {
       const { data } = await axiosWithToken.get(
         `${process.env.REACT_APP_BASE_URL}/users/${userId}`
       );
+      readMembershipSuccess(data);
+      console.log("Data", data);
     } catch (error) {
       dispatch(fetchFail());
     }
   };
-
 
   //! LIST BMI
   const listBMI = async () => {
@@ -232,7 +234,7 @@ const useAuthCall = () => {
       await axiosWithToken.delete(
         `${process.env.REACT_APP_BASE_URL}/bmi/deleteall`
       );
-      listBMI()
+      listBMI();
       toast.success("BMI history successfully deleted.");
     } catch (error) {
       dispatch(fetchFail());
@@ -240,46 +242,42 @@ const useAuthCall = () => {
     }
   };
 
+  //! LIST SIZE
+  const listSize = async () => {
+    dispatch(fetchStart());
+    try {
+      const { data } = await axiosWithToken.get(
+        `${process.env.REACT_APP_BASE_URL}/size/list`
+      );
+      dispatch(sizeSuccess(data));
+    } catch (error) {
+      dispatch(fetchFail());
+    }
+  };
 
+  //! CREATE SIZE
+  const createSize = async (info) => {
+    dispatch(fetchStart());
+    try {
+      const { data } = await axiosWithToken.post(
+        `${process.env.REACT_APP_BASE_URL}/size/`,
+        info
+      );
+      listSize();
+      toast.success("Data added successfully");
+    } catch (error) {
+      dispatch(fetchFail());
+    }
+  };
 
-
-    //! LIST SIZE
-    const listSize = async () => {
-      dispatch(fetchStart());
-      try {
-        const { data } = await axiosWithToken.get(
-          `${process.env.REACT_APP_BASE_URL}/size/list`
-        );
-        dispatch(sizeSuccess(data));
-      } catch (error) {
-        dispatch(fetchFail());
-      }
-    };
-  
-    //! CREATE SIZE
-    const createSize = async (info) => {
-      dispatch(fetchStart());
-      try {
-        const { data } = await axiosWithToken.post(
-          `${process.env.REACT_APP_BASE_URL}/size/`,
-          info
-        );
-        listSize();
-        toast.success("Data added successfully");
-      } catch (error) {
-        dispatch(fetchFail());
-      }
-    };
-
-
-      //! DELETE SIZE HISTORY
+  //! DELETE SIZE HISTORY
   const deleteSize = async () => {
     dispatch(fetchStart());
     try {
       await axiosWithToken.delete(
         `${process.env.REACT_APP_BASE_URL}/size/deleteall`
       );
-      listSize()
+      listSize();
       toast.success("Body size history successfully deleted.");
     } catch (error) {
       dispatch(fetchFail());
@@ -287,52 +285,48 @@ const useAuthCall = () => {
     }
   };
 
+  //! LIST PR
+  const listPR = async () => {
+    dispatch(fetchStart());
+    try {
+      const { data } = await axiosWithToken.get(
+        `${process.env.REACT_APP_BASE_URL}/pr/list`
+      );
+      dispatch(PRSuccess(data));
+    } catch (error) {
+      dispatch(fetchFail());
+    }
+  };
 
+  //! CREATE PR
+  const createPR = async (info) => {
+    dispatch(fetchStart());
+    try {
+      const { data } = await axiosWithToken.post(
+        `${process.env.REACT_APP_BASE_URL}/pr/`,
+        info
+      );
+      listPR();
+      toast.success("Data added successfully");
+    } catch (error) {
+      dispatch(fetchFail());
+    }
+  };
 
-
-        //! LIST PR
-        const listPR = async () => {
-          dispatch(fetchStart());
-          try {
-            const { data } = await axiosWithToken.get(
-              `${process.env.REACT_APP_BASE_URL}/pr/list`
-            );
-            dispatch(PRSuccess(data));
-          } catch (error) {
-            dispatch(fetchFail());
-          }
-        };
-      
-        //! CREATE PR
-        const createPR = async (info) => {
-          dispatch(fetchStart());
-          try {
-            const { data } = await axiosWithToken.post(
-              `${process.env.REACT_APP_BASE_URL}/pr/`,
-              info
-            );
-            listPR();
-            toast.success("Data added successfully");
-          } catch (error) {
-            dispatch(fetchFail());
-          }
-        };
-
-        //! DELETE PR HISTORY
-        const deletePR = async () => {
-          dispatch(fetchStart());
-          try {
-            await axiosWithToken.delete(
-              `${process.env.REACT_APP_BASE_URL}/pr/deleteall`
-            );
-            listPR()
-            toast.success("PR history successfully deleted.");
-          } catch (error) {
-            dispatch(fetchFail());
-            toast.error("Delete failed!");
-          }
-        };
-      
+  //! DELETE PR HISTORY
+  const deletePR = async () => {
+    dispatch(fetchStart());
+    try {
+      await axiosWithToken.delete(
+        `${process.env.REACT_APP_BASE_URL}/pr/deleteall`
+      );
+      listPR();
+      toast.success("PR history successfully deleted.");
+    } catch (error) {
+      dispatch(fetchFail());
+      toast.error("Delete failed!");
+    }
+  };
 
   //! SAVE BLOG
   const saveBlog = async (blogId) => {
@@ -402,7 +396,7 @@ const useAuthCall = () => {
     createPR,
     deleteBMI,
     deletePR,
-    deleteSize
+    deleteSize,
   };
 };
 

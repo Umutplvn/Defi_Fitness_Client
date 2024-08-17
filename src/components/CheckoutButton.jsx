@@ -12,10 +12,9 @@ const CheckoutButton = () => {
   const handleClick = async () => {
     try {
       const response = await axios.post(`https://defi-fitness-api.onrender.com/api/create-checkout-session`, { priceId, userId, email });
-console.log("response", response);
       const { sessionId } = response.data;
-
       const stripe = window.Stripe(publicKey);
+
       if (stripe) {
         await stripe.redirectToCheckout({ sessionId });
       } else {

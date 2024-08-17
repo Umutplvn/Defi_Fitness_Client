@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Card from "@mui/material/Card";
 import Collapse from "@mui/material/Collapse";
 import CardHeader from "@mui/material/CardHeader";
@@ -17,9 +17,11 @@ import BasicModal from "./DelAccModal";
 import { useState } from "react";
 
 const AccountPage = ({ handleToggle, openIndex }) => {
-  const { membership } = useSelector((state) => state.auth);
+  const { membership } = useSelector((state) => state?.auth);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
+  
+
 
   const navigate = useNavigate();
   return (

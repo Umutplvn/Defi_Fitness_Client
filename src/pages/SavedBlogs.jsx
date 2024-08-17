@@ -22,7 +22,7 @@ import parse from "html-react-parser";
 
 const SavedBlogs = () => {
   const { getBlogs, likeBlog, deleteBlog } = useDataCall();
-  const { saveBlog,readUser } = useAuthCall();
+  const { saveBlog } = useAuthCall();
   const navigate = useNavigate();
   const {  savedBlog, isAdmin } = useSelector((state) => state?.auth);
   const [search, setSearch] = useState("");

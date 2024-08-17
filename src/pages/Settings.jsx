@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Avatar, Box, Button, Typography } from "@mui/material";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import { ProfileBox } from "../styles/globalStyle";
@@ -11,14 +11,19 @@ import AccountPage from "../components/AccountPage";
 
 const Settings = () => {
   const [openIndex, setOpenIndex] = useState(null);
-  const { logout } = useAuthCall();
-  const { avatar, isAdmin } = useSelector((state) => state?.auth);
+  const { logout,readUser } = useAuthCall();
+  const { avatar, isAdmin,userId } = useSelector((state) => state?.auth);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
 
   const handleToggle = (index) => {
     setOpenIndex((prevIndex) => (prevIndex === index ? null : index));
   };
+
+  useEffect(() => {
+    readUser(userId);
+  }, []);
+
 
   return (
     <Box sx={{ pl: { xs: "0", sm: "5.5rem", md: "11rem"}, height: "100vh" }}>

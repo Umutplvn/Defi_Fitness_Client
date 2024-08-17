@@ -108,6 +108,9 @@ export const authSlice = createSlice({
       state.savedBlog=payload.result.savedBlog
     },
 
+    readMembershipSuccess:(state, { payload }) => {
+      state.membership=payload?.result?.membership
+    },
 
     logoutSuccess: (state) => {
     state.isAdmin=false;
@@ -133,7 +136,7 @@ export const authSlice = createSlice({
     state.gender="";
     state.size=[];
     state.BMI=[];
-    state.PR=[]
+    state.PR=[];
     },
 
   
@@ -159,6 +162,7 @@ export const {
   BMISuccess,
   sizeSuccess,
   PRSuccess,
+  readMembershipSuccess
 
 } = authSlice.actions;
 

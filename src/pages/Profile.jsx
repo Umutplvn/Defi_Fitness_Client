@@ -1,5 +1,5 @@
 import { Avatar, Box, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import "../styles/aboutCarousel.css";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -13,11 +13,13 @@ import settingsvg from "../assets/settings.svg"
 import ReactStars from "react-stars";
 import { useSelector } from "react-redux";
 import bmiSvg from "../assets/line-chart-data-svgrepo-com (1).svg"
+import useAuthCall from "../hooks/useAuthCall";
 
 const Profile = () => {
-
   const navigate = useNavigate();
-const {level, avatar}=useSelector((state)=>state.auth)
+  const {level, avatar}=useSelector((state)=>state.auth)
+ 
+
   const Data = [
 
     {
