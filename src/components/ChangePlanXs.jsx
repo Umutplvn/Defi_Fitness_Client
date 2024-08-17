@@ -3,7 +3,6 @@ import Carousel from "react-bootstrap/Carousel";
 import { Box, Typography } from "@mui/material";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useTrail } from "@react-spring/web";
-import Button from "@mui/joy/Button";
 import Card from "@mui/joy/Card";
 import CardActions from "@mui/joy/CardActions";
 import Chip from "@mui/joy/Chip";
@@ -19,6 +18,7 @@ import { styled } from "@mui/material/styles";
 import { createTheme } from "@mui/material";
 import { useSelector } from "react-redux";
 import CheckoutButton from "./CheckoutButton";
+import CancelSubscriptionButton from "../components/CancelSubsButton"
 
 const CustomCarouselPrev = styled("button")({
   position: "relative",
@@ -44,7 +44,7 @@ function ChangePlanXs() {
   const navigate = useNavigate();
   const carouselRef = useRef(null);
   const theme = createTheme();
-  const { membership } = useSelector((state) => state.auth);
+  const { membership, stripeCustomerId } = useSelector((state) => state.auth);
   const PREMIUM_PRICE_ID = "price_1PnABkP3dSOC4uCmWjEsUf3p";
 
   const cards = [
@@ -158,9 +158,7 @@ function ChangePlanXs() {
                     {card.subtitle == "Premium" ? (
                       <>
                         {membership == "Premium" ? (
-                          <Button variant="soft" color="neutral">
-                            Cancel
-                          </Button>
+                         <CancelSubscriptionButton stripeCustomerId={stripeCustomerId}/>
                         ) : (
                           <CheckoutButton priceId={PREMIUM_PRICE_ID} />
                         )}

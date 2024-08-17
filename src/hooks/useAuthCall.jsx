@@ -193,7 +193,6 @@ const useAuthCall = () => {
         `${process.env.REACT_APP_BASE_URL}/users/${userId}`
       );
       dispatch(readMembershipSuccess(data))
-      console.log("Data", data);
     } catch (error) {
       dispatch(fetchFail());
     }
@@ -373,6 +372,22 @@ const useAuthCall = () => {
     }
   };
 
+  //! CANCEL SUBSCRIPTION
+  const cancelUserSubscription = async (subscriptionId, userId) => {
+    dispatch(fetchStart());
+    try {
+      const { data } = await axios.delete(
+        `${process.env.REACT_APP_BASE_URL}/api/cancel/${subscriptionId}`,
+        { data: { userId } }
+      );
+      console.log("Cancel data", data);
+      // dispatch(cancelSubscriptionSuccess(data));
+    } catch (error) {
+      dispatch(fetchFail());
+      console.error('Failed to cancel subscription:', error);
+    }
+  };
+
   return {
     login,
     register,
@@ -397,6 +412,7 @@ const useAuthCall = () => {
     deleteBMI,
     deletePR,
     deleteSize,
+    cancelUserSubscription
   };
 };
 

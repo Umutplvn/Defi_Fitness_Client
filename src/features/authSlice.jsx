@@ -26,7 +26,8 @@ export const authSlice = createSlice({
     gender:"",
     size:[],
     BMI:[],
-    PR:[]
+    PR:[],
+    stripeCustomerId:""
   },
 
   reducers: {
@@ -110,6 +111,7 @@ export const authSlice = createSlice({
 
     readMembershipSuccess:(state, { payload }) => {
       state.membership=payload?.result?.membership
+      state.stripeCustomerId=payload?.result?.stripeCustomerId
     },
 
     logoutSuccess: (state) => {
