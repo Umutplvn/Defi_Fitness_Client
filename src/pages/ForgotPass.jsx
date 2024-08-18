@@ -6,7 +6,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import Logo from "../components/logo";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { logoStyle, textFieldStyle, linkStyle } from "../styles/registerStyle";
 import { toast } from "react-hot-toast";
 import loadingGif from "../assets/loading.gif";
@@ -14,7 +14,6 @@ import useAuthCall from "../hooks/useAuthCall";
 
 const ForgotPass = () => {
   const { forgotPass } = useAuthCall();
-  const navigate=useNavigate()
   const [loading, setLoading] = useState(false);
   const [info, setInfo] = useState({
     email: "",
