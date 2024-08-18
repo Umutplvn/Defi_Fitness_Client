@@ -29,7 +29,7 @@ const CheckoutButton = () => {
     <Button  variant="soft"
     color="neutral"
 
-    sx={{"&:hover":{backgroundColor:"#5b5b5b"}, backgroundColor:"#9a9a9a"}}
+    sx={{"&:hover":{backgroundColor:"#5b5b5b"}, backgroundColor:"#848484"}}
   onClick={handleClick}>
       Upgrade
     </Button>

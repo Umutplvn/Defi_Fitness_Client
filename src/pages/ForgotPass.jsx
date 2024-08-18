@@ -38,7 +38,6 @@ const ForgotPass = () => {
     setLoading(true);
     try {
        forgotPass({email:info.email});
-      navigate("/")
     } catch (error) {
       toast.error("Request failed. Please try again.", {
         style: customErrorStyle, 

@@ -10,17 +10,20 @@ import ListItem from "@mui/joy/ListItem";
 import ListItemDecorator from "@mui/joy/ListItemDecorator";
 import Typography from "@mui/joy/Typography";
 import Check from "@mui/icons-material/Check";
-import { useNavigate } from "react-router-dom";
 import { useMediaQuery, createTheme } from '@mui/material';
 import ChangePlanXs from "./ChangePlanXs";
 import { useSelector } from "react-redux";
 import CheckoutButton from "../components/CheckoutButton";
+import BasicModal from "../components/CancelSubsModal"
+import { useState } from "react";
 
 export default function ChangePlan() {
   const theme = createTheme();
   const isXs = useMediaQuery(theme.breakpoints.down('lg'));
   const { membership } = useSelector((state) => state.auth);
-
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+ 
   const PREMIUM_PRICE_ID = "price_1PnABkP3dSOC4uCmWjEsUf3p";  
   
 
@@ -45,6 +48,11 @@ export default function ChangePlan() {
             gap: { lg: "5rem" },
           }}
         >
+                 <BasicModal
+                      handleOpen={handleOpen}
+                      open={open}
+                      setOpen={setOpen}
+                    />
           <Card
             size="lg"
             variant="outlined"
@@ -129,9 +137,13 @@ export default function ChangePlan() {
                 </Typography>
               </Typography>
               {membership === "Premium" ? (
-                <Button variant="soft" color="neutral">
-                  Cancel
-                </Button>
+                     <Button  variant="soft"
+                     color="neutral"
+                     onClick={handleOpen}
+
+                     sx={{"&:hover":{backgroundColor:"#5b5b5b"}, backgroundColor:"#848484"}}>
+                       CANCEL
+                     </Button>
               ) : (
                 <CheckoutButton priceId={PREMIUM_PRICE_ID} />
               )}

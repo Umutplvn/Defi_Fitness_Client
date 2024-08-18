@@ -70,8 +70,7 @@ const useAuthCall = () => {
         `${process.env.REACT_APP_BASE_URL}/users/forgotpass`,
         email
       );
-      dispatch(loginSuccess(data));
-      navigate("/blogs");
+      toast("Check your email to reset your password.");
     } catch (error) {
       console.log("Error during registration:", error?.response?.data?.message);
       dispatch(fetchFail());
@@ -192,7 +191,7 @@ const useAuthCall = () => {
       const { data } = await axiosWithToken.get(
         `${process.env.REACT_APP_BASE_URL}/users/${userId}`
       );
-      dispatch(readMembershipSuccess(data))
+      dispatch(readMembershipSuccess(data));
     } catch (error) {
       dispatch(fetchFail());
     }
@@ -381,10 +380,10 @@ const useAuthCall = () => {
         { data: { userId } }
       );
       console.log("Cancel data", data);
-      navigate("/profile")
+      navigate("/profile");
     } catch (error) {
       dispatch(fetchFail());
-      console.error('Failed to cancel subscription:', error);
+      console.error("Failed to cancel subscription:", error);
     }
   };
 
@@ -412,7 +411,7 @@ const useAuthCall = () => {
     deleteBMI,
     deletePR,
     deleteSize,
-    cancelUserSubscription
+    cancelUserSubscription,
   };
 };
 

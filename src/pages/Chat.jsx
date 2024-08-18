@@ -160,6 +160,12 @@ const Chat = () => {
     }
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault(); 
+      handleSubmit(e);
+    }
+  };
   const deleteMessage = async (messageId) => {
     try {
       await axios.delete(
@@ -785,6 +791,7 @@ const Chat = () => {
             placeholder="Type..."
             value={message}
             onChange={(e) => setMessage(e.target.value)}
+            onKeyDown={handleKeyDown} 
           />
           <Button
             type="submit"
