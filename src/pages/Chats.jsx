@@ -43,7 +43,7 @@ const Chats = () => {
     };
 
     fetchChats();
-  }, [userId, listUsers]);
+  }, []);
 
   const markMessagesAsRead = useCallback(
     async (receiverId) => {
