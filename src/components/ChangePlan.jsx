@@ -17,12 +17,12 @@ import { useSelector } from "react-redux";
 import CheckoutButton from "../components/CheckoutButton";
 
 export default function ChangePlan() {
-  const navigate = useNavigate();
   const theme = createTheme();
   const isXs = useMediaQuery(theme.breakpoints.down('lg'));
   const { membership } = useSelector((state) => state.auth);
 
   const PREMIUM_PRICE_ID = "price_1PnABkP3dSOC4uCmWjEsUf3p";  
+  
 
   return (
     <Box sx={{ width: "100wh", height: "100vh" }}>

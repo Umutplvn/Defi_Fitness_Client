@@ -1,6 +1,6 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Carousel from "react-bootstrap/Carousel";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useTrail } from "@react-spring/web";
 import Card from "@mui/joy/Card";
@@ -11,15 +11,13 @@ import List from "@mui/joy/List";
 import ListItem from "@mui/joy/ListItem";
 import ListItemDecorator from "@mui/joy/ListItemDecorator";
 import Check from "@mui/icons-material/Check";
-import { useNavigate } from "react-router-dom";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { styled } from "@mui/material/styles";
 import { createTheme } from "@mui/material";
 import { useSelector } from "react-redux";
 import CheckoutButton from "./CheckoutButton";
-import CancelSubscriptionButton from "../components/CancelSubsButton"
-
+import BasicModal from "../components/CancelSubsModal"
 const CustomCarouselPrev = styled("button")({
   position: "relative",
   left: "1.5rem",
@@ -41,12 +39,13 @@ const CustomCarouselNext = styled("button")({
 });
 
 function ChangePlanXs() {
-  const navigate = useNavigate();
   const carouselRef = useRef(null);
   const theme = createTheme();
-  const { membership, stripeCustomerId } = useSelector((state) => state.auth);
+  const { membership  } = useSelector((state) => state.auth);
   const PREMIUM_PRICE_ID = "price_1PnABkP3dSOC4uCmWjEsUf3p";
-
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+ 
   const cards = [
     {
       title: "Standard",
@@ -92,6 +91,11 @@ function ChangePlanXs() {
         pl: { xs: "0", sm: "4.5rem", md: "10rem" },
       }}
     >
+        <BasicModal
+                      handleOpen={handleOpen}
+                      open={open}
+                      setOpen={setOpen}
+                    />
       <Carousel
         ref={carouselRef}
         interval={null}
@@ -158,7 +162,14 @@ function ChangePlanXs() {
                     {card.subtitle == "Premium" ? (
                       <>
                         {membership == "Premium" ? (
-                         <CancelSubscriptionButton stripeCustomerId={stripeCustomerId}/>
+            
+                        <Button  variant="soft"
+                        color="neutral"
+                        onClick={handleOpen}
+
+                        sx={{"&:hover":{backgroundColor:"#5b5b5b"}, backgroundColor:"#848484"}}>
+                          CANCEL
+                        </Button>
                         ) : (
                           <CheckoutButton priceId={PREMIUM_PRICE_ID} />
                         )}

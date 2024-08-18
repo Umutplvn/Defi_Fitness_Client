@@ -381,7 +381,7 @@ const useAuthCall = () => {
         { data: { userId } }
       );
       console.log("Cancel data", data);
-      // dispatch(cancelSubscriptionSuccess(data));
+      navigate("/profile")
     } catch (error) {
       dispatch(fetchFail());
       console.error('Failed to cancel subscription:', error);
