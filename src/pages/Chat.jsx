@@ -157,7 +157,6 @@ const Chat = () => {
       toast.error("Failed to send message.");
     } finally {
       setLoading(false);
-      fetchMessages()
     }
   };
 

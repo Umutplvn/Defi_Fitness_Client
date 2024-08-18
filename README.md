@@ -1,70 +1,62 @@
-# Getting Started with Create React App
+# DEFI Fitness Platform
+<p> The DEFI Fitness Platform is a dynamic web application designed for personal trainers and their clients, offering a comprehensive set of features to enhance the fitness experience. Users can personalize their profiles, track body metrics, and interact with blogs shared by the admin. Premium members benefit from exclusive features like personalized workout plans and direct messaging with their trainers, including photo and file sharing, all powered by secure Stripe payments. Administrators can engage with the community through blog posts and one-on-one communication with premium users, making this platform an all-in-one solution for fitness management.
+</p>
+<br>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<p style="font-weight: 800; color:red"> You can use the login details below to have a quick look:</p>
+<p style="font-weight: 800;">Email: admin@defi.com or user@defi.com</p>
+<p style="font-weight: 800;">Password: 12345678</p>
 
-## Available Scripts
 
-In the project directory, you can run:
+<br>
 
-### `yarn start`
+# Starting the App
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 1. Sign up
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<p> a. Fill the required information and create a powerfull password.  </p>
+<img src="images/Screenshot 2024-04-13 at 01.20.25.png" alt="Açıklama" width="200" height="400">
 
-### `yarn test`
+<br>
+<p> b. Confirm your account by entering the code sent to your email before the time expires.  </p>
+<img src="images/Screenshot 2024-04-13 at 01.20.52.png" alt="Açıklama" width="200" height="400">
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<br>
 
-### `yarn build`
+## 2. Settings
+<p> Update your profile picture from the Settings section, and proceed to the Account tab to update your name, username, and bio. Also you can see your favorite messages here and do a lot more.  </p>
+<img src="images/Screenshot 2024-04-13 at 01.34.18.png" alt="Açıklama" width="200" height="400">
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<br>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 3. Add People to Your Contacts
+<p> Search users from the the People section and add them to your contacts to start a new chat.  </p>
+<img src="images/Screenshot 2024-04-13 at 01.40.20.png" alt="Açıklama" width="200" height="400">
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<br>
 
-### `yarn eject`
+## 4. Contacts
+<p> You will see a green dot on top of your friends who are online. Choose one of your friends to start a new chat!  </p>
+<img src="images/Screenshot 2024-04-13 at 02.20.07.png" alt="Açıklama" width="200" height="400">
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<br>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 5. Chat
+<p>Send a message, add a message to your favorites, add a reaction, reply to a specific message, delete your message!  </p>
+<img src="images/Screenshot 2024-04-13 at 01.51.08.png" alt="Açıklama" width="200" height="400">
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+<br>
 
-## Learn More
+## 6. Chats
+<p>You can view all chats and unread message notifications from the chats page, and you can delete whichever ones you want.  </p>
+<img src="images/Screenshot 2024-04-13 at 01.57.59.png" alt="Açıklama" width="200" height="400">
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<br>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 7. Status
+<p>You can share notes and stories from this page and view those of your friends. Don't forget, shared stories and notes will disappear after 24 hours.   </p>
+<img src="images/Screenshot 2024-04-13 at 02.01.44.png" alt="Açıklama" width="200" height="400">
+ 
+ <br>
+<h3 style="text-align: center; color:red">To discover more, sign up to the app and never hesitate to contact with me.</h3>
