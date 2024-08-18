@@ -139,6 +139,7 @@ export const authSlice = createSlice({
     state.size=[];
     state.BMI=[];
     state.PR=[];
+    state.stripeCustomerId=""
     },
 
   
