@@ -356,6 +356,22 @@ const useAuthCall = () => {
     }
   };
 
+    //! UPDATE FORGOTTEN PASSWORD
+    const forgottenPasswordUpdate = async (password, userId) => {
+      try {
+        const res = await axiosWithToken.put(
+          `${process.env.REACT_APP_BASE_URL}/users/updateforgottenpass/${userId}`,
+          {password}
+        );
+        dispatch(passwordUpdateSuccess(res));
+        navigate('/login')
+        toast.success("Password Changed Successfully");
+      } catch (error) {
+        dispatch(fetchFail());
+        toast.error("Failed to change password");
+      }
+    };
+
   //! LOGOUT FUNCTION
   const logout = async () => {
     dispatch(fetchStart());
@@ -412,6 +428,7 @@ const useAuthCall = () => {
     deletePR,
     deleteSize,
     cancelUserSubscription,
+    forgottenPasswordUpdate
   };
 };
 

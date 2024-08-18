@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import Logo from "../components/logo";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { logoStyle, textFieldStyle, linkStyle } from "../styles/registerStyle";
@@ -17,20 +17,22 @@ import { toast } from "react-hot-toast";
 import loadingGif from "../assets/loading.gif";
 
 const ResetForgottenPass = () => {
-  const { passwordUpdate } = useAuthCall();
+  const { forgottenPasswordUpdate } = useAuthCall();
   const [loading, setLoading] = useState(false);
-  const [confirm, setConfirm] = useState("")
-  const navigate=useNavigate()
+  const [confirm, setConfirm] = useState("");
+  const navigate = useNavigate();
   const [info, setInfo] = useState({
     password: "",
   });
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
-
+  const { userId } = useParams();
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
+
+  console.log(confirm, info);
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
@@ -45,27 +47,26 @@ const ResetForgottenPass = () => {
   };
 
   const customErrorStyle = {
-    backgroundColor: '#FCD8DC',
-    color: '#A94442',
-    textAlign: 'center',
-    borderRadius: '8px',
+    backgroundColor: "#FCD8DC",
+    color: "#A94442",
+    textAlign: "center",
+    borderRadius: "8px",
   };
 
   const submitFunc = async () => {
     setLoading(true);
     try {
-      await passwordUpdate({password:info.password});
-      navigate('/')
+      await forgottenPasswordUpdate(info.password, userId);
+      navigate("/blogs");
     } catch (error) {
       toast.error("Registration failed. Please try again.", {
-        style: customErrorStyle, 
-      })
+        style: customErrorStyle,
+      });
     } finally {
       setLoading(false);
     }
   };
 
- 
   const handleChange = (e) => {
     e.preventDefault();
     const { name, value } = e.target;
@@ -77,8 +78,8 @@ const ResetForgottenPass = () => {
     {
       info.password.length < 8
         ? toast.error("Password must be at least 8 character.", {
-          style: customErrorStyle, 
-        })
+            style: customErrorStyle,
+          })
         : submitFunc();
     }
   };
@@ -119,7 +120,8 @@ const ResetForgottenPass = () => {
           <Typography
             sx={{ color: "#494b56", fontSize: "1.2rem", fontWeight: "580" }}
           >
-RESET PASSWORD </Typography>
+            RESET PASSWORD{" "}
+          </Typography>
         </Box>
 
         <Box
@@ -132,7 +134,6 @@ RESET PASSWORD </Typography>
             alignItems: "center",
           }}
         >
-    
           <Box sx={{ minHeight: "6rem" }}>
             <TextField
               disabled={loading}
@@ -196,7 +197,7 @@ RESET PASSWORD </Typography>
               id="password"
               placeholder="CONFIRM PASSWORD *"
               value={confirm}
-              onChange={(e)=>setConfirm(e.target.value)}
+              onChange={(e) => setConfirm(e.target.value)}
               sx={textFieldStyle}
               InputProps={{
                 endAdornment: (
@@ -212,21 +213,24 @@ RESET PASSWORD </Typography>
               }}
             />
             <Box sx={{ width: "20rem", pl: "1rem" }}>
-
-            {(confirm !==info?.password && confirm?.length>0) && 
-            <Typography    sx={{
-              color: "red",
-              textAlign: "start",
-              fontSize: "0.7rem",
-            }}>Passwords must match.</Typography>
-            }
+              {confirm !== info?.password && confirm?.length > 0 && (
+                <Typography
+                  sx={{
+                    color: "red",
+                    textAlign: "start",
+                    fontSize: "0.7rem",
+                  }}
+                >
+                  Passwords must match.
+                </Typography>
+              )}
             </Box>
           </Box>
 
           <Button
             type="submit"
             variant="contained"
-            disabled={(info.password>=8 && confirm !==info.password)}
+            disabled={info.password.length < 8 || confirm !== info.password}
             sx={{
               mt: 4,
               mb: 5,
@@ -245,7 +249,6 @@ RESET PASSWORD </Typography>
             SUBMIT
           </Button>
         </Box>
-    
       </Box>
     </Box>
   );
