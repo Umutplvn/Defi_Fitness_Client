@@ -16,7 +16,7 @@ export const authSlice = createSlice({
     surname:"",
     password:"",
     passcode:"",
-    sportBranch:[],
+    sportBranch:"",
     savedBlog:[],
     membership:"Basic",
     users:[],
@@ -128,7 +128,7 @@ export const authSlice = createSlice({
     state.surname="";
     state.password="";
     state.passcode="";
-    state.sportBranch=[];
+    state.sportBranch="";
     state.savedBlog=[];
     state.membership="Basic";
     state.users=[];
