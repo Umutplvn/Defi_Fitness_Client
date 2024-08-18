@@ -59,7 +59,7 @@ const HomeTabBar = () => {
             }}/>
         </Link>}
         
-        <Link to="/paidcontent">
+        {/* <Link to="/paidcontent">
           <WorkspacePremiumIcon
             sx={{
               cursor: "pointer",
@@ -67,7 +67,7 @@ const HomeTabBar = () => {
               color: "black",
             }}
           />
-        </Link>
+        </Link> */}
       </Box>
     </Box>
   );

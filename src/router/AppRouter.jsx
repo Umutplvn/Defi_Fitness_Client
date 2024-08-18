@@ -54,12 +54,12 @@ const AppRouter = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/chat/:id" element={<Chat/>} />
           <Route path="/chats" element={<Chats/>} />
-          <Route path="/paidcontent" element={<PaidContent/>} />
+          {/* <Route path="/paidcontent" element={<PaidContent/>} /> */}
           <Route path="/adminpanel" element={<AdminPanel/>} />
           <Route path="/blogs/:blogId" element={<BlogRead/>} />
           <Route path="/adminpanel/updateblog/:blogId" element={<UpdateBlog/>} />
           <Route path="/adminpanel/createblog" element={<CreateBlog/>} />
-          <Route path="/adminpanel/createpaidplan" element={<CreatePaidPlan/>} />
+          {/* <Route path="/adminpanel/createpaidplan" element={<CreatePaidPlan/>} /> */}
           <Route path="/adminpanel/members" element={<Members/>} />
           <Route path="/adminpanel/workoutplan" element={<WorkoutPlan/>} />
           <Route path="/profile/workoutprogram" element={<WorkoutProgram/>} />

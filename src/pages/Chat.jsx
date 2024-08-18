@@ -61,7 +61,6 @@ const Chat = () => {
     };
 
     socket.emit("joinRoom", userId);
-    fetchMessages();
 
     socket.on("message", (newMessage) => {
       if (
@@ -72,6 +71,7 @@ const Chat = () => {
         setMessages((prevMessages) => [newMessage, ...prevMessages]);
       }
     });
+    fetchMessages();
 
     return () => {
       socket.off("message");
@@ -688,7 +688,7 @@ const Chat = () => {
         )}
       </Box>
 
-      <Box sx={{ position: "absolute", width: "100%", bottom: "0", left: "0" }}>
+      <Box sx={{ position: "fixed", width: "100%", bottom: "0", left: "0", zIndex:"4" }}>
         <Box
           component="form"
           onSubmit={handleSubmit}
