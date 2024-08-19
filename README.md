@@ -63,7 +63,7 @@
 <hr/>
 
 #### 7. Update or Cancel Membership
-<p> Secure payment with Stripe.</p>
+<p>Pay securely with Stripe and receive your invoice or cancellation confirmation via email.</p>
 <br/>
 <img src="./public/readmefiles/stripe.png" alt="Açıklama" maxWidth="400">
 <br/>
