@@ -32,47 +32,42 @@ import BMITracker from "../pages/BMITracker";
 
 const AppRouter = () => {
   return (
-    <>
-      <Routes>
-        <Route path="/index" index element={<Index />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/video" element={<Video />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/membership" element={<MembershipPlans />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/verification" element={<EmailVerification />} />
-        <Route path="/forgotpass" element={<ForgotPass />} />
-        <Route
-          path="/reset-password/:userId"
-          element={<ResetForgottenPass />}
-        />
-        {/*PIRVATE ROUTER */}
-        <Route path="/" element={<PrivateRouter />}>
-        <Route>
-          <Route path="/blogs" element={<Blogs />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/chat/:id" element={<Chat/>} />
-          <Route path="/chats" element={<Chats/>} />
-          {/* <Route path="/paidcontent" element={<PaidContent/>} /> */}
-          <Route path="/adminpanel" element={<AdminPanel/>} />
-          <Route path="/blogs/:blogId" element={<BlogRead/>} />
-          <Route path="/adminpanel/updateblog/:blogId" element={<UpdateBlog/>} />
-          <Route path="/adminpanel/createblog" element={<CreateBlog/>} />
-          {/* <Route path="/adminpanel/createpaidplan" element={<CreatePaidPlan/>} /> */}
-          <Route path="/adminpanel/members" element={<Members/>} />
-          <Route path="/adminpanel/workoutplan" element={<WorkoutPlan/>} />
-          <Route path="/profile/workoutprogram" element={<WorkoutProgram/>} />
-          <Route path="/profile/savedblogs" element={<SavedBlogs/>} />
-          <Route path="/profile/pr" element={<WorkoutPR/>} />
-          <Route path="/profile/bodysize" element={<Bodysize/>} />
-          <Route path="/profile/settings" element={<Settings/>} />
-          <Route path="/profile/changeplan" element={<ChangePlan/>} />
-          <Route path="/profile/bmi" element={<BMITracker/>} />
-        </Route>
-        </Route>
-      </Routes>
-    </>
+    <Routes>
+      {/* Public Routes */}
+      <Route path="/" element={<Index />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/video" element={<Video />} />
+      <Route path="/about" element={<AboutPage />} />
+      <Route path="/membership" element={<MembershipPlans />} />
+      <Route path="/contact" element={<Contact />} />
+      <Route path="/verification" element={<EmailVerification />} />
+      <Route path="/forgotpass" element={<ForgotPass />} />
+      <Route path="/reset-password/:userId" element={<ResetForgottenPass />} />
+
+      {/* Private Routes */}
+      <Route path="/" element={<PrivateRouter />}>
+        <Route index element={<Index />} />
+        <Route path="/blogs" element={<Blogs />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/chat/:id" element={<Chat />} />
+        <Route path="/chats" element={<Chats />} />
+        <Route path="/adminpanel" element={<AdminPanel />} />
+        <Route path="/blogs/:blogId" element={<BlogRead />} />
+        <Route path="/adminpanel/updateblog/:blogId" element={<UpdateBlog />} />
+        <Route path="/adminpanel/createblog" element={<CreateBlog />} />
+        <Route path="/adminpanel/createpaidplan" element={<CreatePaidPlan />} />
+        <Route path="/adminpanel/members" element={<Members />} />
+        <Route path="/adminpanel/workoutplan" element={<WorkoutPlan />} />
+        <Route path="/profile/workoutprogram" element={<WorkoutProgram />} />
+        <Route path="/profile/savedblogs" element={<SavedBlogs />} />
+        <Route path="/profile/pr" element={<WorkoutPR />} />
+        <Route path="/profile/bodysize" element={<Bodysize />} />
+        <Route path="/profile/settings" element={<Settings />} />
+        <Route path="/profile/changeplan" element={<ChangePlan />} />
+        <Route path="/profile/bmi" element={<BMITracker />} />
+      </Route>
+    </Routes>
   );
 };
 
