@@ -53,7 +53,7 @@
 <br/><hr/>
 
 
-#### 4. Workout Plan
+#### 6. Workout Plan
 <p> Access the workout program sent by your coach in your profile.</p>
 <br/>
 <img src="./public/readmefiles/workoutplan.png" alt="Açıklama" maxWidth="400">
@@ -62,7 +62,7 @@
 
 <hr/>
 
-#### 6. Update or Cancel Membership
+#### 7. Update or Cancel Membership
 <p> Secure payment with Stripe.</p>
 <br/>
 <img src="./public/readmefiles/stripe.png" alt="Açıklama" maxWidth="400">
@@ -71,7 +71,8 @@
 
 
 ## Starting the App as an Admin
-### 1. Create, Update or Delete a Blog
+
+#### 1. Create, Update or Delete a Blog
 <p> As an admin, create blogs freely using Jodit.</p>
 <br/>
 <img src="./public/readmefiles/blog creat.png" alt="Açıklama" maxWidth="400">
