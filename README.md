@@ -94,7 +94,7 @@
 <br/>
 <br/>
 <hr/>
-<h6 style="text-align: center;">Sign up to the app to learn more and contact me with any questions.</h6>
+<h6 style="text-align:center;">Sign up to the app to learn more and contact me with any questions.</h6>
 
 
 
