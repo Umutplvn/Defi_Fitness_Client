@@ -80,7 +80,7 @@ const Contact = () => {
           }}
         >
           <a
-            href="https://www.instagram.com/myfitnessacademy/" // Replace with your Instagram URL
+            href="https://www.instagram.com/dersimizfitness?igsh=ejVjMmxrNXFwcWRx" 
             target="_blank"
             rel="noopener noreferrer"
           >
