@@ -1,62 +1,102 @@
-# DEFI Fitness Platform
-<p> The DEFI Fitness Platform is a dynamic web application designed for personal trainers and their clients, offering a comprehensive set of features to enhance the fitness experience. Users can personalize their profiles, track body metrics, and interact with blogs shared by the admin. Premium members benefit from exclusive features like personalized workout plans and direct messaging with their trainers, including photo and file sharing, all powered by secure Stripe payments. Administrators can engage with the community through blog posts and one-on-one communication with premium users, making this platform an all-in-one solution for fitness management.
-</p>
+# DEFI Fitness App
+<p>  The DEFI Fitness Platform is a dynamic web application designed for personal trainers and their clients, offering a comprehensive set of features to enhance the fitness experience. Users can personalize their profiles, track body metrics, and interact with blogs shared by the admin. Premium members benefit from exclusive features like personalized workout plans and direct messaging with their trainers, including photo and file sharing, all powered by secure Stripe payments. Administrators can engage with the community through blog posts and one-on-one communication with premium users, making this platform an all-in-one solution for fitness management.  </p>
 <br>
 
 <p style="font-weight: 800; color:red"> You can use the login details below to have a quick look:</p>
-<p style="font-weight: 800;">Email: admin@defi.com or user@defi.com</p>
-<p style="font-weight: 800;">Password: 12345678</p>
+<p>Email: admin@defi.com or user@defi.com</p>
+<p>Password: 12345678</p>
+
+<hr/>
+
+## Starting the App as A User
+
+#### 1. Register - Login - Forgot Password
+
+<p>  Complete the required information to get started with the app. For your security, each step is protected and supported by Nodemailer.</p>
+<br/>
+<img src="./public/readmefiles/login.png" alt="Açıklama" maxWidth="400">
+<br/>
+<br/>
+<hr/>
+
+#### 2. Blogs 
+
+<p> Read, like, comment on, or save for later any blogs created by the admin.</p>
+<br/>
+<img src="./public/readmefiles/blogs.png" alt="Açıklama" maxWidth="400">
+<br/>
+<br/>
+<hr/>
+
+#### 3. Chat 
+<p> Instantly message with your coach, and send photos, videos, and files. </p>
+<br/>
+<img src="./public/readmefiles/chat.png" alt="Açıklama" maxWidth="400">
+<br/>
+<br/>
+<hr/>
+
+#### 4. Profile 
+<p> Have a personalized profile. </p>
+<br/>
+<img src="./public/readmefiles/profile.png" alt="Açıklama" maxWidth="400">
+<br/>
+<br/>
+
+<hr/>
+
+#### 5. Track Your Progress 
+<p> Track every aspect of your body's progress and visualize this data through graphs. BMI, Body Size, Workout PR etc. </p>
+<br/>
+<img src="./public/readmefiles/progress.png" alt="Açıklama" maxWidth="400">
+<br/>
+<br/><hr/>
 
 
-<br>
+#### 4. Workout Plan
+<p> Access the workout program sent by your coach in your profile.</p>
+<br/>
+<img src="./public/readmefiles/workoutplan.png" alt="Açıklama" maxWidth="400">
+<br/>
+<br/>
 
-# Starting the App
+<hr/>
 
-## 1. Sign up
-
-<p> a. Fill the required information and create a powerfull password.  </p>
-<img src="images/Screenshot 2024-04-13 at 01.20.25.png" alt="Açıklama" width="200" height="400">
-
-<br>
-<p> b. Confirm your account by entering the code sent to your email before the time expires.  </p>
-<img src="images/Screenshot 2024-04-13 at 01.20.52.png" alt="Açıklama" width="200" height="400">
-
-<br>
-
-## 2. Settings
-<p> Update your profile picture from the Settings section, and proceed to the Account tab to update your name, username, and bio. Also you can see your favorite messages here and do a lot more.  </p>
-<img src="images/Screenshot 2024-04-13 at 01.34.18.png" alt="Açıklama" width="200" height="400">
-
-<br>
-
-## 3. Add People to Your Contacts
-<p> Search users from the the People section and add them to your contacts to start a new chat.  </p>
-<img src="images/Screenshot 2024-04-13 at 01.40.20.png" alt="Açıklama" width="200" height="400">
-
-<br>
-
-## 4. Contacts
-<p> You will see a green dot on top of your friends who are online. Choose one of your friends to start a new chat!  </p>
-<img src="images/Screenshot 2024-04-13 at 02.20.07.png" alt="Açıklama" width="200" height="400">
+#### 6. Update or Cancel Membership
+<p> Secure payment with Stripe.</p>
+<br/>
+<img src="./public/readmefiles/stripe.png" alt="Açıklama" maxWidth="400">
+<br/>
+<br/>
 
 
-<br>
+## Starting the App as an Admin
+### 1. Create, Update or Delete a Blog
+<p> As an admin, create blogs freely using Jodit.</p>
+<br/>
+<img src="./public/readmefiles/blog creat.png" alt="Açıklama" maxWidth="400">
+<br/>
+<br/>
+<hr/>
 
-## 5. Chat
-<p>Send a message, add a message to your favorites, add a reaction, reply to a specific message, delete your message!  </p>
-<img src="images/Screenshot 2024-04-13 at 01.51.08.png" alt="Açıklama" width="200" height="400">
+#### 2. Create Workout Plan
+<p> Share personalized workout programs for individuals or groups that users will see in their profiles.</p>
+<br/>
+<img src="./public/readmefiles/create plan.png" alt="Açıklama" maxWidth="400">
+<br/>
+<br/>
+<hr/>
 
-<br>
+#### 3. Manage Members
+<p>Manage members by reviewing and editing their profiles and levels. You can also export the details to your device in Excel format.</p>
+<br/>
+<img src="./public/readmefiles/members.png" alt="Açıklama" maxWidth="400">
+<br/>
+<br/>
+<hr/>
+<h6 style="text-align: center;">Sign up to the app to learn more and contact me with any questions.</h6>
 
-## 6. Chats
-<p>You can view all chats and unread message notifications from the chats page, and you can delete whichever ones you want.  </p>
-<img src="images/Screenshot 2024-04-13 at 01.57.59.png" alt="Açıklama" width="200" height="400">
 
-<br>
 
-## 7. Status
-<p>You can share notes and stories from this page and view those of your friends. Don't forget, shared stories and notes will disappear after 24 hours.   </p>
-<img src="images/Screenshot 2024-04-13 at 02.01.44.png" alt="Açıklama" width="200" height="400">
- 
- <br>
-<h3 style="text-align: center; color:red">To discover more, sign up to the app and never hesitate to contact with me.</h3>
+
+

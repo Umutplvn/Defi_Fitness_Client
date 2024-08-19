@@ -11,8 +11,8 @@ import deadpool from "../assets/avatar/deadpool.jpg"
 import deadpool2 from "../assets/avatar/deadpool2.jpg"
 import venom from "../assets/avatar/venom.jpg"
 import groot from "../assets/avatar/groot.jpg"
-
 export const avatarList = [
+
 
     {
         name:"Batman",
