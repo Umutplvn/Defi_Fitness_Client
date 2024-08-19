@@ -76,6 +76,30 @@ export const authSlice = createSlice({
       state.gender=payload?.result?.gender
     },
 
+    updateSuccess: (state, { payload }) => {
+      state.loading = false;
+      state.error = false;
+      state.gender=payload?.result?.gender
+      state.isAdmin=payload?.result?.isAdmin
+      state.level=payload?.result?.level
+      state.membership=payload?.result?.membership
+      state.name=payload?.result?.name;
+      state.password=payload?.result?.password
+      state.savedBlog=payload?.result?.savedBlog
+      state.currentUser = payload?.result?.name;
+      state.userId = payload?.result?._id;
+      state.email = payload?.result?.email;
+      state.avatar=payload?.result?.avatar;
+      state.verified = payload?.result?.verified;
+      state.isPremium=payload?.result?.isPremium
+      state.sportBranch=payload?.result?.sportBranch
+      state.workoutplan=payload?.result?.workoutplan
+      state.surname=payload?.result?.surname
+      state.dateOfBirth=payload?.result?.dateOfBirth
+
+    },
+
+
     usersSuccess:(state, { payload }) => {
       state.loading = false;
       state.error = false;
@@ -141,15 +165,6 @@ export const authSlice = createSlice({
     state.PR=[];
     state.stripeCustomerId=""
     },
-
-  
-    //////////
-
-    UpdateSuccess:(state, {payload})=>{
-      state.loading = false;
-      state.error = false;
-
-    }
   },
 });
 
@@ -165,7 +180,8 @@ export const {
   BMISuccess,
   sizeSuccess,
   PRSuccess,
-  readMembershipSuccess
+  readMembershipSuccess,
+  updateSuccess
 
 } = authSlice.actions;
 

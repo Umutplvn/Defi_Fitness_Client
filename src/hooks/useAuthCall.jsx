@@ -15,6 +15,7 @@ import {
   BMISuccess,
   sizeSuccess,
   PRSuccess,
+  updateSuccess,
   readMembershipSuccess,
 } from "../features/authSlice";
 import { logoutDataSuccess } from "../features/dataSlice";
@@ -132,7 +133,7 @@ const useAuthCall = () => {
         `${process.env.REACT_APP_BASE_URL}/users/${userId}`,
         updateData
       );
-      dispatch(loginSuccess(data));
+      dispatch(updateSuccess(data));
       toast.success("Profile updated successfully");
     } catch (error) {
       dispatch(fetchFail());
