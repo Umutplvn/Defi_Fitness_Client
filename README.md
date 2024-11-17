@@ -96,8 +96,17 @@
 <br/>
 <br/>
 <hr/>
-<h6 style="text-align:center;">Sign up to the app to learn more and contact me with any questions.</h6>
-
+<p style="text-align: center;">Feel free to contact me for future projects:</p>
+<div style="text-align: center; width:100%, display:flex; justify-content:center">
+  <p style="display: flex; justify-content: center; gap: 2rem;">
+    <a href="https://www.linkedin.com/in/umutpehlivan/" target="_blank">
+      <img src="https://banner2.cleanpng.com/20180406/jpq/avgi8oddr.webp" alt="LinkedIn" style="width: 30px;" />
+    </a>
+    <a href="mailto:umutpehlivan2078@gmail.com" target="_blank">
+      <img src="https://banner2.cleanpng.com/20180406/ezq/avgd52azx.webp" alt="Email" style="width: 30px;" />
+    </a>
+  </p>
+</div>
 
 
 
