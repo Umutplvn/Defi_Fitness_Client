@@ -1,4 +1,4 @@
-# DEFI Fitness App - A Fullstack Projects
+# DEFI Fitness App - A Fullstack Project
 <p>  The DEFI Fitness Platform is a dynamic and responsive web application designed for personal trainers and their clients, offering a comprehensive set of features to enhance the fitness experience. Users can personalize their profiles, track body metrics, and interact with blogs shared by the admin. Premium members benefit from exclusive features like personalized workout plans and direct messaging with their trainers, including photo and file sharing, all powered by secure Stripe payments. Administrators can engage with the community through blog posts and one-on-one communication with premium users, making this platform an all-in-one solution for fitness management.  </p>
 <br>
 
