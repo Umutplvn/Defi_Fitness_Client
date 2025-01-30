@@ -3,7 +3,7 @@
 <br>
 
 
-<p style="font-weight:700; color:red"> You can use the login details below to have a quick look:</p>
+<strong> You can use the login details below to have a quick look:</strong>
 <p>Email: admin@defi.com or user@defi.com</p>
 <p>Password: 12345678</p>
 <p>Stripe Test Card: 4242 4242 4242 4242 / Date: Any Further Date / CVV: Any Number / Name: Any Name </p>
